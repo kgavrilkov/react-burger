@@ -1,0 +1,12 @@
+.main {
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  max-width: 1240px;
+}
+
+@media screen and (max-width: 1300px) {
+  .main {
+    justify-content: center;
+  }
+}

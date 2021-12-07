@@ -5,6 +5,7 @@ import { Logo, MenuIcon, CloseIcon, BurgerIcon, ListIcon, ProfileIcon } from '@y
 import NavigationMenu from '../navigation-menu/navigation-menu.js';
 import logoPath from '../../images/logo.svg';
 import styles from './app-header.module.css';
+import { headerProperties } from '../../utils/types.js';
 
 function AppHeader({ isAppHeaderVisible, handleToggle }) {
   const [isNavigationMenuOpen, setIsNavigationMenuOpen]=React.useState(false);
@@ -79,5 +80,7 @@ function AppHeader({ isAppHeaderVisible, handleToggle }) {
     </header>
   );
 }
+
+AppHeader.propTypes = headerProperties.isRequired
 
 export default AppHeader;

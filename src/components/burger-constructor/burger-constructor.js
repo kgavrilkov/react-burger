@@ -5,26 +5,53 @@ import ListElement from '../list-element/list-element.js';
 import Card from '../card/card.js';
 import currencyPath from '../../images/currency.svg';
 import styles from './burger-constructor.module.css';
-import ingredientType from '../../utils/types.js';
+import { ingredientsProperties } from '../../utils/types.js';
 
 function BurgerConstructor({ isBurgerIngredientsVisible, handleToggle, cards }) {
   const mobile = useMediaQuery({ query: `(max-width: 600px)` });
   const mobileS = useMediaQuery({ query: `(max-width: 340px)` });
-
+  const bun = cards.filter((card) => {return card.type.includes('bun')});
+  const bunTop =cards.filter((card) => {return card.type.includes('bun')}); 
+  
   return(
     <section className={styles.burger}>
       {mobile 
       ?
         <>
           <ul className={styles.list}>
-            {cards.map((card, id) => {return(
-              <ListElement key={id}>
+            {cards.filter((card) => {return card.type.includes('bun')}).map((card, _id) => {return(
+              <ListElement key={_id}>
+                <div className={styles.wrapper}>
+                  <DragIcon type="primary" />
+                </div>
+                <Card
+                  card={card}
+                  isBurgerIngredientsVisible={isBurgerIngredientsVisible}
+                  bun={bun}
+                  bunTop={bunTop}
+                />
+              </ListElement>)})
+            }
+            {cards.slice(1, 14).map((card, _id) => {return(
+              <ListElement key={_id}>
                 <div className={styles.wrapper}>
                   <DragIcon type="primary" />
                 </div>
                 <Card
                   card={card}
                   isBurgerIngredientsVisible={isBurgerIngredientsVisible} 
+                />
+              </ListElement>)})
+            }
+            {cards.filter((card) => {return card.type.includes('bun')}).map((card, _id) => {return(
+              <ListElement key={_id}>
+                <div className={styles.wrapper}>
+                  <DragIcon type="primary" />
+                </div>
+                <Card
+                  card={card}
+                  isBurgerIngredientsVisible={isBurgerIngredientsVisible}
+                  bun={bun} 
                 />
               </ListElement>)})
             }
@@ -62,8 +89,8 @@ function BurgerConstructor({ isBurgerIngredientsVisible, handleToggle, cards }) 
                 />
               </div>
               <ul className={styles.list}>
-                {cards.slice(1).map((card, id) => {return(
-                  <li className={styles.item} key={id}>
+                {cards.slice(1).map((card, _id) => {return(
+                  <li className={styles.item} key={_id}>
                     <div className={styles.wrapper}>
                       <DragIcon type="primary" />
                     </div>
@@ -97,6 +124,6 @@ function BurgerConstructor({ isBurgerIngredientsVisible, handleToggle, cards }) 
   );
 }
 
-BurgerConstructor.propTypes = ingredientType.isRequired;
+BurgerConstructor.propTypes = ingredientsProperties.isRequired;
 
 export default  BurgerConstructor;

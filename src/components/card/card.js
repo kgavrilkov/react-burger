@@ -2,8 +2,9 @@ import React from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { Counter, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './card.module.css';
+import { cardProperties } from '../../utils/types.js';
 
-function Card({ card, isBurgerIngredientsVisible }) {
+function Card({ card, isBurgerIngredientsVisible, bun, bunTop }) {
   const mobileS = useMediaQuery({ query: `(max-width: 430px)` });
 
   const cssRules1 = {
@@ -63,7 +64,19 @@ function Card({ card, isBurgerIngredientsVisible }) {
               <img className={styles.image} style={cssRules2}  src={card.image} alt={card.name} />
             </li>
             <li className={styles.name} style={cssRules3}>
-              <p className="text text_type_main-small">{card.name}</p>
+              {bun
+              ?
+                <>
+                  {bunTop
+                  ? 
+                    <p className="text text_type_main-small">{card.name + ' (верх)'}</p> 
+                  : 
+                    <p className="text text_type_main-small">{card.name + ' (низ)'}</p>
+                  }
+                </>
+              :
+                <p className="text text_type_main-small">{card.name}</p>  
+              }
             </li>
             <li className={styles.price} style={cssRules4}>
               <p className="text text_type_main-default mr-2">{card.price}</p>
@@ -76,5 +89,7 @@ function Card({ card, isBurgerIngredientsVisible }) {
     </>
   );
 }
+
+Card.propTypes = cardProperties.isRequired
 
 export default Card;

@@ -36,10 +36,10 @@ function App() {
   }
 
   return (
-    <div className="app">
+    <>
       <AppHeader isAppHeaderVisible={isAppHeaderVisible} handleToggle={handleToggle} />
       <Main isBurgerIngredientsVisible={isBurgerIngredientsVisible} isBurgerConstructorVisible={isBurgerConstructorVisible} handleToggle={handleToggle} cards={cards} />
-    </div>
+    </>
   );
 }
 

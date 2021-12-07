@@ -1,17 +1,34 @@
 import PropTypes from "prop-types";
 
-const ingredientType = PropTypes.shape({
-  id: PropTypes.string,
-  name: PropTypes.string,
-  type: PropTypes.string,
-  proteins: PropTypes.number,
-  fat: PropTypes.number,
-  carbohydrates: PropTypes.number,
-  calories: PropTypes.number,
-  price: PropTypes.number,
-  image: PropTypes.string,
-  image_mobile: PropTypes.string,
-  image_large: PropTypes.string,
+export const headerProperties = PropTypes.shape({
+  isAppHeaderVisible: PropTypes.bool,
+  handleToggle: PropTypes.func
 });
 
-export default ingredientType;
+export const ingredientsProperties = PropTypes.shape({
+  isBurgerIngredientsVisible: PropTypes.bool,
+  handleToggle: PropTypes.func,
+  cards: PropTypes.array
+});
+
+export const cardProperties = PropTypes.shape({
+  card: PropTypes.object,
+  isBurgerIngredientsVisible: PropTypes.bool,
+  bun: PropTypes.func,
+  bunTop: PropTypes.func
+});
+
+export const listProperties = PropTypes.shape({
+  children: PropTypes.element
+});
+
+export const mainProperties = PropTypes.shape({
+  isBurgerIngredientsVisible: PropTypes.bool,
+  isBurgerConstructorVisible: PropTypes.bool,
+  handleToggle: PropTypes.func,
+  cards: PropTypes.array
+});
+
+export const menuProperties = PropTypes.shape({
+  setIsNavigationMenuOpen: PropTypes.func
+});

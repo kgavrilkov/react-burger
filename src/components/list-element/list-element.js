@@ -1,6 +1,7 @@
 import React from "react";
 import { DeleteIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './list-element.module.css';
+import { listProperties } from '../../utils/types.js';
 
 function ListElement({ children }) {
   const [isPressedItem, setIsPressedItem]=React.useState(false);
@@ -27,5 +28,7 @@ function ListElement({ children }) {
     </>
   );
 }
+
+ListElement.propTypes = listProperties.isRequired
 
 export default ListElement;

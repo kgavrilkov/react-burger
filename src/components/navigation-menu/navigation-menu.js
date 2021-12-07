@@ -4,6 +4,7 @@ import { CloseIcon, ProfileIcon, ArrowDownIcon, ArrowUpIcon,
 BurgerIcon, ListIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import DropdownMenu from '../dropdown-menu/dropdown-menu.js';
 import styles from './navigation-menu.module.css';
+import { menuProperties } from '../../utils/types.js';
 
 function NavigationMenu({ setIsNavigationMenuOpen }) {
   const [isDropdownMenuOpen, setIsDropdownMenuOpen]=React.useState(false);
@@ -56,5 +57,7 @@ function NavigationMenu({ setIsNavigationMenuOpen }) {
     </nav>
   );
 }
+
+NavigationMenu.propTypes = menuProperties.isRequired
 
 export default NavigationMenu;

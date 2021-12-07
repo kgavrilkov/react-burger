@@ -155,7 +155,7 @@
 
 @media screen and (max-width: 600px) {
   .list {
-    grid-template-rows: repeat(15, minmax(min-content, max-content));
+    grid-template-rows: repeat(17, minmax(min-content, max-content));
     row-gap: 0;
     padding: 0;
     height: calc(100% - 52px);

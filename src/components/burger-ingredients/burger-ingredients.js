@@ -4,7 +4,7 @@ import { Tab } from '../tab/tab';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import Card from '../card/card.js';
 import styles from './burger-ingredients.module.css';
-import ingredientType from '../../utils/types.js';
+import { ingredientsProperties } from '../../utils/types.js';
 
 function BurgerIngredients({ isBurgerIngredientsVisible, handleToggle, cards }) {
   const [current, setCurrent] = React.useState('булки');
@@ -50,8 +50,8 @@ function BurgerIngredients({ isBurgerIngredientsVisible, handleToggle, cards }) 
             <p className={mobile ? "text text_type_main-medium ml-2" : "text text_type_main-medium"}>Булки</p>
           }
           <div className={styles.cards}>
-            {cards.filter((card) => {return card.type.includes('bun')}).map((card, id) => {
-              return <Card card={card} key={id} isBurgerIngredientsVisible={isBurgerIngredientsVisible} />
+            {cards.filter((card) => {return card.type.includes('bun')}).map((card, _id) => {
+              return <Card card={card} key={_id} isBurgerIngredientsVisible={isBurgerIngredientsVisible} />
             })}
           </div>
         </li>
@@ -63,8 +63,8 @@ function BurgerIngredients({ isBurgerIngredientsVisible, handleToggle, cards }) 
             <p className={mobile ? "text text_type_main-medium ml-2" : "text text_type_main-medium"}>Соусы</p>
           }
           <div className={styles.cards}>
-            {cards.filter((card) => {return card.type.includes('sauce')}).map((card, id) => {
-              return <Card card={card} key={id} isBurgerIngredientsVisible={isBurgerIngredientsVisible} />
+            {cards.filter((card) => {return card.type.includes('sauce')}).map((card, _id) => {
+              return <Card card={card} key={_id} isBurgerIngredientsVisible={isBurgerIngredientsVisible} />
             })}
           </div>
         </li>
@@ -76,8 +76,8 @@ function BurgerIngredients({ isBurgerIngredientsVisible, handleToggle, cards }) 
             <p className={mobile ? "text text_type_main-medium ml-2" : "text text_type_main-medium"}>Начинки</p>
           }
           <div className={styles.cards}>
-            {cards.filter((card) => {return card.type.includes('main')}).map((card, id) => {
-              return <Card card={card} key={id} isBurgerIngredientsVisible={isBurgerIngredientsVisible} />
+            {cards.filter((card) => {return card.type.includes('main')}).map((card, _id) => {
+              return <Card card={card} key={_id} isBurgerIngredientsVisible={isBurgerIngredientsVisible} />
             })}
           </div>
         </li>
@@ -100,6 +100,6 @@ function BurgerIngredients({ isBurgerIngredientsVisible, handleToggle, cards }) 
   );
 }
 
-BurgerIngredients.propTypes = ingredientType.isRequired;
+BurgerIngredients.propTypes = ingredientsProperties.isRequired;
 
 export default  BurgerIngredients;

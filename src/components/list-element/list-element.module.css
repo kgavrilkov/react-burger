@@ -1,0 +1,26 @@
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 90px;
+}
+
+.element {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transform: translate(-140px);
+  height: 90px;
+}
+
+.button {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 140px;
+  transform: translate(140px);
+  height: 90px;
+  background-color: #E52B1A;
+  border: none;
+}

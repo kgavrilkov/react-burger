@@ -1,0 +1,200 @@
+.burger {
+  max-width: 600px;
+  height: calc(100vh - 88px);
+  position: relative;
+}
+
+.heading {
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+}
+
+.wrapper {
+  display: none;
+  margin-top: 30px;
+}
+
+.tabs {
+  display: flex;
+  margin-bottom: 40px;
+}
+
+.container {
+  display: grid;
+  grid-template-rows: repeat(3, minmax(min-content, max-content));
+  row-gap: 40px;
+  list-style-type: none;
+  padding: 0;
+  height: calc(100% - 252px);
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+.container::-webkit-scrollbar {
+	width: 12px;
+}
+
+.container::-webkit-scrollbar-track {
+	background: #2F2F37;
+}
+
+.container::-webkit-scrollbar-thumb {
+  height: 490px;
+	background: #8585AD;
+	border: 3px solid #2F2F37;
+	border-radius: 6px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px 24px;
+  margin: 24px 8px 0 16px;
+}
+
+.sum {
+  display: none;
+}
+
+.box {
+  display: flex;
+  align-items: center;
+}
+
+.price {
+  display: flex;
+  margin-right: 16px;
+}  
+
+@media screen and (max-width: 1300px) {
+  .wrapper {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 1300px) {
+  .tabs {
+    margin-bottom: 20px;
+  }
+}
+
+@media screen and (max-width: 1300px) {
+  .container {
+    row-gap: 5px;
+    height: calc(100% - 200px);
+  }
+}
+
+@media screen and (max-width: 1300px) {
+  .cards {
+    gap: 20px 16px;
+    margin: 8px 8px 0;
+  }  
+}
+
+@media screen and (max-width: 630px) {
+  .wrapper {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 630px) {
+  .heading {
+    justify-content: center;
+    width: 330px; 
+    margin: auto;
+  }
+}
+
+@media screen and (max-width: 630px) {
+  .tabs {
+    width: 337px;
+    margin: 0 auto 20px;
+  }
+}
+
+@media screen and (max-width: 630px) {
+  .container {
+    row-gap: 40px;
+    height: calc(100% - 245px);
+  }
+}
+
+@media screen and (max-width: 630px) {
+  .container::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 630px) {
+  .cards {
+    gap: 32px 24px;
+    margin: 24px 8px 0;
+  }  
+}
+
+@media screen and (max-width: 630px) {
+  .sum {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    background-color: #1C1C21;
+  }  
+}
+
+@media screen and (max-width: 540px) {
+  .container {
+    row-gap: 12px;
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .cards {
+    gap: 24px 16px;
+    margin: 16px 8px 0;
+  }  
+}
+
+@media screen and (max-width: 380px) {
+  .container {
+    height: calc(100% - 230px);
+  }
+}
+
+@media screen and (max-width: 340px) {
+  .heading {
+    width: 320px; 
+  }
+}
+
+@media screen and (max-width: 340px) {
+  .tabs {
+    width: 320px;
+    overflow: hidden;
+  }
+}
+
+@media screen and (max-width: 340px) {
+  .container {
+    height: calc(100% - 180px);
+  }
+}
+
+@media screen and (max-width: 340px) {
+  .cards {
+    margin: 16px 0 0;
+  }
+}
+
+@media screen and (max-width: 340px) {
+  .box {
+    justify-content: flex-end;
+    width: calc(100% - 16px);
+  }
+}

@@ -1,0 +1,23 @@
+.dropdown {
+  margin-bottom: 8px;
+  margin-left: 35px;
+  list-style-type: none;
+  padding: 0;
+}
+
+.option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.link {
+  display: flex;
+  text-decoration: none;
+  color: #F2F2F3;
+  transition: opacity 1s linear 0.5s;
+}
+
+.link:hover {
+  opacity: .6;
+}

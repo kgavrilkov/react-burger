@@ -5,13 +5,12 @@ import ListElement from '../list-element/list-element.js';
 import Card from '../card/card.js';
 import currencyPath from '../../images/currency.svg';
 import styles from './burger-constructor.module.css';
-import { ingredientsProperties } from '../../utils/types.js';
-
-function BurgerConstructor({ isBurgerIngredientsVisible, handleToggle, cards }) {
+import { constructorProperties } from '../../utils/types.js';
+function BurgerConstructor({ isBurgerIngredientsVisible, handleToggle, cards, handleModalOpen, setContent }) {
   const mobile = useMediaQuery({ query: `(max-width: 600px)` });
   const mobileS = useMediaQuery({ query: `(max-width: 340px)` });
   const bun = cards.filter((card) => {return card.type.includes('bun')});
-  const bunTop =cards.filter((card) => {return card.type.includes('bun')}); 
+  const bunTop =cards.filter((card) => {return card.type.includes('bun')});
   
   return(
     <section className={styles.burger}>
@@ -32,7 +31,7 @@ function BurgerConstructor({ isBurgerIngredientsVisible, handleToggle, cards }) 
                 />
               </ListElement>)})
             }
-            {cards.slice(1, 14).map((card, _id) => {return(
+            {cards.slice(2, 15).map((card, _id) => {return(
               <ListElement key={_id}>
                 <div className={styles.wrapper}>
                   <DragIcon type="primary" />
@@ -64,9 +63,9 @@ function BurgerConstructor({ isBurgerIngredientsVisible, handleToggle, cards }) 
               </div>
               {mobileS
               ?
-                <Button type="primary" size="small">Заказать</Button>
+                <Button type="primary" size="small" onClick={() => handleModalOpen(setContent(false))}>Заказать</Button>
               :  
-                <Button type="primary" size="medium">Заказать</Button>
+                <Button type="primary" size="medium" onClick={() => handleModalOpen(setContent(false))}>Заказать</Button>
               }
             </div>
           </div>
@@ -115,7 +114,7 @@ function BurgerConstructor({ isBurgerIngredientsVisible, handleToggle, cards }) 
             <div className={styles.sum}>
               <p className="text text_type_digits-medium">1255</p>
               <img className={styles.image} src={currencyPath} alt="currency"/>
-              <Button type="primary" size="large">Оформить заказ</Button>
+              <Button type="primary" size="large" onClick={() => handleModalOpen(setContent(false))}>Оформить заказ</Button>
             </div>
           </div>
         </>
@@ -124,6 +123,6 @@ function BurgerConstructor({ isBurgerIngredientsVisible, handleToggle, cards }) 
   );
 }
 
-BurgerConstructor.propTypes = ingredientsProperties.isRequired;
+BurgerConstructor.propTypes = constructorProperties.isRequired;
 
 export default  BurgerConstructor;

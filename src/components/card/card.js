@@ -4,7 +4,7 @@ import { Counter, CurrencyIcon, Button } from '@ya.praktikum/react-developer-bur
 import styles from './card.module.css';
 import { cardProperties } from '../../utils/types.js';
 
-function Card({ card, isBurgerIngredientsVisible, bun, bunTop }) {
+function Card({ card, isBurgerIngredientsVisible, bun, bunTop, handleCardClick }) {
   const mobileS = useMediaQuery({ query: `(max-width: 430px)` });
 
   const cssRules1 = {
@@ -30,11 +30,15 @@ function Card({ card, isBurgerIngredientsVisible, bun, bunTop }) {
     marginRight: 8,
   };
 
+  const handleClick = () => {
+    handleCardClick(card)
+  };
+
   return(
     <>
       {isBurgerIngredientsVisible
       ?
-        <ul className={styles.card}>
+        <ul className={styles.card} onClick={handleClick}>
           <li>
             <img className={styles.image} src={card.image} alt={card.name} />
           </li>

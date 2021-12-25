@@ -37,6 +37,10 @@
   display: none;
 }
 
+.button:hover {
+  opacity: .6;
+}
+
 .line {
   margin: 0;
   height: 1px;
@@ -48,6 +52,8 @@
   .button {
     display: block;
     margin-top: 8px;
+    transition: opacity 1s linear 0.5s;
+    cursor: pointer;
   }
 }
 

@@ -6,6 +6,7 @@
   background-color: #1C1C21;
   border-radius: 40px;
   width: 720px;
+  z-index: 1;
 }
 
 .container {
@@ -16,6 +17,7 @@
 }
 
 .header {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -33,13 +35,6 @@
 
 .button:hover {
   opacity: .6;
-}
-
-.heading {
-  position: relative;
-  width: 640px;
-  height: 64px;
-  margin: 0;
 }
 
 .key {
@@ -69,12 +64,6 @@
   }
 }
 
-@media screen and (max-width: 750px) {
-  .heading {
-    width: 470px;
-  }
-}
-
 @media screen and (max-width: 580px) {
   .modal {
     width: 430px;
@@ -83,12 +72,6 @@
 
 @media screen and (max-width: 580px) {
   .header {
-    width: 350px;
-  }
-}
-
-@media screen and (max-width: 580px) {
-  .heading {
     width: 350px;
   }
 }
@@ -117,13 +100,6 @@
   .button {
     width: 10px;
     height: 25px;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .heading {
-    width: 190px;
-    height: 19px;
   }
 }
 

@@ -4,14 +4,13 @@ import ReactDOM from 'react-dom';
 import { useMediaQuery } from 'react-responsive';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ModalOverlay from '../modal-overlay/modal-overlay';
-import IngredientDetails from '../ingredient-details/ingredient-details';
-import OrderDetails from '../order-details/order-details';
 import styles from './modal.module.css';
 import { modalProperties } from '../../utils/types.js';
 
-function Modal({ isModalVisible, handleModalClose, content, selectedCard, sum }) {
+function Modal({ isModalVisible, handleModalClose, title, children }) {
   const mobile = useMediaQuery({ query: `(max-width: 580px)` });
   const mobileS = useMediaQuery({ query: `(max-width: 480px)` });
+  const modalRoot = document.getElementById("modals");
 
   const handleEscClose = (evt) => {
     if (evt.key === 'Escape') {
@@ -29,45 +28,21 @@ function Modal({ isModalVisible, handleModalClose, content, selectedCard, sum })
   if (!isModalVisible) return null;
 
   return ReactDOM.createPortal(
-    <div className={styles.modal}>
-      <div className={styles.container}>
-        {content 
-        ?
-          <>
-            <header className={styles.header}>
-              {mobile
-              ?
-                <>
-                  {mobileS
-                  ?
-                    <p className="text text_type_main-small">Детали ингредиента</p>
-                  :
-                    <p className="text text_type_main-medium">Детали ингредиента</p>  
-                  }
-                </>  
-              :
-                <p className="text text_type_main-large">Детали ингредиента</p>
-              }
-              <button className={styles.button} onClick={handleModalClose}>
-                <CloseIcon type="primary" />
-              </button>
-            </header>
-            <IngredientDetails card={selectedCard} />
-          </>
-        :
-          <>
-            <header className={styles.heading}>
-              <button className={styles.key} onClick={handleModalClose}>
-                <CloseIcon type="primary" />
-              </button>
-            </header>
-            <OrderDetails sum={sum} />
-          </>
-        }
+    <>
+      <div className={styles.modal}>
+        <div className={styles.container}>
+          <header className={styles.header}>
+            {title ? <p className={mobile ? mobileS ? "text text_type_main-small" : "text text_type_main-medium" : "text text_type_main-large"}>{title}</p> : null} 
+            <button className={title ? styles.button : styles.key} onClick={handleModalClose}>
+              <CloseIcon type="primary" />
+            </button>
+          </header>
+          {children} 
+        </div>
       </div>
       <ModalOverlay handleModalClose={handleModalClose} />
-    </div>,
-    document.body
+    </>,
+    modalRoot
   );
 }
 

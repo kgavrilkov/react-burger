@@ -4,7 +4,7 @@ import { Counter, CurrencyIcon, Button } from '@ya.praktikum/react-developer-bur
 import styles from './card.module.css';
 import { cardProperties } from '../../utils/types.js';
 
-function Card({ card, isBurgerIngredientsVisible, bun, bunTop }) {
+function Card({ card, isBurgerIngredientsVisible, bun, bunTop, handleCardClick }) {
   const mobileS = useMediaQuery({ query: `(max-width: 430px)` });
 
   const cssRules1 = {
@@ -30,21 +30,20 @@ function Card({ card, isBurgerIngredientsVisible, bun, bunTop }) {
     marginRight: 8,
   };
 
+  const handleClick = () => {
+    handleCardClick(card)
+  };
+
   return(
     <>
       {isBurgerIngredientsVisible
       ?
-        <ul className={styles.card}>
+        <ul className={styles.card} onClick={handleClick}>
           <li>
             <img className={styles.image} src={card.image} alt={card.name} />
           </li>
           <li className={styles.counter}>
-            {mobileS
-            ?
-              <Counter count={1} size="small" />
-            :
-              <Counter count={1} size="default" />
-            }
+            <Counter count={1} size={mobileS ? "small" : "default"} />
           </li>
           <li className={styles.price}>
             <p className={mobileS ? "text text_type_main-default mr-2" : "text text_type_digits-default mr-2"}>{card.price}</p>
@@ -64,19 +63,7 @@ function Card({ card, isBurgerIngredientsVisible, bun, bunTop }) {
               <img className={styles.image} style={cssRules2}  src={card.image} alt={card.name} />
             </li>
             <li className={styles.name} style={cssRules3}>
-              {bun
-              ?
-                <>
-                  {bunTop
-                  ? 
-                    <p className="text text_type_main-small">{card.name + ' (верх)'}</p> 
-                  : 
-                    <p className="text text_type_main-small">{card.name + ' (низ)'}</p>
-                  }
-                </>
-              :
-                <p className="text text_type_main-small">{card.name}</p>  
-              }
+              <p className="text text_type_main-small">{bun ? bunTop ? card.name + ' (верх)' : card.name + ' (низ)' : card.name}</p> 
             </li>
             <li className={styles.price} style={cssRules4}>
               <p className="text text_type_main-default mr-2">{card.price}</p>

@@ -1,0 +1,33 @@
+.image {
+  width: 480px;
+  height: 240px;
+}
+
+.list {
+  display: flex;
+  justify-content: space-between;
+  width: 520px;
+  height: 56px;
+  list-style-type: none;
+  padding: 0;
+}
+
+.item {
+  width: 120px;
+  height: 56px;
+}
+
+@media screen and (max-width: 580px) {
+  .image {
+    width: 250px;
+    height: 100px;
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .list {
+    flex-direction: column;
+    align-items: center;
+    width: 400px;
+  }
+}

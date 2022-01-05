@@ -5,8 +5,7 @@ import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-co
 import Card from '../card/card.js';
 import styles from './burger-ingredients.module.css';
 import { ingredientsProperties } from '../../utils/types.js';
-
-function BurgerIngredients({ isBurgerIngredientsVisible, handleToggle, cards }) {
+function BurgerIngredients({ isBurgerIngredientsVisible, handleToggle, cards, handleModalOpen, setTitle, setContent, handleCardClick }) {
   const [current, setCurrent] = React.useState('булки');
   const mobile = useMediaQuery({ query: `(max-width: 630px)` });
   const mobileS = useMediaQuery({ query: `(max-width: 340px)` });
@@ -14,12 +13,7 @@ function BurgerIngredients({ isBurgerIngredientsVisible, handleToggle, cards }) 
   return(
     <section className={styles.burger}>
       <h1 className={styles.heading}>
-        {mobileS
-        ?
-          <p className="text text_type_main-medium mt-4 mb-2">Соберите бургер</p>
-        :
-          <p className={mobile ? "text text_type_main-large mt-4 mb-2" : "text text_type_main-large mt-10 mb-5"}>Соберите бургер</p>
-        }
+        <p className={mobileS ? "text text_type_main-medium mt-4 mb-2" : mobile ? "text text_type_main-large mt-4 mb-2" : "text text_type_main-large mt-10 mb-5"}>Соберите бургер</p>
         <div className={styles.wrapper}>
           <Button type="primary" size="medium" onClick={handleToggle}>Смотреть заказ</Button>
         </div>
@@ -43,41 +37,26 @@ function BurgerIngredients({ isBurgerIngredientsVisible, handleToggle, cards }) 
       </div>
       <ul className={styles.container}>
         <li id="bun">
-          {mobileS
-          ?
-            <p className="text text_type_main-default ml-2">Булки</p>
-          :
-            <p className={mobile ? "text text_type_main-medium ml-2" : "text text_type_main-medium"}>Булки</p>
-          }
-          <div className={styles.cards}>
-            {cards.filter((card) => {return card.type.includes('bun')}).map((card, _id) => {
-              return <Card card={card} key={_id} isBurgerIngredientsVisible={isBurgerIngredientsVisible} />
+          <p className={mobileS ? "text text_type_main-default ml-2" : mobile ? "text text_type_main-medium ml-2" : "text text_type_main-medium"}>Булки</p>
+          <div className={styles.cards} onClick={() => handleModalOpen(setTitle('Детали ингредиента'), setContent(true))}>
+            {cards.filter((card) => {return card.type.includes('bun')}).map((card) => {
+              return <Card card={card} key={card._id} isBurgerIngredientsVisible={isBurgerIngredientsVisible} handleCardClick={handleCardClick} />
             })}
           </div>
         </li>
         <li id="sauce">
-          {mobileS
-          ?
-            <p className="text text_type_main-default ml-2">Соусы</p>
-          :
-            <p className={mobile ? "text text_type_main-medium ml-2" : "text text_type_main-medium"}>Соусы</p>
-          }
-          <div className={styles.cards}>
-            {cards.filter((card) => {return card.type.includes('sauce')}).map((card, _id) => {
-              return <Card card={card} key={_id} isBurgerIngredientsVisible={isBurgerIngredientsVisible} />
+          <p className={mobileS ? "text text_type_main-default ml-2" : mobile ? "text text_type_main-medium ml-2" : "text text_type_main-medium"}>Соусы</p>
+          <div className={styles.cards} onClick={() => handleModalOpen(setTitle('Детали ингредиента'), setContent(true))}>
+            {cards.filter((card) => {return card.type.includes('sauce')}).map((card) => {
+              return <Card card={card} key={card._id} isBurgerIngredientsVisible={isBurgerIngredientsVisible} handleCardClick={handleCardClick} />
             })}
           </div>
         </li>
         <li id="main">
-          {mobileS
-          ?
-            <p className="text text_type_main-default ml-2">Начинки</p>
-          :
-            <p className={mobile ? "text text_type_main-medium ml-2" : "text text_type_main-medium"}>Начинки</p>
-          }
-          <div className={styles.cards}>
-            {cards.filter((card) => {return card.type.includes('main')}).map((card, _id) => {
-              return <Card card={card} key={_id} isBurgerIngredientsVisible={isBurgerIngredientsVisible} />
+          <p className={mobileS ? "text text_type_main-default ml-2" : mobile ? "text text_type_main-medium ml-2" : "text text_type_main-medium"}>Начинки</p>
+          <div className={styles.cards} onClick={() => handleModalOpen(setTitle('Детали ингредиента'), setContent(true))}>
+            {cards.filter((card) => {return card.type.includes('main')}).map((card) => {
+              return <Card card={card} key={card._id} isBurgerIngredientsVisible={isBurgerIngredientsVisible} handleCardClick={handleCardClick} />
             })}
           </div>
         </li>
@@ -88,12 +67,7 @@ function BurgerIngredients({ isBurgerIngredientsVisible, handleToggle, cards }) 
             <p className="text text_type_digits-default mr-2">1255</p>
             <CurrencyIcon type="primary" />
           </div>
-          {mobileS
-          ?
-            <Button type="primary" size="small" onClick={handleToggle}>Смотреть заказ</Button>
-          :  
-            <Button type="primary" size="medium" onClick={handleToggle}>Смотреть заказ</Button>
-          }
+          <Button type="primary" size={mobileS ? "small" : "medium"} onClick={handleToggle}>Смотреть заказ</Button>
         </div>
       </div>
     </section>

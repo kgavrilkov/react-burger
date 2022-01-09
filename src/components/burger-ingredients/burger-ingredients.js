@@ -5,10 +5,15 @@ import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-co
 import Card from '../card/card.js';
 import styles from './burger-ingredients.module.css';
 import { ingredientsProperties } from '../../utils/types.js';
-function BurgerIngredients({ isBurgerIngredientsVisible, handleToggle, cards, handleModalOpen, setTitle, setContent, handleCardClick }) {
+import { InitialDataContext } from '../../context/initialdata-context.js';
+import { TotalPriceContext } from '../../context/totalprice-context.js';
+
+function BurgerIngredients({ isBurgerIngredientsVisible, handleToggle, handleModalOpen, setTitle, setContent, handleCardClick }) {
   const [current, setCurrent] = React.useState('булки');
   const mobile = useMediaQuery({ query: `(max-width: 630px)` });
   const mobileS = useMediaQuery({ query: `(max-width: 340px)` });
+  const cards = React.useContext(InitialDataContext);
+  const totalPrice = React.useContext(TotalPriceContext);
 
   return(
     <section className={styles.burger}>
@@ -64,7 +69,7 @@ function BurgerIngredients({ isBurgerIngredientsVisible, handleToggle, cards, ha
       <div className={styles.sum}>
         <div className={styles.box}>
           <div className={styles.price}>
-            <p className="text text_type_digits-default mr-2">1255</p>
+            <p className="text text_type_digits-default mr-2">{totalPrice}</p>
             <CurrencyIcon type="primary" />
           </div>
           <Button type="primary" size={mobileS ? "small" : "medium"} onClick={handleToggle}>Смотреть заказ</Button>

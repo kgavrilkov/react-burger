@@ -1,17 +1,14 @@
 import React from 'react';
 import { useMediaQuery } from 'react-responsive';
-import { DragIcon, CurrencyIcon, Button, ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
+import { DragIcon, Button, ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import ListElement from '../list-element/list-element.js';
 import Card from '../card/card.js';
-import currencyPath from '../../images/currency.svg';
 import styles from './burger-constructor.module.css';
 import { constructorProperties } from '../../utils/types.js';
 import { InitialDataContext } from '../../context/initialdata-context.js';
-import { TotalPriceContext } from '../../context/totalprice-context.js';
 
-function BurgerConstructor({ isBurgerIngredientsVisible, handleToggle, handleModalOpen, setTitle, setContent, storeOrder }) {
+function BurgerConstructor({ isBurgerIngredientsVisible, handleToggle }) {
   const mobile = useMediaQuery({ query: `(max-width: 600px)` });
-  const mobileS = useMediaQuery({ query: `(max-width: 340px)` });
   const cards = React.useContext(InitialDataContext);
   const bun = React.useMemo(() => 
     cards.filter((card) => {return card.type.includes('bun')}) 
@@ -19,7 +16,6 @@ function BurgerConstructor({ isBurgerIngredientsVisible, handleToggle, handleMod
   const bunTop = React.useMemo(() => 
     cards.filter((card) => {return card.type.includes('bun')})
   , [cards]);
-  const totalPrice = React.useContext(TotalPriceContext);
   
   return(
     <section className={styles.burger}>
@@ -27,8 +23,8 @@ function BurgerConstructor({ isBurgerIngredientsVisible, handleToggle, handleMod
       ?
         <>
           <ul className={styles.list}>
-            {cards.filter((card) => {return card.type.includes('bun')}).map((card) => {return(
-              <ListElement key={card._id}>
+            {cards.filter((card) => {return card.type.includes('bun')}).map((card, index) => {return(
+              <ListElement key={index}>
                 <div className={styles.wrapper}>
                   <DragIcon type="primary" />
                 </div>
@@ -40,8 +36,8 @@ function BurgerConstructor({ isBurgerIngredientsVisible, handleToggle, handleMod
                 />
               </ListElement>)})
             }
-            {cards.slice(2).map((card) => {return(
-              <ListElement key={card._id}>
+            {cards.slice(2).map((card, index) => {return(
+              <ListElement key={index}>
                 <div className={styles.wrapper}>
                   <DragIcon type="primary" />
                 </div>
@@ -51,8 +47,8 @@ function BurgerConstructor({ isBurgerIngredientsVisible, handleToggle, handleMod
                 />
               </ListElement>)})
             }
-            {cards.filter((card) => {return card.type.includes('bun')}).map((card) => {return(
-              <ListElement key={card._id}>
+            {cards.filter((card) => {return card.type.includes('bun')}).map((card, index) => {return(
+              <ListElement key={index}>
                 <div className={styles.wrapper}>
                   <DragIcon type="primary" />
                 </div>
@@ -64,15 +60,6 @@ function BurgerConstructor({ isBurgerIngredientsVisible, handleToggle, handleMod
               </ListElement>)})
             }
           </ul>
-          <div className={styles.total}>
-            <div className={styles.box}>
-              <div className={styles.price}>
-                <p className="text text_type_digits-default mr-2">{totalPrice}</p>
-                <CurrencyIcon type="primary" />
-              </div>
-              <Button type="primary" size={mobileS ? "small" : "medium"} onClick={() => handleModalOpen(setTitle(false), setContent(false), storeOrder())}>Заказать</Button>
-            </div>
-          </div>
         </>
       :
         <> 
@@ -82,8 +69,8 @@ function BurgerConstructor({ isBurgerIngredientsVisible, handleToggle, handleMod
           </h1>
           <div className={styles.container}>
             <div className={styles.content}>
-              {cards.slice(0, 1).map((card) => {return(
-                <div className={styles.shell} key={card._id}>  
+              {cards.slice(0, 1).map((card, index) => {return(
+                <div className={styles.shell} key={index}>  
                   <ConstructorElement
                     type="top"
                     isLocked={true}
@@ -94,8 +81,8 @@ function BurgerConstructor({ isBurgerIngredientsVisible, handleToggle, handleMod
                 </div>)})
               }
               <ul className={styles.list}>
-                {cards.slice(2).map((card) => {return(
-                  <li className={styles.item} key={card._id}>
+                {cards.slice(2).map((card, index) => {return(
+                  <li className={styles.item} key={index}>
                     <div className={styles.wrapper}>
                       <DragIcon type="primary" />
                     </div>
@@ -107,8 +94,8 @@ function BurgerConstructor({ isBurgerIngredientsVisible, handleToggle, handleMod
                   </li>)})
                 }
               </ul>
-              {cards.slice(0, 1).map((card) => {return(
-                <div className={styles.shell} key={card._id}>
+              {cards.slice(0, 1).map((card, index) => {return(
+                <div className={styles.shell} key={index}>
                   <ConstructorElement
                     type="bottom"
                     isLocked={true}
@@ -118,11 +105,6 @@ function BurgerConstructor({ isBurgerIngredientsVisible, handleToggle, handleMod
                   />
                 </div>)})
               }
-            </div>
-            <div className={styles.sum}>
-              <p className="text text_type_digits-medium">{totalPrice}</p>
-              <img className={styles.image} src={currencyPath} alt="currency"/>
-              <Button type="primary" size="large" onClick={() => handleModalOpen(setTitle(false), setContent(false), storeOrder())}>Оформить заказ</Button>
             </div>
           </div>
         </>

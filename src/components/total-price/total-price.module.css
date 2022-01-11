@@ -1,0 +1,119 @@
+.total {
+  position: fixed;
+  right: calc((100vw - 1240px)/2);
+  bottom: 55px;
+  display: flex;
+  align-items: center;
+  padding-right: 16px;
+}
+
+.box {
+  display: flex;
+  align-items: center;
+}
+
+.price {
+  display: flex;
+  margin-right: 35px;
+}
+
+.image {
+  margin-right: 0;
+  margin-left: 10px;
+}
+
+@media screen and (max-width: 1300px) {
+  .total {
+    position: fixed;
+    right: calc((100vw - 600px)/2);
+    bottom: 0;
+    left: calc((100vw - 600px)/2);
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 12px;
+    padding-right: 8px;
+    padding-bottom: 12px;
+    background-color: #1C1C21;
+  }  
+}
+
+@media screen and (max-width: 1300px) {
+  .price {
+    margin-right: 16px;
+  }  
+}
+
+@media screen and (max-width: 1300px) {
+  .sum {
+    position: fixed;
+    right: calc((100vw - 600px)/2);
+    bottom: 0;
+    left: calc((100vw - 600px)/2);
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 12px;
+    padding-right: 8px;
+    padding-bottom: 12px;
+    background-color: #1C1C21;
+  }  
+}
+
+@media screen and (max-width: 630px) {
+  .sum {
+    position: fixed;
+    right: calc((100vw - 560px)/2);
+    bottom: 0;
+    left: calc((100vw - 560px)/2);
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 12px;
+    padding-right: 8px;
+    padding-bottom: 12px;
+    background-color: #1C1C21;
+  }  
+}
+
+@media screen and (max-width: 600px) {
+  .total {
+    position: fixed;
+    right: calc((100vw - 320px)/2);
+    bottom: 0;
+    left: calc((100vw - 320px)/2);
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 12px;
+    padding-right: 8px;
+    padding-bottom: 12px;
+    background-color: #1C1C21;
+  }  
+}
+
+@media screen and (max-width: 540px) {
+  .sum {
+    position: fixed;
+    right: calc((100vw - 336px)/2);
+    bottom: 0;
+    left: calc((100vw - 336px)/2);
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 12px;
+    padding-right: 8px;
+    padding-bottom: 12px;
+    background-color: #1C1C21;
+  }  
+}
+
+@media screen and (max-width: 340px) {
+  .sum {
+    position: fixed;
+    right: calc((100vw - 320px)/2);
+    bottom: 0;
+    left: calc((100vw - 320px)/2);
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 12px;
+    padding-right: 8px;
+    padding-bottom: 12px;
+    background-color: #1C1C21;
+  }  
+}

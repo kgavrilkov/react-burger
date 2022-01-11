@@ -54,20 +54,6 @@
   cursor: pointer;
 }
 
-.sum {
-  display: none;
-}
-
-.box {
-  display: flex;
-  align-items: center;
-}
-
-.price {
-  display: flex;
-  margin-right: 16px;
-}  
-
 @media screen and (max-width: 1300px) {
   .wrapper {
     display: block;
@@ -135,20 +121,6 @@
   }  
 }
 
-@media screen and (max-width: 630px) {
-  .sum {
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    display: flex;
-    justify-content: center;
-    padding-top: 16px;
-    padding-bottom: 16px;
-    background-color: #1C1C21;
-  }  
-}
-
 @media screen and (max-width: 540px) {
   .container {
     row-gap: 12px;
@@ -190,12 +162,5 @@
 @media screen and (max-width: 340px) {
   .cards {
     margin: 16px 0 0;
-  }
-}
-
-@media screen and (max-width: 340px) {
-  .box {
-    justify-content: flex-end;
-    width: calc(100% - 16px);
   }
 }

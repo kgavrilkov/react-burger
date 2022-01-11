@@ -36,11 +36,7 @@ export const ingredientsProperties = PropTypes.shape({
 
 export const constructorProperties = PropTypes.shape({
   isBurgerIngredientsVisible: PropTypes.bool.isRequired,
-  handleToggle: PropTypes.func.isRequired,
-  handleModalOpen: PropTypes.func.isRequired,
-  setTitle: PropTypes.func.isRequired,
-  setContent: PropTypes.func.isRequired,
-  storeOrder: PropTypes.func.isRequired
+  handleToggle: PropTypes.func.isRequired
 });
 
 export const cardProperties = PropTypes.shape({
@@ -62,8 +58,7 @@ export const mainProperties = PropTypes.shape({
   handleModalOpen: PropTypes.func.isRequired,
   setTitle: PropTypes.func.isRequired,
   setContent: PropTypes.func.isRequired,
-  handleCardClick: PropTypes.func.isRequired,
-  storeOrder: PropTypes.func.isRequired
+  handleCardClick: PropTypes.func.isRequired
 });
 
 export const menuProperties = PropTypes.shape({
@@ -88,4 +83,14 @@ export const ingredientProperties = PropTypes.shape({
 export const orderProperties = PropTypes.shape({
   sum: sumType.isRequired,
   orderNumber: PropTypes.number.isRequired
+});
+
+export const priceProperties = PropTypes.shape({
+  isBurgerConstructorVisible: PropTypes.bool.isRequired,
+  handleToggle: PropTypes.func.isRequired,
+  handleModalOpen: PropTypes.func.isRequired,
+  setTitle: PropTypes.func.isRequired,
+  setContent: PropTypes.func.isRequired,
+  storeOrder: PropTypes.func.isRequired,
+  totalPrice: PropTypes.number.isRequired
 });

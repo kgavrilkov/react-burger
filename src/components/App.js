@@ -8,8 +8,8 @@ import IngredientDetails from './ingredient-details/ingredient-details.js';
 import OrderDetails from './order-details/order-details.js';
 import sum from '../utils/total.js';
 import { InitialDataContext } from '../context/initialdata-context.js';
-import { TotalPriceContext } from '../context/totalprice-context.js';
 import { getCards, saveOrder } from '../utils/api.js';
+import TotalPrice from './total-price/total-price.js';
 
 function App() {
   const [cards, setCards] = React.useState([]);
@@ -83,13 +83,12 @@ function App() {
 
   return (
     <InitialDataContext.Provider value={cards}>
-      <TotalPriceContext.Provider value={totalPrice}>
-        <AppHeader isAppHeaderVisible={isAppHeaderVisible} handleToggle={handleToggle} />
-        <Main isBurgerIngredientsVisible={isBurgerIngredientsVisible} isBurgerConstructorVisible={isBurgerConstructorVisible} handleToggle={handleToggle} handleModalOpen={handleModalOpen} setTitle={setTitle} setContent={setContent} handleCardClick={handleCardClick} storeOrder={storeOrder} />
-        <Modal isModalVisible={isModalVisible} handleModalClose={handleModalClose} title={title}>
-          {content ? <IngredientDetails card={selectedCard} /> : <OrderDetails sum={sum} orderNumber={orderNumber} />}
-        </Modal>
-      </TotalPriceContext.Provider>
+      <AppHeader isAppHeaderVisible={isAppHeaderVisible} handleToggle={handleToggle} />
+      <Main isBurgerIngredientsVisible={isBurgerIngredientsVisible} isBurgerConstructorVisible={isBurgerConstructorVisible} handleToggle={handleToggle} handleModalOpen={handleModalOpen} setTitle={setTitle} setContent={setContent} handleCardClick={handleCardClick} />
+      <TotalPrice isBurgerConstructorVisible={isBurgerConstructorVisible} handleToggle={handleToggle} handleModalOpen={handleModalOpen} setTitle={setTitle} setContent={setContent} storeOrder={storeOrder} totalPrice={totalPrice} />
+      <Modal isModalVisible={isModalVisible} handleModalClose={handleModalClose} title={title}>
+        {content ? <IngredientDetails card={selectedCard} /> : <OrderDetails sum={sum} orderNumber={orderNumber} />}
+      </Modal>
     </InitialDataContext.Provider>
   );
 }

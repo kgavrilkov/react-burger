@@ -1,4 +1,3 @@
-/* eslint-disable no-dupe-keys */
 import PropTypes from "prop-types";
 
 export const ingredientType = PropTypes.shape({
@@ -16,7 +15,6 @@ export const ingredientType = PropTypes.shape({
 });
 
 export const sumType = PropTypes.shape({
-  id: PropTypes.string,
   subtitle: PropTypes.string,
   message: PropTypes.string,
   info: PropTypes.string
@@ -30,7 +28,6 @@ export const headerProperties = PropTypes.shape({
 export const ingredientsProperties = PropTypes.shape({
   isBurgerIngredientsVisible: PropTypes.bool.isRequired,
   handleToggle: PropTypes.func.isRequired,
-  cards: PropTypes.arrayOf(ingredientType).isRequired,
   handleModalOpen: PropTypes.func.isRequired,
   setTitle: PropTypes.func.isRequired,
   setContent: PropTypes.func.isRequired,
@@ -39,11 +36,7 @@ export const ingredientsProperties = PropTypes.shape({
 
 export const constructorProperties = PropTypes.shape({
   isBurgerIngredientsVisible: PropTypes.bool.isRequired,
-  handleToggle: PropTypes.func.isRequired,
-  cards: PropTypes.arrayOf(ingredientType).isRequired,
-  handleModalOpen: PropTypes.func.isRequired,
-  setTitle: PropTypes.func.isRequired,
-  setContent: PropTypes.func.isRequired,
+  handleToggle: PropTypes.func.isRequired
 });
 
 export const cardProperties = PropTypes.shape({
@@ -62,7 +55,6 @@ export const mainProperties = PropTypes.shape({
   isBurgerIngredientsVisible: PropTypes.bool.isRequired,
   isBurgerConstructorVisible: PropTypes.bool.isRequired,
   handleToggle: PropTypes.func.isRequired,
-  cards: PropTypes.arrayOf(ingredientType).isRequired,
   handleModalOpen: PropTypes.func.isRequired,
   setTitle: PropTypes.func.isRequired,
   setContent: PropTypes.func.isRequired,
@@ -81,13 +73,24 @@ export const modalProperties = PropTypes.shape({
   isModalVisible: PropTypes.bool.isRequired,
   handleModalClose: PropTypes.func.isRequired,
   title: PropTypes.bool.isRequired,
-  children: PropTypes.element.isRequired,
+  children: PropTypes.element.isRequired
 });
 
 export const ingredientProperties = PropTypes.shape({
-  card: ingredientType.isRequired,
+  card: ingredientType.isRequired
 });
 
 export const orderProperties = PropTypes.shape({
   sum: sumType.isRequired,
+  orderNumber: PropTypes.number.isRequired
+});
+
+export const priceProperties = PropTypes.shape({
+  isBurgerConstructorVisible: PropTypes.bool.isRequired,
+  handleToggle: PropTypes.func.isRequired,
+  handleModalOpen: PropTypes.func.isRequired,
+  setTitle: PropTypes.func.isRequired,
+  setContent: PropTypes.func.isRequired,
+  storeOrder: PropTypes.func.isRequired,
+  totalPrice: PropTypes.number.isRequired
 });

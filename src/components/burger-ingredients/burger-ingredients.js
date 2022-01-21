@@ -1,14 +1,17 @@
 import React from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { Tab } from '../tab/tab';
-import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import Card from '../card/card.js';
 import styles from './burger-ingredients.module.css';
 import { ingredientsProperties } from '../../utils/types.js';
-function BurgerIngredients({ isBurgerIngredientsVisible, handleToggle, cards, handleModalOpen, setTitle, setContent, handleCardClick }) {
+import { InitialDataContext } from '../../context/initialdata-context.js';
+
+function BurgerIngredients({ isBurgerIngredientsVisible, handleToggle, handleModalOpen, setTitle, setContent, handleCardClick }) {
   const [current, setCurrent] = React.useState('булки');
   const mobile = useMediaQuery({ query: `(max-width: 630px)` });
   const mobileS = useMediaQuery({ query: `(max-width: 340px)` });
+  const cards = React.useContext(InitialDataContext);
 
   return(
     <section className={styles.burger}>
@@ -61,15 +64,6 @@ function BurgerIngredients({ isBurgerIngredientsVisible, handleToggle, cards, ha
           </div>
         </li>
       </ul>
-      <div className={styles.sum}>
-        <div className={styles.box}>
-          <div className={styles.price}>
-            <p className="text text_type_digits-default mr-2">1255</p>
-            <CurrencyIcon type="primary" />
-          </div>
-          <Button type="primary" size={mobileS ? "small" : "medium"} onClick={handleToggle}>Смотреть заказ</Button>
-        </div>
-      </div>
     </section>
   );
 }

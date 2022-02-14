@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import { useMediaQuery } from 'react-responsive';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import AppHeader from './app-header/app-header.js';
@@ -11,6 +11,7 @@ import IngredientDetails from './ingredient-details/ingredient-details.js';
 import OrderDetails from './order-details/order-details.js';
 import sum from '../utils/total.js';
 import TotalPrice from './total-price/total-price.js';
+import { RESET_ITEM_TO_VIEW } from '../services/actions/item-to-view.js';
 
 function App() {
   const [isBurgerIngredientsVisible, setIsBurgerIngredientsVisible] = React.useState(true);
@@ -25,6 +26,8 @@ function App() {
   
   const selectedCard = useSelector(store => store.itemToView.ingredient);
   const orderNumber = useSelector(store => store.order.number);
+
+  const dispatch = useDispatch();
 
   React.useEffect(() => {
     if (tablet) {
@@ -56,6 +59,9 @@ function App() {
 
   const handleModalClose = () => {
     setIsModalVisible(false);
+    dispatch({
+      type: RESET_ITEM_TO_VIEW
+    });
   };
 
   return (

@@ -1,63 +1,95 @@
 import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { useMediaQuery } from 'react-responsive';
+import { useSelector, useDispatch } from 'react-redux';
+import { useDrop } from 'react-dnd';
 import { DragIcon, Button, ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import ListElement from '../list-element/list-element.js';
 import Card from '../card/card.js';
+import DraggableElement from '../draggable-element/draggable-element.js';
+import { ADD_INGREDIENT, DELETE_INGREDIENT, REORDER_INGREDIENTS } from '../../services/actions/constructor-ingredients.js';
 import styles from './burger-constructor.module.css';
 import { constructorProperties } from '../../utils/types.js';
-import { InitialDataContext } from '../../context/initialdata-context.js';
 
 function BurgerConstructor({ isBurgerIngredientsVisible, handleToggle }) {
   const mobile = useMediaQuery({ query: `(max-width: 600px)` });
-  const cards = React.useContext(InitialDataContext);
-  const bun = React.useMemo(() => 
-    cards.filter((card) => {return card.type.includes('bun')}) 
-  , [cards]);
-  const bunTop = React.useMemo(() => 
-    cards.filter((card) => {return card.type.includes('bun')})
-  , [cards]);
+
+  const { constructorIngredients } = useSelector(store => store.constructorIngredients);
+  const dispatch = useDispatch();
+
+  const buns = React.useMemo(() => 
+    constructorIngredients.find((card => card.type === 'bun')) 
+  , [constructorIngredients]);
+  const notBuns = React.useMemo(() => 
+    constructorIngredients.filter((card => card.type !== 'bun')) 
+  , [constructorIngredients]);
+
+  const [, dropRef] = useDrop({
+    accept: 'ingredient',
+    drop(item) {
+      dispatch({
+        type: ADD_INGREDIENT,
+        payload: {...item, key: uuidv4()}
+      });
+    }
+  });
+
+  const handleDeleteClick = (item) => {
+    dispatch({
+      type: DELETE_INGREDIENT,
+      payload: item.key
+    });  
+  };
+
+  const moveCard = React.useCallback((hoverIndex, dragIndex) => {
+    const newCards = [...notBuns];
+    newCards.splice(hoverIndex, 0, newCards.splice(dragIndex, 1)[0]);
+    dispatch({
+      type: REORDER_INGREDIENTS,
+      payload: newCards
+    });
+  }, [dispatch, notBuns]);
   
   return(
-    <section className={styles.burger}>
+    <section className={styles.burger} ref={dropRef} onDrop={(e) => {e.preventDefault();}}>
       {mobile 
       ?
         <>
           <ul className={styles.list}>
-            {cards.filter((card) => {return card.type.includes('bun')}).map((card, index) => {return(
-              <ListElement key={index}>
+            {buns &&
+              <li className={styles.item}>
                 <div className={styles.wrapper}>
                   <DragIcon type="primary" />
                 </div>
                 <Card
-                  card={card}
+                  card={buns}
                   isBurgerIngredientsVisible={isBurgerIngredientsVisible}
-                  bun={bun}
-                  bunTop={bunTop}
+                  text={buns.name + ' (верх)'}
                 />
-              </ListElement>)})
+              </li>
             }
-            {cards.slice(2).map((card, index) => {return(
-              <ListElement key={index}>
+            {notBuns.map((card, index) => {return(
+              <ListElement 
+                key={card.key} 
+                card={card} 
+                isBurgerIngredientsVisible={isBurgerIngredientsVisible} 
+                index={index} 
+                id={card.id} 
+                handleDeleteClick={handleDeleteClick} 
+                moveCard={moveCard}>
+              </ListElement>)})  
+            }
+            {buns &&
+              <li className={styles.item}>
                 <div className={styles.wrapper}>
                   <DragIcon type="primary" />
                 </div>
                 <Card
-                  card={card}
-                  isBurgerIngredientsVisible={isBurgerIngredientsVisible} 
-                />
-              </ListElement>)})
-            }
-            {cards.filter((card) => {return card.type.includes('bun')}).map((card, index) => {return(
-              <ListElement key={index}>
-                <div className={styles.wrapper}>
-                  <DragIcon type="primary" />
-                </div>
-                <Card
-                  card={card}
+                  card={buns}
                   isBurgerIngredientsVisible={isBurgerIngredientsVisible}
-                  bun={bun} 
+                  text={buns.name + ' (низ)'}  
                 />
-              </ListElement>)})
+              </li>
             }
           </ul>
         </>
@@ -69,41 +101,52 @@ function BurgerConstructor({ isBurgerIngredientsVisible, handleToggle }) {
           </h1>
           <div className={styles.container}>
             <div className={styles.content}>
-              {cards.slice(0, 1).map((card, index) => {return(
-                <div className={styles.shell} key={index}>  
-                  <ConstructorElement
-                    type="top"
-                    isLocked={true}
-                    text={card.name + ' (верх)'}
-                    price={card.price}
-                    thumbnail={card.image}
-                  />
-                </div>)})
-              }
-              <ul className={styles.list}>
-                {cards.slice(2).map((card, index) => {return(
-                  <li className={styles.item} key={index}>
-                    <div className={styles.wrapper}>
-                      <DragIcon type="primary" />
-                    </div>
+              {constructorIngredients.length > 0 
+              ? 
+                buns &&
+                  <div className={styles.shell}>  
                     <ConstructorElement
-                      text={card.name}
-                      price={card.price}
-                      thumbnail={card.image}
+                      type="top"
+                      isLocked={true}
+                      text={buns.name + ' (верх)'}
+                      price={buns.price}
+                      thumbnail={buns.image}
                     />
-                  </li>)})
+                  </div>
+              : 
+                <div className={styles.top}>Выберите булку</div>
+              }
+              <ul className={constructorIngredients.length > 5 ? styles.list : styles.enum}>
+                {constructorIngredients.length > 0 
+                ? 
+                  notBuns.map((card, index) => {return(
+                    <DraggableElement
+                      key={card.key}
+                      card={card}
+                      index={index}
+                      id={card.key}
+                      handleDeleteClick={handleDeleteClick}
+                      moveCard={moveCard}
+                    />
+                  )})
+                :
+                  <div className={styles.middle}>Выберите начинку</div>    
                 }
               </ul>
-              {cards.slice(0, 1).map((card, index) => {return(
-                <div className={styles.shell} key={index}>
-                  <ConstructorElement
-                    type="bottom"
-                    isLocked={true}
-                    text={card.name + ' (низ)'}
-                    price={card.price}
-                    thumbnail={card.image}
-                  />
-                </div>)})
+              {constructorIngredients.length > 0 
+              ? 
+                buns &&
+                  <div className={styles.shell}>
+                    <ConstructorElement
+                      type="bottom"
+                      isLocked={true}
+                      text={buns.name + ' (низ)'}
+                      price={buns.price}
+                      thumbnail={buns.image}
+                    />
+                  </div>
+              :
+                <div className={styles.bottom}>Выберите булку</div>    
               }
             </div>
           </div>

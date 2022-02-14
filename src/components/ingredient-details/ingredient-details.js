@@ -5,12 +5,13 @@ import { ingredientProperties } from '../../utils/types.js';
 
 function IngredientDetails({ card }) {
   const mobile = useMediaQuery({ query: `(max-width: 580px)` });
-  const mobileS = useMediaQuery({ query: `(max-width: 480px)` });
+  const mobileM = useMediaQuery({ query: `(max-width: 480px)` });
+  const mobileS = useMediaQuery({ query: `(max-width: 330px)` });
 
   return(
     <>
       <img className={styles.image} src={card && card.image} alt={card && card.name} />
-      <p className={mobile ? mobileS ? "text text_type_main-small mt-1 mb-1" : "text text_type_main-default mt-4 mb-8" : "text text_type_main-medium mt-4 mb-8"} style={{textAlign: 'center'}}>{card && card.name}</p>
+      <p className={mobile ? mobileM ? mobileS ? "text text_type_main-default mt-10 mb-10" : "text text_type_main-small mt-1 mb-1" : "text text_type_main-default mt-4 mb-8" : "text text_type_main-medium mt-4 mb-8"} style={{textAlign: 'center'}}>{card && card.name}</p>
       <ul className={styles.list}>
         <div style={{display: 'flex', marginLeft: 20}}>
           <li className={styles.item}>

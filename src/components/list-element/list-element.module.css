@@ -13,6 +13,10 @@
   height: 90px;
 }
 
+.wrapper {
+  margin-right: 5px;
+}
+
 .button {
   position: fixed;
   top: 0;
@@ -23,4 +27,10 @@
   height: 90px;
   background-color: #E52B1A;
   border: none;
+}
+
+@media screen and (max-width: 600px) {
+  .wrapper {
+    margin-right: 0;
+  }
 }

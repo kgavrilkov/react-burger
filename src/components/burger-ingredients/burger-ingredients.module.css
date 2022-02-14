@@ -10,11 +10,6 @@
   margin: 0;
 }
 
-.wrapper {
-  display: none;
-  margin-top: 30px;
-}
-
 .tabs {
   display: flex;
   margin-bottom: 40px;
@@ -55,8 +50,10 @@
 }
 
 @media screen and (max-width: 1300px) {
-  .wrapper {
-    display: block;
+  .heading {
+    justify-content: center;
+    width: 330px; 
+    margin: auto;
   }
 }
 
@@ -69,7 +66,7 @@
 @media screen and (max-width: 1300px) {
   .container {
     row-gap: 5px;
-    height: calc(100% - 200px);
+    height: calc(100% - 245px);
   }
 }
 
@@ -78,20 +75,6 @@
     gap: 20px 16px;
     margin: 8px 8px 0;
   }  
-}
-
-@media screen and (max-width: 630px) {
-  .wrapper {
-    display: none;
-  }
-}
-
-@media screen and (max-width: 630px) {
-  .heading {
-    justify-content: center;
-    width: 330px; 
-    margin: auto;
-  }
 }
 
 @media screen and (max-width: 630px) {

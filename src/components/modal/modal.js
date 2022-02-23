@@ -32,7 +32,7 @@ function Modal({ isModalVisible, handleModalClose, title, children }) {
       <div className={styles.modal}>
         <div className={styles.container}>
           <header className={styles.header}>
-            {title ? <p className={mobile ? mobileS ? "text text_type_main-small" : "text text_type_main-medium" : "text text_type_main-large"}>{title}</p> : null} 
+            {title ? <p className={mobile ? mobileS ? "text text_type_main-default" : "text text_type_main-medium" : "text text_type_main-large"}>{title}</p> : null}
             <button className={title ? styles.button : styles.key} onClick={handleModalClose}>
               <CloseIcon type="primary" />
             </button>

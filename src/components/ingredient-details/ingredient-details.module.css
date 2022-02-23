@@ -31,3 +31,11 @@
     width: 400px;
   }
 }
+
+@media screen and (max-width: 330px) {
+  .image {
+    margin-top: 50px;
+    width: 250px;
+    height: 100px;
+  }
+}

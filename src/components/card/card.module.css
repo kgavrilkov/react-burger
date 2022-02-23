@@ -35,6 +35,9 @@
 
 .button {
   display: none;
+  margin-top: 8px;
+  transition: opacity 1s linear 0.5s;
+  cursor: pointer;
 }
 
 .button:hover {
@@ -48,12 +51,9 @@
   border: none;
 }
 
-@media screen and (max-width: 630px) {
+@media screen and (max-width: 1300px) {
   .button {
     display: block;
-    margin-top: 8px;
-    transition: opacity 1s linear 0.5s;
-    cursor: pointer;
   }
 }
 

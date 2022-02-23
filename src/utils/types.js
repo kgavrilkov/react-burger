@@ -27,11 +27,9 @@ export const headerProperties = PropTypes.shape({
 
 export const ingredientsProperties = PropTypes.shape({
   isBurgerIngredientsVisible: PropTypes.bool.isRequired,
-  handleToggle: PropTypes.func.isRequired,
   handleModalOpen: PropTypes.func.isRequired,
   setTitle: PropTypes.func.isRequired,
-  setContent: PropTypes.func.isRequired,
-  handleCardClick: PropTypes.func.isRequired
+  setContent: PropTypes.func.isRequired
 });
 
 export const constructorProperties = PropTypes.shape({
@@ -42,13 +40,17 @@ export const constructorProperties = PropTypes.shape({
 export const cardProperties = PropTypes.shape({
   card: ingredientType.isRequired,
   isBurgerIngredientsVisible: PropTypes.bool.isRequired,
-  bun: PropTypes.func.isRequired,
-  bunTop: PropTypes.func.isRequired,
-  handleCardClick: PropTypes.func.isRequired
+  text: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired
 });
 
 export const listProperties = PropTypes.shape({
-  children: PropTypes.element.isRequired
+  card: ingredientType.isRequired,
+  isBurgerIngredientsVisible: PropTypes.bool.isRequired,
+  index: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  handleDeleteClick: PropTypes.func.isRequired,
+  moveCard: PropTypes.func.isRequired
 });
 
 export const mainProperties = PropTypes.shape({
@@ -57,8 +59,7 @@ export const mainProperties = PropTypes.shape({
   handleToggle: PropTypes.func.isRequired,
   handleModalOpen: PropTypes.func.isRequired,
   setTitle: PropTypes.func.isRequired,
-  setContent: PropTypes.func.isRequired,
-  handleCardClick: PropTypes.func.isRequired
+  setContent: PropTypes.func.isRequired
 });
 
 export const menuProperties = PropTypes.shape({
@@ -90,7 +91,13 @@ export const priceProperties = PropTypes.shape({
   handleToggle: PropTypes.func.isRequired,
   handleModalOpen: PropTypes.func.isRequired,
   setTitle: PropTypes.func.isRequired,
-  setContent: PropTypes.func.isRequired,
-  storeOrder: PropTypes.func.isRequired,
-  totalPrice: PropTypes.number.isRequired
+  setContent: PropTypes.func.isRequired
+});
+
+export const draggableProperties = PropTypes.shape({
+  card: ingredientType.isRequired,
+  index: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  handleDeleteClick: PropTypes.func.isRequired,
+  moveCard: PropTypes.func.isRequired
 });

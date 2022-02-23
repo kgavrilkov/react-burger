@@ -1,10 +1,18 @@
 import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { useMediaQuery } from 'react-responsive';
-import { Counter, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useSelector, useDispatch } from 'react-redux';
+import { useDrag } from 'react-dnd';
+import { CurrencyIcon, Button, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
+import { ADD_INGREDIENT } from '../../services/actions/constructor-ingredients.js';
 import styles from './card.module.css';
 import { cardProperties } from '../../utils/types.js';
 
-function Card({ card, isBurgerIngredientsVisible, bun, bunTop, handleCardClick }) {
+function Card({ card, isBurgerIngredientsVisible, text, onClick }) {
+  const { constructorIngredients } = useSelector(store => store.constructorIngredients);
+
+  const dispatch = useDispatch();
+
   const mobileS = useMediaQuery({ query: `(max-width: 430px)` });
 
   const cssRules1 = {
@@ -30,20 +38,41 @@ function Card({ card, isBurgerIngredientsVisible, bun, bunTop, handleCardClick }
     marginRight: 8,
   };
 
-  const handleClick = () => {
-    handleCardClick(card)
+  const [{ opacity }, dragRef] = useDrag({
+    type: 'ingredient',
+    item: card,
+    collect: monitor => ({
+      opacity: monitor.isDragging() ? 0.3 : 1
+    })
+  });
+
+  const getTotalCount = () => {
+    let total = 0
+    constructorIngredients.forEach(item => 
+      item.name === card.name && (card.type === 'bun' ? total += 2 : total += 1)
+    );
+    return total;
+  };
+
+  const totalCount = getTotalCount();
+
+  const handleAddClick = (item) => {
+    dispatch({
+      type: ADD_INGREDIENT,
+      payload: {...item, key: uuidv4()}
+    });  
   };
 
   return(
     <>
       {isBurgerIngredientsVisible
       ?
-        <ul className={styles.card} onClick={handleClick}>
-          <li>
+        <ul className={styles.card} style={{opacity}} ref={dragRef}>
+          <li onClick={onClick}>
             <img className={styles.image} src={card.image} alt={card.name} />
           </li>
           <li className={styles.counter}>
-            <Counter count={1} size={mobileS ? "small" : "default"} />
+            {totalCount ? <Counter count={totalCount} size={mobileS ? "small" : "default"} /> : null}
           </li>
           <li className={styles.price}>
             <p className={mobileS ? "text text_type_main-default mr-2" : "text text_type_digits-default mr-2"}>{card.price}</p>
@@ -53,7 +82,7 @@ function Card({ card, isBurgerIngredientsVisible, bun, bunTop, handleCardClick }
             <p className={mobileS ? "text text_type_main-small" : "text text_type_main-default"}>{card.name}</p>
           </li>
           <li className={styles.button}>
-            <Button type="secondary" size="small">Добавить</Button>
+            <Button type="secondary" size="small" onClick={(e) => handleAddClick(card)}>Добавить</Button>
           </li>
         </ul>
       :
@@ -63,7 +92,7 @@ function Card({ card, isBurgerIngredientsVisible, bun, bunTop, handleCardClick }
               <img className={styles.image} style={cssRules2}  src={card.image} alt={card.name} />
             </li>
             <li className={styles.name} style={cssRules3}>
-              <p className="text text_type_main-small">{bun ? bunTop ? card.name + ' (верх)' : card.name + ' (низ)' : card.name}</p> 
+              <p className="text text_type_main-small">{text}</p> 
             </li>
             <li className={styles.price} style={cssRules4}>
               <p className="text text_type_main-default mr-2">{card.price}</p>

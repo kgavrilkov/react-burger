@@ -60,21 +60,19 @@ function ListElement({ card, isBurgerIngredientsVisible, index, id,  handleDelet
   drag(drop(ref));
    
   return(
-    <>
-      <li className={isPressedItem ? styles.element : styles.item} ref={ref} style={{ opacity }} data-handler-id={handlerId} onClick={handleClick}>
-        <div className={styles.wrapper}>
-          <DragIcon type="primary" />
-        </div>
-        <Card
-          card={card}
-          isBurgerIngredientsVisible={isBurgerIngredientsVisible}
-          text={card.name} 
-        />
-        <button className={styles.button} onClick={(e) => handleDeleteClick(card)}>
-          <DeleteIcon type="primary" />
-        </button>
-      </li>
-    </>
+    <li className={isPressedItem ? styles.element : styles.item} ref={ref} style={{ opacity }} data-handler-id={handlerId} onClick={handleClick}>
+      <div className={styles.wrapper}>
+        <DragIcon type="primary" />
+      </div>
+      <Card
+        card={card}
+        isBurgerIngredientsVisible={isBurgerIngredientsVisible}
+        text={card.name} 
+      />
+      <button className={styles.button} onClick={(e) => handleDeleteClick(card)}>
+        <DeleteIcon type="primary" />
+      </button>
+    </li>
   );
 }
 

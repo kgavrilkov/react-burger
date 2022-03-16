@@ -1,0 +1,198 @@
+.button {
+	border: none;
+	cursor: pointer;
+	outline: none;
+	border-radius: 64px;
+	transition: all .3s ease-in;
+}
+
+.button_type_register {
+	margin: auto;
+	width: 253px;
+	color: white;
+	background: linear-gradient(63.18deg, #801ab3 0%, #4c4cff 100%);
+}
+
+.button_type_register:hover {
+	box-shadow: 0px 0px 16px 8px rgba(51, 51, 255, 0.25), 0px 0px 8px 8px rgba(51, 51, 255, 0.25);
+	filter: drop-shadow(0px 4px 32px rgba(51, 51, 255, 0.5));
+}
+
+.button_type_register:active {
+	opacity: 0.9;
+}
+
+.button_type_login {
+	margin: auto;
+	width: 128px;
+	color: white;
+	background: linear-gradient(63.18deg, #801ab3 0%, #4c4cff 100%);
+}
+
+.button_type_login:hover {
+	box-shadow: 0px 0px 16px 8px rgba(51, 51, 255, 0.25), 0px 0px 8px 8px rgba(51, 51, 255, 0.25);
+	filter: drop-shadow(0px 4px 32px rgba(51, 51, 255, 0.5));
+}
+
+.button_type_login:active {
+	opacity: 0.9;
+}
+
+.button_type_forgot {
+	margin: auto;
+	width: 196px;
+	color: white;
+	background: linear-gradient(63.18deg, #801ab3 0%, #4c4cff 100%);
+}
+
+.button_type_forgot:hover {
+	box-shadow: 0px 0px 16px 8px rgba(51, 51, 255, 0.25), 0px 0px 8px 8px rgba(51, 51, 255, 0.25);
+	filter: drop-shadow(0px 4px 32px rgba(51, 51, 255, 0.5));
+}
+
+.button_type_forgot:active {
+	opacity: 0.9;
+}
+
+.button_type_clear {
+	margin: auto;
+	width: 167px;
+	color: white;
+	background: linear-gradient(63.18deg, #801ab3 0%, #4c4cff 100%);
+}
+
+.button_type_clear:hover {
+	box-shadow: 0px 0px 16px 8px rgba(51, 51, 255, 0.25), 0px 0px 8px 8px rgba(51, 51, 255, 0.25);
+	filter: drop-shadow(0px 4px 32px rgba(51, 51, 255, 0.5));
+}
+
+.button_type_clear:active {
+	opacity: 0.9;
+}
+
+.button_type_secondary {
+	color: #4c4cff;
+	background: transparent;
+}
+
+.button_type_secondary:hover {
+	color: white;
+	opacity: 0.9;
+}
+
+.button_type_secondary:active {
+	color: white;
+}
+
+.button_size_large {
+	font-family: 'Jet Brains Mono';
+	font-size: 16px;
+	line-height: 1.5;
+	font-weight: normal;
+	padding: 20px 40px;
+}
+
+.button_size_medium {
+	font-family: 'Jet Brains Mono';
+	font-size: 16px;
+	line-height: 1.5;
+	font-weight: normal;
+	padding: 16px 40px;
+}
+
+.button_size_small {
+	font-family: 'JetBrains Mono';
+	font-size: 14px;
+	line-height: 1.43;
+	font-weight: normal;
+	padding: 10px 32px;
+}
+
+.button_type_register[disabled] {
+	margin: auto;
+	width: 253px;
+	background: #E52B1A;
+	pointer-events: none;
+}
+
+.button_type_login[disabled] {
+	margin: auto;
+	width: 128px;
+	background: #E52B1A;
+	pointer-events: none;
+}
+
+.button_type_forgot[disabled] {
+	margin: auto;
+	width: 196px;
+	background: #E52B1A;
+	pointer-events: none;
+}
+
+.button_type_clear[disabled] {
+	margin: auto;
+	width: 167px;
+	background: #E52B1A;
+	pointer-events: none;
+}
+
+.button_type_secondary[disabled] {
+	color: #8585AD;
+	pointer-events: none;
+}
+
+@media screen and (max-width: 375px) {
+  .button_type_register {
+    margin: auto;
+		width: 216px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .button_type_register[disabled] {
+    margin: auto;
+		width: 216px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .button_type_login {
+    margin: auto;
+		width: 106px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .button_type_login[disabled] {
+    margin: auto;
+		width: 106px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .button_type_forgot {
+    margin: auto;
+		width: 165px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .button_type_forgot[disabled] {
+    margin: auto;
+		width: 165px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .button_type_clear {
+    margin: auto;
+		width: 140px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .button_type_clear[disabled] {
+    margin: auto;
+		width: 140px;
+  }
+}

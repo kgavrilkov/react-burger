@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { CloseIcon, ProfileIcon, ArrowDownIcon, ArrowUpIcon, 
 BurgerIcon, ListIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import DropdownMenu from '../dropdown-menu/dropdown-menu.js';
@@ -52,10 +52,10 @@ function NavigationMenu({ setIsNavigationMenuOpen }) {
           </NavLink>  
         </li>
         <li className={styles.section}>
-          <NavLink className={styles.link} activeClassName={styles.active} to='/register' style={{ alignItems: 'center' }}>
-            {location.pathname === ('/register') ? <ListIcon type="primary" /> : <ListIcon type="secondary" />}
+          <Link className={styles.link} /*activeClassName={styles.active}*/ to='#' style={{ alignItems: 'center' }}>
+            {location.pathname === ('/register') ? <ListIcon type="secondary" /> : <ListIcon type="secondary" />}
             <p className="text text_type_main-small" style={{ marginLeft: 10 }}>Лента заказов</p>
-          </NavLink>  
+          </Link>  
         </li>
       </ul>
     </nav>

@@ -33,6 +33,17 @@
   color: #F2F2F3;
 }
 
+.link:active {
+  align-self: center;
+  font-family: 'Jet Brains Mono';
+	font-weight: bold;
+	font-size: 24px;
+	line-height: 1.25;
+  color: #F2F2F3;
+  text-decoration: none;
+  transition: opacity 1s linear 0.5s;
+}
+
 .form {
   display: grid;
   grid-template-rows: repeat(4, minmax(min-content, max-content));

@@ -2,14 +2,18 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
+import { useSelector, useDispatch } from 'react-redux';
 import { EmailInput } from '../../components/email-input/email-input';
 import { Button } from '../../components/button/button';
+import { forgotPasswordAction } from '../../services/actions/password.js';
 import styles from './forgot-password.module.css';
 
 function ForgotPassword() {
-  const [errorMessage, setErrorMessage] = React.useState(false);
-  
   const mobile = useMediaQuery({ query: `(max-width: 375px)` });
+
+  const successForgotMessage = useSelector(store => store.password.successForgotMessage);
+
+  const dispatch = useDispatch();
 
   const stateSchema = {
     email: { value: '', error: ''},
@@ -75,9 +79,10 @@ function ForgotPassword() {
     }));
   }, [validationStateSchema]);
 
-
   const onSubmit = (evt) => {
-    //evt.preventDefault();
+    evt.preventDefault();
+    dispatch(forgotPasswordAction(data));
+    setData({ email: '' });
   }
 
   return(
@@ -89,10 +94,10 @@ function ForgotPassword() {
           value={data.email}
           name={'email'}
           size={mobile ? 'small' : 'default'}
-         />
-         {errorMessage && 
+        />
+        {successForgotMessage && 
           <span style={{ color: '#EE3465' }}>
-            Что-то пошло не так. Попробуйте ещё раз.
+            На введённый email пришёл код для восстановления пароля.
           </span>
         }
         <Button type="forgot" size={mobile ? 'small' : 'medium'} disabled={disable}>

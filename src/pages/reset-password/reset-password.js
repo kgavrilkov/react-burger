@@ -1,20 +1,26 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
+import { useSelector, useDispatch } from 'react-redux';
 import { NameInput } from '../../components/name-input/name-input';
 import { PasswordInput } from '../../components/password-input/password-input';
 import { Button } from '../../components/button/button';
+import { resetPasswordAction } from '../../services/actions/password.js';
 import styles from './reset-password.module.css';
 
 function ResetPassword() {
-  const [errorMessage, setErrorMessage] = React.useState(false);
-
   const mobile = useMediaQuery({ query: `(max-width: 375px)` });
+  
+  const isMessageReceived = useSelector(store => store.password.isMessageReceived);
+  const errorResetMessage = useSelector(store => store.password.errorResetMessage);
+  const successResetMessage = useSelector(store => store.password.successResetMessage);
+
+  const dispatch = useDispatch();
 
   const stateSchema = {
     password: { value: '', error: ''},
-    name: { value: '', error: ''}
+    token: { value: '', error: ''}
   };
 
   const validationStateSchema = {
@@ -25,10 +31,10 @@ function ResetPassword() {
         error: 'Пароль должен содержать 8 символов: 2 заглавные латинские буквы, 1 специальный символ, 2 цифры и 3 строчные латинские буквы'
       }
     },
-    name: {
+    token: {
       required: true,
       validator: {
-        regEx: /^(?=.*[0-9]).{1,}$/,
+        regEx: /^(?=.*[0-9])(?=.*[a-z])(?=.*[-]).{3,}$/,
         error: 'Имя введено не корректно'
       },
     }
@@ -37,7 +43,7 @@ function ResetPassword() {
   const [state, setState] = React.useState(stateSchema);
   const [disable, setDisable] = React.useState(true);
   const [isDirty, setIsDirty] = React.useState(false);
-  const [data, setData]=React.useState({ password: '', name: '' }); 
+  const [data, setData]=React.useState({ password: '', token: '' }); 
 
   const validateState = React.useCallback(() => {
     const hasErrorInState = Object.keys(validationStateSchema).some(key => {
@@ -85,9 +91,15 @@ function ResetPassword() {
   }, [validationStateSchema]);
 
   const onSubmit = (evt) => {
-    //evt.preventDefault();
+    evt.preventDefault();
+    dispatch(resetPasswordAction(data));
+    setData({ password: '', token: '' });
   };
 
+  if (!isMessageReceived) {
+    return <Redirect to='/forgot-password' />
+  }
+  
   return(
     <div className={styles.container}>
       <p className="text text_type_main-medium" style={mobile ? {maxWidth: 250, margin: 'auto' } : {maxWidth: 480 }}>Восстановление пароля</p>
@@ -98,20 +110,20 @@ function ResetPassword() {
           name={'password'}
           size={mobile ? 'small' : 'default'}
         />
-        {mobile 
-        ?
-          null
-        :  
-          <NameInput
-            onChange={onChange}
-            value={data.name}
-            name={'name'}
-            size={mobile ? 'small' : 'default'}
-          />
-        }
-        {errorMessage && 
+        <NameInput
+          onChange={onChange}
+          value={data.token}
+          name={'token'}
+          size={mobile ? 'small' : 'default'}
+        />
+        {errorResetMessage && 
           <span style={{ color: '#EE3465' }}>
             Что-то пошло не так. Попробуйте ещё раз.
+          </span>
+        }
+        {successResetMessage && 
+          <span style={{ color: '#EE3465' }}>
+            Вы успешно восстановили пароль.
           </span>
         }
         <Button type="clear" size={mobile ? 'small' : 'medium'} disabled={disable}>

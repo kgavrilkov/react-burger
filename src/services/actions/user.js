@@ -1,4 +1,4 @@
-import { getUserInfo, setUserInfo } from '../../utils/api';
+import { getUserInfo, setUserInfo } from '../../utils/api.js';
 
 export const GET_USER_INFO = 'GET_USER_INFO';
 export const GET_USER_INFO_SUCCESS = 'GET_USER_INFO_SUCCESS';
@@ -8,12 +8,12 @@ export const SET_USER_INFO = 'SET_USER_INFO';
 export const SET_USER_INFO_SUCCESS = 'SET_USER_INFO_SUCCESS';
 export const SET_USER_INFO_FAILED = 'SET_USER_INFO_FAILED';
 
-export const getUser = (accessToken) => {
+export const getUserAction = () => {
   return function(dispatch) {
     dispatch({
       type: GET_USER_INFO
     });
-    getUserInfo(accessToken)
+    getUserInfo()
       .then((res) => {
         if (res && res.success) {
           dispatch({
@@ -34,18 +34,19 @@ export const getUser = (accessToken) => {
   };
 };
 
-export const setUser = (accessToken, {name, email}) => {
+export const setUserAction = (name, email, password) => {
   return function(dispatch) {
     dispatch({
       type: SET_USER_INFO
     });
-    setUserInfo(accessToken, {name, email})
+    setUserInfo(name, email, password)
       .then((res) => {
         if (res && res.success) {
           dispatch({
             type: SET_USER_INFO_SUCCESS,
             payload: res.user
           });
+          setTimeout(() => window.location.reload(), 3000);
         } else {
           dispatch({
             type: SET_USER_INFO_FAILED

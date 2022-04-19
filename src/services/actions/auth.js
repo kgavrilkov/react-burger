@@ -1,5 +1,4 @@
-import { register, login, logout } from '../../utils/auth';
-import { history } from '../../utils/history';
+import { register, login, logout } from '../../utils/auth.js';
 
 export const REGISTER_REQUEST = 'REGISTER_REQUEST';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
@@ -24,7 +23,7 @@ export const registerAction = (name, email, password) => {
           dispatch({
             type: REGISTER_SUCCESS,
           });
-          history.push('/login');
+          window.location.assign('/login');
         } else {
           dispatch({
             type: REGISTER_FAILED
@@ -35,6 +34,7 @@ export const registerAction = (name, email, password) => {
         dispatch({
           type: REGISTER_FAILED
         });
+        setTimeout(() => window.location.reload(), 3000);
       });
   };
 };
@@ -51,7 +51,6 @@ export const loginAction = (email, password) => {
             type: LOGIN_SUCCESS,
             payload: res.user
           });
-          history.push('/');
         } else {
           dispatch({
             type: LOGIN_FAILED
@@ -62,6 +61,7 @@ export const loginAction = (email, password) => {
         dispatch({
           type: LOGIN_FAILED
         });
+        setTimeout(() => window.location.reload(), 3000);
       });
   };
 };
@@ -77,7 +77,6 @@ export const logoutAction = () => {
           dispatch({
             type: LOGOUT_SUCCESS
           });
-          history.push('/login');
         } else {
           dispatch({
             type: LOGOUT_FAILED

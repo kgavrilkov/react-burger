@@ -84,6 +84,32 @@
 	color: white;
 }
 
+.button_type_profile {
+	color: #8585AD;
+	background: transparent;
+}
+
+.button_type_profile:hover {
+	color: white;
+	opacity: 0.9;
+}
+
+.button_type_profile:active {
+	color: white;
+}
+
+.button_size_profile {
+	align-self: center;
+	width: 75px;
+	padding-left: 0;
+	font-family: 'Jet Brains Mono';
+	font-size: 24px;
+	line-height: 1.25;
+	font-style: normal;
+	font-weight: 700;
+	text-align: left;
+}
+
 .button_size_large {
 	font-family: 'Jet Brains Mono';
 	font-size: 16px;

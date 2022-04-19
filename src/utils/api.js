@@ -1,3 +1,5 @@
+import { fetchWithRefresh } from './wrapper.js';
+
 const BASE_URL = 'https://norma.nomoreparties.space/api';
 
 const checkResponse = (res) => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
@@ -18,33 +20,35 @@ export const getOrderNumber = (ingredientsId) => {;
     .then(checkResponse)
 };
 
-export const getUserInfo = (accessToken) => {
-  return fetch(`${BASE_URL}/auth/user`, {
+export const getUserInfo = () => {
+  const accessToken = localStorage.getItem('accessToken');
+  return fetchWithRefresh(`${BASE_URL}/auth/user`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${accessToken}`
+      'Authorization': accessToken
     }
   })
     .then(checkResponse)
+};
+
+export const setUserInfo = ({name, email, password}) => {
+  const accessToken = localStorage.getItem('accessToken');
+  return fetch(`${BASE_URL}/auth/user`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': accessToken
+    },
+    body: JSON.stringify({name, email, password})
+  })
+    .then(checkResponse)
     .then((data) => {
-      if (data.user) {
+      if (data) {
         localStorage.setItem('user', JSON.stringify(data.user));
         return data;
       } else {
         return;
       }
     })
-};
-
-export const setUserInfo = (accessToken, {name, email}) => {
-  return fetch(`${BASE_URL}/auth/user`, {
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${accessToken}`
-    },
-    body: JSON.stringify({name, email})
-  })
-    .then(checkResponse)
 };

@@ -2,8 +2,8 @@ import React, { SyntheticEvent } from 'react';
 import styles from './button.module.css';
 
 export const Button: React.FC<{
-    type?: 'login' | 'register' | 'forgot' | 'clear' | 'secondary';
-    size?: 'small' | 'medium' | 'large';
+    type?: 'login' | 'register' | 'forgot' | 'clear' | 'secondary' | 'profile';
+    size?: 'small' | 'medium' | 'large' | 'profile';
     onClick?: (() => void) | ((e: SyntheticEvent) => void);
     disabled?: boolean;
     name?: string;
@@ -26,13 +26,17 @@ export const Button: React.FC<{
             ? styles.button_type_forgot
             : type === 'clear'
             ? styles.button_type_clear
-            : styles.button_type_secondary
+            : type === 'secondary'
+            ? styles.button_type_secondary
+            : styles.button_type_profile
     } ${
         size === 'medium'
             ? styles.button_size_medium
             : size === 'small'
             ? styles.button_size_small
-            : styles.button_size_large
+            : size === 'large'
+            ? styles.button_size_large
+            : styles.button_size_profile
     }`;
 
     return (

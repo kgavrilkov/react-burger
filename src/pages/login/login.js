@@ -1,16 +1,22 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
-import { Link } from 'react-router-dom';
+import { Link, Redirect, useLocation } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
+import { useSelector, useDispatch } from 'react-redux';
 import { EmailInput } from '../../components/email-input/email-input';
 import { PasswordInput } from '../../components/password-input/password-input';
 import { Button } from '../../components/button/button';
+import { loginAction } from '../../services/actions/auth.js';
 import styles from './login.module.css';
 
 function Login() {
-  const [errorMessage, setErrorMessage] = React.useState(false);
-
   const mobile = useMediaQuery({ query: `(max-width: 375px)` });
+
+  const isLoggedIn = useSelector(store => store.auth.isLoggedIn);
+  const errorLoginMessage = useSelector(store => store.auth.errorLoginMessage);
+
+  const dispatch = useDispatch();
+  const { state } = useLocation();
 
   const stateSchema = {
     email: { value: '', error: ''},
@@ -34,7 +40,7 @@ function Login() {
     },
   };
 
-  const [state, setState] = React.useState(stateSchema);
+  const [states, setState] = React.useState(stateSchema);
   const [disable, setDisable] = React.useState(true);
   const [isDirty, setIsDirty] = React.useState(false);
   const [data, setData]=React.useState({ email: '', password: '' }); 
@@ -42,20 +48,20 @@ function Login() {
   const validateState = React.useCallback(() => {
     const hasErrorInState = Object.keys(validationStateSchema).some(key => {
       const isInputFieldRequired = validationStateSchema[key].required;
-      const stateValue = state[key].value;
-      const stateError = state[key].error;
+      const stateValue = states[key].value;
+      const stateError = states[key].error;
 
       return (isInputFieldRequired && !stateValue) || stateError;
     });
 
     return hasErrorInState;
-  }, [state, validationStateSchema]);
+  }, [states, validationStateSchema]);
 
   React.useEffect(() => {
     if (isDirty) {
       setDisable(validateState());
     }
-  }, [state, isDirty, validateState]);
+  }, [states, isDirty, validateState]);
 
   const onChange = React.useCallback(event => {
     setIsDirty(true);
@@ -85,8 +91,16 @@ function Login() {
   }, [validationStateSchema]);
 
   const onSubmit = (evt) => {
-    //evt.preventDefault();
+    evt.preventDefault();
+    dispatch(loginAction(data));
+    setData({ email: '', password: '' });
   };
+
+  if (isLoggedIn) {
+    return (
+      <Redirect to={ state?.from || '/' }/>
+    );
+  } 
 
   return(
     <div className={styles.container}>
@@ -104,7 +118,7 @@ function Login() {
           name={'password'}
           size={mobile ? 'small' : 'default'}
         />
-        {errorMessage && 
+        {errorLoginMessage && 
           <span style={{ color: '#EE3465' }}>
             Что-то пошло не так. Попробуйте ещё раз.
           </span>

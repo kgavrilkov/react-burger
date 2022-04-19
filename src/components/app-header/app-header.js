@@ -1,7 +1,7 @@
 import React from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { useLocation } from 'react-router-dom';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { Logo, MenuIcon, CloseIcon, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import NavigationMenu from '../navigation-menu/navigation-menu.js';
 import logoPath from '../../images/logo.svg';
@@ -65,10 +65,10 @@ function AppHeader({ isAppHeaderVisible, handleToggle }) {
               </NavLink>  
             </li>
             <li className={styles.item}>
-              <NavLink className={styles.link} activeClassName={styles.active} to='/register'>
-                {location.pathname === ('/register') ? <ListIcon type="primary" /> : <ListIcon type="secondary" />}
+              <Link className={styles.link} /*activeClassName={styles.active}*/ to='#'>
+                {location.pathname === ('/register') ? <ListIcon type="secondary" /> : <ListIcon type="secondary" />}
                 <p className="text text_type_main-default" style={{ marginLeft: 10 }}>Лента заказов</p>
-              </NavLink>  
+              </Link>  
             </li>
           </ul>
           <ul className={styles.navigation}>

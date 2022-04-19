@@ -13,8 +13,8 @@ import styles from './register.module.css';
 function Register() {
   const mobile = useMediaQuery({ query: `(max-width: 375px)` });
 
-  const errorMessage = useSelector(store => store.auth.errorMessage);
-
+  const errorRegisterMessage = useSelector(store => store.auth.errorRegisterMessage);
+ 
   const dispatch = useDispatch();
 
   const stateSchema = {
@@ -100,6 +100,7 @@ function Register() {
   const onSubmit = (evt) => {
     evt.preventDefault();
     dispatch(registerAction(data));
+    setData({ name: '', email: '', password: '' });
   };
 
   return(
@@ -124,7 +125,7 @@ function Register() {
           name={'password'}
           size={mobile ? 'small' : 'default'}
         />
-        {errorMessage && 
+        {errorRegisterMessage && 
           <span style={{ color: '#EE3465' }}>
             Что-то пошло не так. Попробуйте ещё раз.
           </span>

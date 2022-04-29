@@ -85,6 +85,10 @@
   color: #F2F2F3;
 }
 
+.wrapper {
+  margin-left: 10px;
+}
+
 @media screen and (max-width: 900px) {
   .container {
     margin: 17px 13px;

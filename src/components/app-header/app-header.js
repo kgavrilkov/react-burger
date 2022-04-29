@@ -1,7 +1,6 @@
 import React from 'react';
 import { useMediaQuery } from 'react-responsive';
-import { useLocation } from 'react-router-dom';
-import { NavLink, Link } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import { Logo, MenuIcon, CloseIcon, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import NavigationMenu from '../navigation-menu/navigation-menu.js';
 import logoPath from '../../images/logo.svg';
@@ -27,7 +26,7 @@ function AppHeader({ isAppHeaderVisible, handleToggle }) {
       <div className={styles.logo}>
         {desktop
         ?
-          <Logo />
+          <Link to='/'><Logo /></Link>
         :
           <img src={logoPath} alt="Логотип" />
         }
@@ -47,7 +46,7 @@ function AppHeader({ isAppHeaderVisible, handleToggle }) {
             </div>
           :
             <nav className={styles.container}>
-              <img src={logoPath} alt="Логотип" />
+              <Link to='/'><img src={logoPath} alt="Логотип" /></Link>
               <button className={styles.features} onClick={handleOpen}>
                 <MenuIcon type="primary" />
               </button>
@@ -60,14 +59,18 @@ function AppHeader({ isAppHeaderVisible, handleToggle }) {
           <ul className={styles.navigation}>
             <li className={styles.item}>
               <NavLink className={styles.link} activeClassName={styles.active} exact to='/'>
-                {location.pathname === ('/') ? <BurgerIcon type="primary" /> : <BurgerIcon type="secondary" />}  
-                <p className="text text_type_main-default" style={{ marginLeft: 10 }}>Конструктор</p>
+                {location.pathname === ('/') ? <BurgerIcon type="primary" /> : <BurgerIcon type="secondary" />}
+                <div className={styles.wrapper}>  
+                  <p className="text text_type_main-default">Конструктор</p>
+                </div>
               </NavLink>  
             </li>
             <li className={styles.item}>
               <Link className={styles.link} /*activeClassName={styles.active}*/ to='#'>
                 {location.pathname === ('/register') ? <ListIcon type="secondary" /> : <ListIcon type="secondary" />}
-                <p className="text text_type_main-default" style={{ marginLeft: 10 }}>Лента заказов</p>
+                <div className={styles.wrapper}>
+                  <p className="text text_type_main-default">Лента заказов</p>
+                </div>
               </Link>  
             </li>
           </ul>
@@ -76,7 +79,9 @@ function AppHeader({ isAppHeaderVisible, handleToggle }) {
               <NavLink className={styles.link} activeClassName={styles.active} to='/profile'>
                 {location.pathname === ('/profile') ? <ProfileIcon type="primary" /> 
                 :location.pathname === ('/profile/orders') ? <ProfileIcon type="primary" /> : <ProfileIcon type="secondary" />}
-                <p className="text text_type_main-default" style={{ marginLeft: 10 }}>Личный кабинет</p>
+                <div className={styles.wrapper}>
+                  <p className="text text_type_main-default">Личный кабинет</p>
+                </div>
               </NavLink>
             </li> 
           </ul>

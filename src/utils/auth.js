@@ -1,6 +1,4 @@
-const BASE_URL = 'https://norma.nomoreparties.space/api';
-
-const checkResponse = (res) => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
+import { BASE_URL, checkResponse } from './api.js';
 
 export const register = ({name, email, password}) => {
   return fetch(`${BASE_URL}/auth/register`, {

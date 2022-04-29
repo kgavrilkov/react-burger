@@ -11,13 +11,29 @@
   margin: 24px 0px 80px;
 }
 
+.span {
+  color: #EE3465;
+}
+
+.box {
+  display: flex;
+  justify-content: center;
+}
+
 .link {
   text-decoration: none;
+  color: #4C4CFF;
   transition: opacity 1s linear 0.5s;
 }
 
 .link:hover {
   opacity: .6;
+}
+
+.unit {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
 }
 
 @media screen and (max-width: 375px) {
@@ -31,5 +47,18 @@
   .content {
     row-gap: 20px;
     margin: 24px 0px 10px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .box {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .unit {
+    display: block;
+    margin-top: 20px;
   }
 }

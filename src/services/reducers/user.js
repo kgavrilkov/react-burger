@@ -4,7 +4,8 @@ import {
   GET_USER_INFO_FAILED,
   SET_USER_INFO,
   SET_USER_INFO_SUCCESS,
-  SET_USER_INFO_FAILED
+  SET_USER_INFO_FAILED,
+  DELETE
 } from '../actions/user.js';
 
 const initialState = {
@@ -62,6 +63,12 @@ export const currentUser = (state = initialState, action) => {
         successMessage: false,
         userRequest: false,
         getUserFailed: true
+      };
+    }
+    case DELETE: {
+      return {
+        ...state,
+        successMessage: false
       };
     }
     default: {

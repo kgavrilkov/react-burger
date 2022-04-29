@@ -8,6 +8,8 @@ export const SET_USER_INFO = 'SET_USER_INFO';
 export const SET_USER_INFO_SUCCESS = 'SET_USER_INFO_SUCCESS';
 export const SET_USER_INFO_FAILED = 'SET_USER_INFO_FAILED';
 
+export const DELETE = 'DELETE';
+
 export const getUserAction = () => {
   return function(dispatch) {
     dispatch({
@@ -46,10 +48,13 @@ export const setUserAction = (name, email, password) => {
             type: SET_USER_INFO_SUCCESS,
             payload: res.user
           });
-          setTimeout(() => window.location.reload(), 3000);
-        } else {
+        } else if (!res && res.success) {
           dispatch({
             type: SET_USER_INFO_FAILED
+          });
+        } else {
+          dispatch({
+            type: DELETE
           });
         }
       })

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { useSelector, useDispatch } from 'react-redux';
@@ -53,7 +54,15 @@ function BurgerIngredients({ isBurgerIngredientsVisible, handleModalOpen }) {
       type: GET_ITEM_TO_VIEW,
       payload: card
     });
+    localStorage.setItem('card', JSON.stringify(card));
   };
+
+  React.useEffect(() => {
+    const card = JSON.parse(localStorage.getItem('card'));
+    if (card) {
+      handleModalOpen(handleCardOpen(card));
+    }
+  }, []);
 
   return(
     <section className={styles.burger}>

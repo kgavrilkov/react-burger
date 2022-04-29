@@ -1,9 +1,9 @@
 import React, { useRef, useState } from 'react';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 
-const validatePassword = (email: string) => {
-    const re = /^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8}$/;
-    return re.test(email);
+const validatePassword = (password: string) => {
+    const re = /^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8,}$/;
+    return re.test(password);
 };
 
 export const ProfilePasswordInput = ({
@@ -59,7 +59,7 @@ export const ProfilePasswordInput = ({
             error={error}
             disabled={fieldDisabled}
             onIconClick={onIconClick}
-            errorText={'Пароль должен содержать 8 символов: 2 заглавные латинские буквы, 1 специальный символ, 2 цифры и 3 строчные латинские буквы'}
+            errorText={'Пароль должен содержать не менее 8 символов, как минимум: 1 заглавную латинскую букву, 1 специальный символ, 1 цифру и 1 строчную латинскую букву'}
             size={size === 'small' ? 'small' : 'default'}
         />
     );

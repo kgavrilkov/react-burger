@@ -1,22 +1,24 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect, useHistory, Link } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 import { useSelector, useDispatch } from 'react-redux';
 import { NameInput } from '../../components/name-input/name-input';
 import { PasswordInput } from '../../components/password-input/password-input';
 import { Button } from '../../components/button/button';
-import { resetPasswordAction } from '../../services/actions/password.js';
+import { resetPasswordAction, CLEAR } from '../../services/actions/password.js';
 import styles from './reset-password.module.css';
 
 function ResetPassword() {
   const mobile = useMediaQuery({ query: `(max-width: 375px)` });
   
+  const isResetMessageReceived = useSelector(store => store.password.isResetMessageReceived);
   const isMessageReceived = useSelector(store => store.password.isMessageReceived);
   const errorResetMessage = useSelector(store => store.password.errorResetMessage);
   const successResetMessage = useSelector(store => store.password.successResetMessage);
 
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const stateSchema = {
     password: { value: '', error: ''},
@@ -27,8 +29,8 @@ function ResetPassword() {
     password: {
       required: true,
       validator: {
-        regEx: /^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8}$/,
-        error: 'Пароль должен содержать 8 символов: 2 заглавные латинские буквы, 1 специальный символ, 2 цифры и 3 строчные латинские буквы'
+        regEx: /^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8,}$/,
+        error: 'Пароль должен содержать не менее 8 символов, как минимум: 1 заглавную латинскую букву, 1 специальный символ, 1 цифру и 1 строчную латинскую букву'
       }
     },
     token: {
@@ -93,8 +95,20 @@ function ResetPassword() {
   const onSubmit = (evt) => {
     evt.preventDefault();
     dispatch(resetPasswordAction(data));
-    setData({ password: '', token: '' });
   };
+
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      if (isResetMessageReceived) {
+        dispatch({
+          type: CLEAR
+        });
+        localStorage.removeItem('resetMessage');
+        history.push('/login');
+      }
+    }, 5000);
+    return () => clearTimeout(timer);
+  }, [isResetMessageReceived]);
 
   if (!isMessageReceived) {
     return <Redirect to='/forgot-password' />
@@ -102,7 +116,9 @@ function ResetPassword() {
   
   return(
     <div className={styles.container}>
-      <p className="text text_type_main-medium" style={mobile ? {maxWidth: 250, margin: 'auto' } : {maxWidth: 480 }}>Восстановление пароля</p>
+      <div className={styles.wrapper}>
+        <p className="text text_type_main-medium">Восстановление пароля</p>
+      </div>
       <form className={styles.content} onSubmit={onSubmit} noValidate>
         <PasswordInput
           onChange={onChange}
@@ -117,12 +133,12 @@ function ResetPassword() {
           size={mobile ? 'small' : 'default'}
         />
         {errorResetMessage && 
-          <span style={{ color: '#EE3465' }}>
+          <span className={styles.span}>
             Что-то пошло не так. Попробуйте ещё раз.
           </span>
         }
         {successResetMessage && 
-          <span style={{ color: '#EE3465' }}>
+          <span className={styles.span}>
             Вы успешно восстановили пароль.
           </span>
         }
@@ -130,10 +146,10 @@ function ResetPassword() {
           Сохранить 
         </Button> 
       </form>
-      <div style={mobile ? { display: 'block' }  : { display: 'flex', justifyContent: 'center' }}>
+      <div className={styles.box}>
         <p className={mobile ? "text text_type_main-small text_color_inactive" : "text text_type_main-default text_color_inactive"}>Вспомнили пароль?</p>
         <Link className={styles.link} to='/login'>
-          <p className={mobile ? "text text_type_main-small ml-2" : "text text_type_main-default ml-2"} style={{ color: '#4C4CFF' }}>Войти</p>
+          <p className={mobile ? "text text_type_main-small ml-2" : "text text_type_main-default ml-2"}>Войти</p>
         </Link>
       </div>
     </div>

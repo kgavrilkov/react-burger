@@ -36,6 +36,7 @@
 
 .link {
   display: flex;
+  align-items: center;
   text-decoration: none;
   color: #8585AD;
   transition: opacity 1s linear 0.5s;
@@ -43,4 +44,8 @@
 
 .active {
   color: #F2F2F3;
+}
+
+.wrapper {
+  margin-left: 10px;
 }

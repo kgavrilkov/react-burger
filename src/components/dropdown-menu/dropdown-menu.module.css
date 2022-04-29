@@ -21,3 +21,8 @@
 .active {
   color: #F2F2F3;
 }
+
+.wrapper {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}

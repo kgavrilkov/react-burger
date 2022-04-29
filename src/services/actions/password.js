@@ -8,6 +8,7 @@ export const RESET_REQUEST = 'RESET_REQUEST';
 export const RESET_SUCCESS = 'RESET_SUCCESS';
 export const RESET_FAILED = 'RESET_FAILED';
 
+export const CLEAR = 'CLEAR';
 
 export const forgotPasswordAction = (email) => {
   return function(dispatch) {
@@ -20,7 +21,6 @@ export const forgotPasswordAction = (email) => {
           dispatch({
             type: FORGOT_SUCCESS,
           });
-          setTimeout(() => window.location.assign('/reset-password'), 5000);
         } else {
           dispatch({
             type: FORGOT_FAILED
@@ -46,11 +46,13 @@ export const resetPasswordAction = (password, token) => {
           dispatch({
             type: RESET_SUCCESS,
           });
-          setTimeout(() => window.location.assign('/login'), 5000);
-          localStorage.removeItem('message');
-        } else {
+        } else if (!res && res.success) {
           dispatch({
             type: RESET_FAILED
+          });
+        } else {
+          dispatch({
+            type: CLEAR
           });
         }
       })
@@ -58,7 +60,6 @@ export const resetPasswordAction = (password, token) => {
         dispatch({
           type: RESET_FAILED
         });
-        setTimeout(() => window.location.reload(), 3000);
       });
   };
 };

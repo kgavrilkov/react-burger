@@ -19,17 +19,23 @@ function DropdownMenu() {
     <ul className={styles.dropdown}>
       <li className={styles.option}>
         <NavLink className={styles.link} activeClassName={styles.active} to='/profile'>
-          <p className="text text_type_main-small" style={{ paddingTop: 10, paddingBottom: 10 }}>Профиль</p>
+          <div className={styles.wrapper}>
+            <p className="text text_type_main-small">Профиль</p>
+          </div>
         </NavLink>
       </li>
       <li className={styles.option}>
         <NavLink className={styles.link} activeClassName={styles.active} to='/profile/orders'>
-          <p className="text text_type_main-small" style={{ paddingTop: 10, paddingBottom: 10 }}>История заказов</p>
+          <div className={styles.wrapper}>
+            <p className="text text_type_main-small">История заказов</p>
+          </div>
         </NavLink>
       </li>
       <li className={styles.option}>
         <Button type='profile' size='profile' onClick={logout}>
-          <p className="text text_type_main-small" style={{ paddingTop: 10, paddingBottom: 10 }}>Выход</p>
+          <div className={styles.wrapper}>
+            <p className="text text_type_main-small">Выход</p>
+          </div>
         </Button>
       </li>
     </ul>

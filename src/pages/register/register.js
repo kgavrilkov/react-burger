@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 import { useSelector, useDispatch } from 'react-redux';
 import { NameInput } from '../../components/name-input/name-input';
@@ -13,6 +13,7 @@ import styles from './register.module.css';
 function Register() {
   const mobile = useMediaQuery({ query: `(max-width: 375px)` });
 
+  const registered = useSelector(store => store.auth.registered);
   const errorRegisterMessage = useSelector(store => store.auth.errorRegisterMessage);
  
   const dispatch = useDispatch();
@@ -41,8 +42,8 @@ function Register() {
     password: {
       required: true,
       validator: {
-        regEx: /^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8}$/,
-        error: 'Пароль должен содержать 8 символов: 2 заглавные латинские буквы, 1 специальный символ, 2 цифры и 3 строчные латинские буквы'
+        regEx: /^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8,}$/,
+        error: 'Пароль должен содержать не менее 8 символов, как минимум: 1 заглавную латинскую букву, 1 специальный символ, 1 цифру и 1 строчную латинскую букву'
       },
     },
   };
@@ -100,8 +101,11 @@ function Register() {
   const onSubmit = (evt) => {
     evt.preventDefault();
     dispatch(registerAction(data));
-    setData({ name: '', email: '', password: '' });
   };
+
+  if (registered) {
+    return <Redirect to='/login' />
+  }
 
   return(
     <div className={styles.container}>
@@ -126,7 +130,7 @@ function Register() {
           size={mobile ? 'small' : 'default'}
         />
         {errorRegisterMessage && 
-          <span style={{ color: '#EE3465' }}>
+          <span className={styles.span}>
             Что-то пошло не так. Попробуйте ещё раз.
           </span>
         }
@@ -134,10 +138,10 @@ function Register() {
           Зарегистрироваться
         </Button>
       </form>
-      <div style={mobile ? { display: 'block' }  : { display: 'flex', justifyContent: 'center' }}>
+      <div className={styles.box}>
         <p className={mobile ? "text text_type_main-small text_color_inactive" : "text text_type_main-default text_color_inactive"}>Уже зарегистрированы?</p>
         <Link className={styles.link} to='/login'>
-          <p className={mobile ? "text text_type_main-small ml-2" : "text text_type_main-default ml-2"} style={{ color: '#4C4CFF' }}>Войти</p>
+          <p className={mobile ? "text text_type_main-small ml-2" : "text text_type_main-default ml-2"}>Войти</p>
         </Link>
       </div>   
     </div>

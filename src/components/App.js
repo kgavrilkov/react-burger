@@ -72,6 +72,7 @@ function App() {
   };
 
   const handleModalClose = () => {
+    localStorage.removeItem('card');
     setIsModalVisible(false);
     dispatch({
       type: RESET_ITEM_TO_VIEW

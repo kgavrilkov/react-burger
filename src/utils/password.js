@@ -1,6 +1,4 @@
-const BASE_URL = 'https://norma.nomoreparties.space/api';
-
-const checkResponse = (res) => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
+import { BASE_URL, checkResponse } from './api.js';
 
 export const forgotPassword = ({email}) => {
   return fetch(`${BASE_URL}/password-reset`, {
@@ -32,4 +30,12 @@ export const resetPassword = ({password, token}) => {
     body: JSON.stringify({password, token}),
   })
     .then(checkResponse)
+    .then((data) => {
+      if (data) {
+        localStorage.setItem('resetMessage', data.message);
+        return data;
+      } else {
+        return;
+      }
+    })
 };

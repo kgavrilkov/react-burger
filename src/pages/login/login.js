@@ -34,8 +34,8 @@ function Login() {
     password: {
       required: true,
       validator: {
-        regEx: /^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8}$/,
-        error: 'Пароль должен содержать 8 символов: 2 заглавные латинские буквы, 1 специальный символ, 2 цифры и 3 строчные латинские буквы'
+        regEx: /^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8,}$/,
+        error: 'Пароль должен содержать не менее 8 символов, как минимум: 1 заглавную латинскую букву, 1 специальный символ, 1 цифру и 1 строчную латинскую букву'
       },
     },
   };
@@ -93,14 +93,13 @@ function Login() {
   const onSubmit = (evt) => {
     evt.preventDefault();
     dispatch(loginAction(data));
-    setData({ email: '', password: '' });
   };
 
   if (isLoggedIn) {
     return (
       <Redirect to={ state?.from || '/' }/>
     );
-  } 
+  }
 
   return(
     <div className={styles.container}>
@@ -119,7 +118,7 @@ function Login() {
           size={mobile ? 'small' : 'default'}
         />
         {errorLoginMessage && 
-          <span style={{ color: '#EE3465' }}>
+          <span className={styles.span}>
             Что-то пошло не так. Попробуйте ещё раз.
           </span>
         }
@@ -127,16 +126,16 @@ function Login() {
           Войти 
         </Button> 
       </form>
-      <div style={mobile ? { display: 'block' }  : { display: 'flex', justifyContent: 'center' }}>
+      <div className={styles.box}>
         <p className={mobile ? "text text_type_main-small text_color_inactive" : "text text_type_main-default text_color_inactive"}>Вы - новый пользователь?</p>
         <Link className={styles.link} to='/register'>
-          <p className={mobile ? "text text_type_main-small ml-2" : "text text_type_main-default ml-2"} style={{ color: '#4C4CFF' }}>Зарегистрироваться</p>
+          <p className={mobile ? "text text_type_main-small ml-2" : "text text_type_main-default ml-2"}>Зарегистрироваться</p>
         </Link>
       </div>
-      <div style={mobile ? { display: 'block', marginTop: 20 }  : { display: 'flex', justifyContent: 'center', marginTop: 16 }}>
+      <div className={styles.unit}>
         <p className={mobile ? "text text_type_main-small text_color_inactive" : "text text_type_main-default text_color_inactive"}>Забыли пароль?</p>
         <Link className={styles.link} to='/forgot-password'>
-          <p className={mobile ? "text text_type_main-small ml-2" : "text text_type_main-default ml-2"} style={{ color: '#4C4CFF' }}>Восстановить пароль</p>
+          <p className={mobile ? "text text_type_main-small ml-2" : "text text_type_main-default ml-2"}>Восстановить пароль</p>
         </Link>
       </div>   
     </div>

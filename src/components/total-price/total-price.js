@@ -62,7 +62,7 @@ function TotalPrice({ isBurgerConstructorVisible, handleToggle, handleModalOpen 
         : 
           buns && notBuns && 
           <Link to='/login'>
-            <Button type="primary" size={mobile ? "small" : "large"} onClick={() => handleModalOpen(getRequestNumber())}>{mobile ? "Заказать" : "Оформить заказ"}</Button>
+            <Button type="primary" size={mobile ? "small" : "large"}>{mobile ? "Заказать" : "Оформить заказ"}</Button>
           </Link>
         :
           <Button type="primary" size={mobile ? "small" : "medium"} onClick={handleToggle}>Смотреть заказ</Button>

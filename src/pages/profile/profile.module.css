@@ -44,11 +44,30 @@
   transition: opacity 1s linear 0.5s;
 }
 
+.wrapper {
+  grid-row: 5;
+  align-self: end;
+}
+
+.frame {
+  display: flex;
+  flex-direction: column;
+}
+
 .form {
   display: grid;
   grid-template-rows: repeat(4, minmax(min-content, max-content));
   row-gap: 24px;
   max-width: 480px;
+}
+
+.span {
+  color: #EE3465;
+  text-align: center;
+}
+
+.button {
+  margin: auto;
 }
 
 @media screen and (max-width: 375px) {

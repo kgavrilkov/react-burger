@@ -12,6 +12,8 @@ export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 export const LOGOUT_FAILED = 'LOGOUT_FAILED';
 
+export const RESET = 'RESET';
+
 export const registerAction = (name, email, password) => {
   return function(dispatch) {
     dispatch({
@@ -21,9 +23,11 @@ export const registerAction = (name, email, password) => {
       .then((res) => {
         if (res && res.success) {
           dispatch({
-            type: REGISTER_SUCCESS,
+            type: REGISTER_SUCCESS
           });
-          window.location.assign('/login');
+          dispatch({
+            type: RESET
+          });
         } else {
           dispatch({
             type: REGISTER_FAILED
@@ -34,7 +38,6 @@ export const registerAction = (name, email, password) => {
         dispatch({
           type: REGISTER_FAILED
         });
-        setTimeout(() => window.location.reload(), 3000);
       });
   };
 };
@@ -61,7 +64,6 @@ export const loginAction = (email, password) => {
         dispatch({
           type: LOGIN_FAILED
         });
-        setTimeout(() => window.location.reload(), 3000);
       });
   };
 };

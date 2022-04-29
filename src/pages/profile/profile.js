@@ -7,7 +7,7 @@ import { ProfileNameInput } from '../../components/profile-name-input/profile-na
 import { ProfileEmailInput } from '../../components/profile-email-input/profile-email-input';
 import { ProfilePasswordInput } from '../../components/profile-password-input/profile-password-input';
 import { Button } from '../../components/button/button';
-import { getUserAction, setUserAction } from '../../services/actions/user.js';
+import { getUserAction, setUserAction, DELETE } from '../../services/actions/user.js';
 import { logoutAction } from '../../services/actions/auth.js';
 import styles from './profile.module.css';
 
@@ -63,8 +63,8 @@ function Profile({match}) {
     password: {
       required: false,
       validator: {
-        regEx: /^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8}$/,
-        error: 'Пароль должен содержать 8 символов: 2 заглавные латинские буквы, 1 специальный символ, 2 цифры и 3 строчные латинские буквы'
+        regEx: /^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8,}$/,
+        error: 'Пароль должен содержать не менее 8 символов, как минимум: 1 заглавную латинскую букву, 1 специальный символ, 1 цифру и 1 строчную латинскую букву'
       },
     },
   };
@@ -175,8 +175,23 @@ function Profile({match}) {
     dispatch(setUserAction({name, email, password}));
   };
 
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      if (currentUser) {
+        dispatch({
+          type: DELETE
+        });
+        setVisible(false);
+      }
+    }, 5000);
+    return () => clearTimeout(timer);
+  }, [currentUser]);
+
   const onClick = () => {
-    window.location.reload();
+    setName(currentUser.name);
+    setEmail(currentUser.email);
+    setPassword('');
+    setVisible(false);
   };
 
   const logout = () => {
@@ -202,12 +217,14 @@ function Profile({match}) {
           <Button type="profile" size='profile' onClick={logout}>
             Выход
           </Button>
-          <p className="text text_type_main-default text_color_inactive" style={{ gridRow: 5, alignSelf: 'end' }}>
-            В этом разделе вы можете изменить свои персональные данные
-          </p>
+          <div className={styles.wrapper}>
+            <p className="text text_type_main-default text_color_inactive">
+              В этом разделе вы можете изменить свои персональные данные
+            </p>
+          </div>
         </div>
       }  
-        <form style={{ display: 'flex', flexDirection: 'column' }} onSubmit={onSubmit} noValidate>
+        <form className={styles.frame} onSubmit={onSubmit} noValidate>
           <div className={styles.form}>
             <ProfileNameInput
               onChange={handleNameChange}
@@ -228,7 +245,7 @@ function Profile({match}) {
               size={mobile ? 'small' : 'default'}
             />
             {successMessage && 
-              <span style={{ color: '#EE3465', textAlign: 'center' }}>
+              <span className={styles.span}>
                 Вы успешно обновили информацию о пользователе.
               </span>
             }
@@ -238,7 +255,7 @@ function Profile({match}) {
               </Button>
             }
           </div>
-          <div style={{ margin: 'auto' }}>
+          <div className={styles.button}>
             {visible && 
               <Button type="secondary" htmlType='reset' size={mobile ? 'small' : 'medium'} onClick={onClick}>
                 Отмена

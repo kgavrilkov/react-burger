@@ -30,11 +30,13 @@ function NavigationMenu({ setIsNavigationMenuOpen }) {
           </button>
         </li>
         <li className={styles.section}>
-          <NavLink className={styles.link} activeClassName={styles.active} to='/profile' style={{ alignItems: 'center' }}>
+          <NavLink className={styles.link} activeClassName={styles.active} to='/profile'>
             {location.pathname === ('/profile') ? <ProfileIcon type="primary" /> 
             :location.pathname === ('/profile/orders') ? <ProfileIcon type="primary" /> : <ProfileIcon type="secondary" />
             }
-            <p className="text text_type_main-small" style={{ marginLeft: 10 }}>Личный кабинет</p>
+            <div className={styles.wrapper}>
+              <p className="text text_type_main-small">Личный кабинет</p>
+            </div>
           </NavLink>
           <button className={styles.features} onClick={handleClick}>
             {isDropdownMenuOpen 
@@ -46,15 +48,19 @@ function NavigationMenu({ setIsNavigationMenuOpen }) {
         </li>  
           {isDropdownMenuOpen && <DropdownMenu />}
         <li className={styles.section}>
-          <NavLink className={styles.link} activeClassName={styles.active} exact to='/' style={{ alignItems: 'center' }}>
-            {location.pathname === ('/') ? <BurgerIcon type="primary" /> : <BurgerIcon type="secondary" />}  
-            <p className="text text_type_main-small" style={{ marginLeft: 10 }}>Конструктор бургеров</p>
+          <NavLink className={styles.link} activeClassName={styles.active} exact to='/'>
+            {location.pathname === ('/') ? <BurgerIcon type="primary" /> : <BurgerIcon type="secondary" />}
+            <div className={styles.wrapper}>
+              <p className="text text_type_main-small">Конструктор бургеров</p>
+            </div>
           </NavLink>  
         </li>
         <li className={styles.section}>
-          <Link className={styles.link} /*activeClassName={styles.active}*/ to='#' style={{ alignItems: 'center' }}>
+          <Link className={styles.link} /*activeClassName={styles.active}*/ to='#'>
             {location.pathname === ('/register') ? <ListIcon type="secondary" /> : <ListIcon type="secondary" />}
-            <p className="text text_type_main-small" style={{ marginLeft: 10 }}>Лента заказов</p>
+            <div className={styles.wrapper}>
+              <p className="text text_type_main-small">Лента заказов</p>
+            </div>
           </Link>  
         </li>
       </ul>

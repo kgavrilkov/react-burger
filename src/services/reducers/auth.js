@@ -7,13 +7,15 @@ import {
   LOGIN_FAILED,
   LOGOUT_REQUEST,
   LOGOUT_SUCCESS,
-  LOGOUT_FAILED
+  LOGOUT_FAILED,
+  RESET
 } from '../actions/auth.js';
 
 const token = localStorage.getItem('refreshToken');
 
 const initialState = {
   user: null,
+  registered: null,
   isLoggedIn: !!token,
   errorRegisterMessage: false,
   errorLoginMessage: false
@@ -30,8 +32,13 @@ export const auth = (state = initialState, action) => {
     case REGISTER_SUCCESS: {
       return {
         ...state,
+        registered: true,      
+        errorRegisterMessage: false,
         isLoggedIn: false
       };
+    }
+    case RESET: {
+      return initialState
     }
     case REGISTER_FAILED: {
       return {
@@ -50,6 +57,7 @@ export const auth = (state = initialState, action) => {
       return {
         ...state,
         user: action.payload,
+        errorLoginMessage: false,
         isLoggedIn: true
       };
     }

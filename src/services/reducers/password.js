@@ -4,14 +4,17 @@ import {
   FORGOT_FAILED,
   RESET_REQUEST,
   RESET_SUCCESS,
-  RESET_FAILED
+  RESET_FAILED,
+  CLEAR
 } from '../actions/password.js';
 
 const message = localStorage.getItem('message');
+const resetMessage = localStorage.getItem('resetMessage');
 
 const initialState = {
   user: null,
   isMessageReceived: !!message,
+  isResetMessageReceived: !!resetMessage,
   successForgotMessage: false,
   errorResetMessage: false,
   successResetMessage: false
@@ -41,22 +44,26 @@ export const password = (state = initialState, action) => {
     case RESET_REQUEST: {
       return {
         ...state,
-        isMessageReceived: true
+        isResetMessageReceived: false
       };
     }
     case RESET_SUCCESS: {
       return {
         ...state,
+        errorResetMessage: false,
         successResetMessage: true,
-        isMessageReceived: true
+        isResetMessageReceived: true
       };
     }
     case RESET_FAILED: {
       return {
         ...state,
         errorResetMessage: true,
-        isMessageReceived: true
-      };
+        isResetMessageReceived: false
+      };  
+    }
+    case CLEAR: {
+      return initialState
     }
     default: {
       return state;

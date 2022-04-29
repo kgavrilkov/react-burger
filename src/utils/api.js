@@ -1,8 +1,8 @@
 import { fetchWithRefresh } from './wrapper.js';
 
-const BASE_URL = 'https://norma.nomoreparties.space/api';
+export const BASE_URL = 'https://norma.nomoreparties.space/api';
 
-const checkResponse = (res) => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
+export const checkResponse = (res) => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
 
 export const getIngredients = () => {
   return fetch(`${BASE_URL}/ingredients`)

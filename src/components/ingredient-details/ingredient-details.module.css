@@ -3,6 +3,10 @@
   height: 240px;
 }
 
+.wrapper {
+  text-align: center;
+}
+
 .list {
   display: flex;
   justify-content: space-between;
@@ -10,6 +14,16 @@
   height: 56px;
   list-style-type: none;
   padding: 0;
+}
+
+.container {
+  display: flex;
+  margin-left: 20px;
+}
+
+.box {
+  display: flex;
+  margin-right: 20px;
 }
 
 .item {
@@ -37,5 +51,12 @@
     margin-top: 50px;
     width: 250px;
     height: 100px;
+  }
+}
+
+@media screen and (max-width: 330px) {
+  .box {
+    display: flex;
+    margin-left: 20px;
   }
 }

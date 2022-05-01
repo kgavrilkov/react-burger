@@ -1,4 +1,5 @@
 import { getOrderNumber } from '../../utils/api.js';
+import { CLEAR_CONSTRUCTOR } from './constructor-ingredients.js';
 
 export const CREATE_ORDER = 'CREATE_ORDER';
 export const GET_ORDER_NUMBER = 'GET_ORDER_NUMBER';
@@ -17,6 +18,9 @@ export function getNumber(orderData) {
           dispatch({
             type: GET_ORDER_NUMBER_SUCCESS,
             payload: res.order.number
+          });
+          dispatch({
+            type: CLEAR_CONSTRUCTOR
           });
         } else {
           dispatch({

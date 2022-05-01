@@ -4,10 +4,10 @@ import BurgerConstructor from '../burger-constructor/burger-constructor.js';
 import styles from './main.module.css';
 import { mainProperties } from '../../utils/types.js';
 
-function Main({ isBurgerIngredientsVisible, isBurgerConstructorVisible, handleToggle, handleModalOpen, setTitle, setContent }) {
+function Main({ isBurgerIngredientsVisible, isBurgerConstructorVisible, handleToggle, handleModalOpen }) {
   return(
     <main className={styles.main}>
-      {isBurgerIngredientsVisible && <BurgerIngredients isBurgerIngredientsVisible={isBurgerIngredientsVisible} handleModalOpen={handleModalOpen} setTitle={setTitle} setContent={setContent} />}
+      {isBurgerIngredientsVisible && <BurgerIngredients isBurgerIngredientsVisible={isBurgerIngredientsVisible} handleModalOpen={handleModalOpen} />}
       {isBurgerConstructorVisible && <BurgerConstructor isBurgerIngredientsVisible={isBurgerIngredientsVisible} handleToggle={handleToggle} />}
     </main>
   );

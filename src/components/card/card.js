@@ -2,6 +2,7 @@ import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { useMediaQuery } from 'react-responsive';
 import { useSelector, useDispatch } from 'react-redux';
+import { useLocation, Link } from 'react-router-dom';
 import { useDrag } from 'react-dnd';
 import { CurrencyIcon, Button, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ADD_INGREDIENT } from '../../services/actions/constructor-ingredients.js';
@@ -12,6 +13,9 @@ function Card({ card, isBurgerIngredientsVisible, text, onClick }) {
   const { constructorIngredients } = useSelector(store => store.constructorIngredients);
 
   const dispatch = useDispatch();
+  const location = useLocation();
+
+  const ingredientId = card['_id'];
 
   const mobileS = useMediaQuery({ query: `(max-width: 430px)` });
 
@@ -64,7 +68,14 @@ function Card({ card, isBurgerIngredientsVisible, text, onClick }) {
   };
 
   return(
-    <>
+    <Link
+      key={ingredientId}
+      to={{
+        pathname: `/ingredients/${ingredientId}`,
+        state: { background: location }
+      }}
+      className={styles.link} 
+    >
       {isBurgerIngredientsVisible
       ?
         <ul className={styles.card} style={{opacity}} ref={dragRef}>
@@ -102,7 +113,7 @@ function Card({ card, isBurgerIngredientsVisible, text, onClick }) {
           <hr className={styles.line}></hr>
         </div>
       }
-    </>
+    </Link>
   );
 }
 

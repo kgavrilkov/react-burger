@@ -28,8 +28,6 @@ export const headerProperties = PropTypes.shape({
 export const ingredientsProperties = PropTypes.shape({
   isBurgerIngredientsVisible: PropTypes.bool.isRequired,
   handleModalOpen: PropTypes.func.isRequired,
-  setTitle: PropTypes.func.isRequired,
-  setContent: PropTypes.func.isRequired
 });
 
 export const constructorProperties = PropTypes.shape({
@@ -58,8 +56,6 @@ export const mainProperties = PropTypes.shape({
   isBurgerConstructorVisible: PropTypes.bool.isRequired,
   handleToggle: PropTypes.func.isRequired,
   handleModalOpen: PropTypes.func.isRequired,
-  setTitle: PropTypes.func.isRequired,
-  setContent: PropTypes.func.isRequired
 });
 
 export const menuProperties = PropTypes.shape({
@@ -90,8 +86,6 @@ export const priceProperties = PropTypes.shape({
   isBurgerConstructorVisible: PropTypes.bool.isRequired,
   handleToggle: PropTypes.func.isRequired,
   handleModalOpen: PropTypes.func.isRequired,
-  setTitle: PropTypes.func.isRequired,
-  setContent: PropTypes.func.isRequired
 });
 
 export const draggableProperties = PropTypes.shape({
@@ -100,4 +94,14 @@ export const draggableProperties = PropTypes.shape({
   id: PropTypes.string.isRequired,
   handleDeleteClick: PropTypes.func.isRequired,
   moveCard: PropTypes.func.isRequired
+});
+
+export const protectedProperties = PropTypes.shape({
+  component: PropTypes.string.isRequired,
+  props: PropTypes.string.isRequired
+});
+
+export const publicProperties = PropTypes.shape({
+  component: PropTypes.string.isRequired,
+  props: PropTypes.string.isRequired
 });

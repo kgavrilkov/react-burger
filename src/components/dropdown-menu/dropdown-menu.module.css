@@ -14,10 +14,15 @@
 .link {
   display: flex;
   text-decoration: none;
-  color: #F2F2F3;
+  color: #8585AD;
   transition: opacity 1s linear 0.5s;
 }
 
-.link:hover {
-  opacity: .6;
+.active {
+  color: #F2F2F3;
+}
+
+.wrapper {
+  padding-top: 10px;
+  padding-bottom: 10px;
 }

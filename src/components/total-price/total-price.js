@@ -1,17 +1,21 @@
 import React from "react";
 import { useMediaQuery } from 'react-responsive';
 import { useSelector, useDispatch } from 'react-redux';
+import { Link, useLocation } from 'react-router-dom';
 import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import currencyPath from '../../images/currency.svg';
 import { getNumber } from '../../services/actions/order.js';
 import styles from './total-price.module.css';
 import { priceProperties } from '../../utils/types.js';
 
-function TotalPrice({ isBurgerConstructorVisible, handleToggle, handleModalOpen, setTitle, setContent }) {
+function TotalPrice({ isBurgerConstructorVisible, handleToggle, handleModalOpen }) {
   const mobile = useMediaQuery({ query: `(max-width: 600px)` });
   
   const { constructorIngredients } = useSelector(store => store.constructorIngredients);
+  const isLoggedIn = useSelector(store => store.auth.isLoggedIn);
+
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const getTotalPrice = () => {
     let total = 0;
@@ -45,9 +49,23 @@ function TotalPrice({ isBurgerConstructorVisible, handleToggle, handleModalOpen,
         </div>
         {isBurgerConstructorVisible 
         ? 
-        buns && notBuns && <Button type="primary" size={mobile ? "small" : "large"} onClick={() => handleModalOpen(setTitle(false), setContent(false), getRequestNumber())}>{mobile ? "Заказать" : "Оформить заказ"}</Button>
+          buns && notBuns && isLoggedIn 
+        ? 
+          <Link 
+            to={{
+              pathname: '/profile/orders/:orderNumber', 
+              state: { background: location }
+            }}
+          >
+            <Button type="primary" size={mobile ? "small" : "large"} onClick={() => handleModalOpen(getRequestNumber())}>{mobile ? "Заказать" : "Оформить заказ"}</Button>
+          </Link> 
+        : 
+          buns && notBuns && 
+          <Link to='/login'>
+            <Button type="primary" size={mobile ? "small" : "large"}>{mobile ? "Заказать" : "Оформить заказ"}</Button>
+          </Link>
         :
-        <Button type="primary" size={mobile ? "small" : "medium"} onClick={handleToggle}>Смотреть заказ</Button>
+          <Button type="primary" size={mobile ? "small" : "medium"} onClick={handleToggle}>Смотреть заказ</Button>
         }
       </div>
     </div>

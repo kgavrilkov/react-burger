@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { useSelector, useDispatch } from 'react-redux';
@@ -9,7 +10,7 @@ import { useScroll } from '../use-scroll/use-scroll.js';
 import styles from './burger-ingredients.module.css';
 import { ingredientsProperties } from '../../utils/types.js';
 
-function BurgerIngredients({ isBurgerIngredientsVisible, handleModalOpen, setTitle, setContent }) {
+function BurgerIngredients({ isBurgerIngredientsVisible, handleModalOpen }) {
   const [current, setCurrent] = React.useState('bun');
 
   const mobile = useMediaQuery({ query: `(max-width: 630px)` });
@@ -53,7 +54,15 @@ function BurgerIngredients({ isBurgerIngredientsVisible, handleModalOpen, setTit
       type: GET_ITEM_TO_VIEW,
       payload: card
     });
+    localStorage.setItem('card', JSON.stringify(card));
   };
+
+  React.useEffect(() => {
+    const card = JSON.parse(localStorage.getItem('card'));
+    if (card) {
+      handleModalOpen(handleCardOpen(card));
+    }
+  }, []);
 
   return(
     <section className={styles.burger}>
@@ -76,7 +85,7 @@ function BurgerIngredients({ isBurgerIngredientsVisible, handleModalOpen, setTit
           <p className={mobileS ? "text text_type_main-default ml-2" : mobile ? "text text_type_main-medium ml-2" : "text text_type_main-medium"}>Булки</p>
           <div className={styles.cards}>
             {ingredients.filter((card => card.type === 'bun')).map((card) => {
-              return <Card card={card} key={card._id} isBurgerIngredientsVisible={isBurgerIngredientsVisible}  onClick={() => handleModalOpen(setTitle('Детали ингредиента'), setContent(true), handleCardOpen(card))}/>
+              return <Card card={card} key={card._id} isBurgerIngredientsVisible={isBurgerIngredientsVisible}  onClick={() => handleModalOpen(handleCardOpen(card))}/>
             })}
           </div>
         </li>
@@ -84,7 +93,7 @@ function BurgerIngredients({ isBurgerIngredientsVisible, handleModalOpen, setTit
           <p className={mobileS ? "text text_type_main-default ml-2" : mobile ? "text text_type_main-medium ml-2" : "text text_type_main-medium"}>Начинки</p>
           <div className={styles.cards}>
             {ingredients.filter((card => card.type === 'main')).map((card) => {
-              return <Card card={card} key={card._id} isBurgerIngredientsVisible={isBurgerIngredientsVisible} onClick={() => handleModalOpen(setTitle('Детали ингредиента'), setContent(true), handleCardOpen(card))}/>
+              return <Card card={card} key={card._id} isBurgerIngredientsVisible={isBurgerIngredientsVisible} onClick={() => handleModalOpen(handleCardOpen(card))}/>
             })}
           </div>
         </li>
@@ -92,7 +101,7 @@ function BurgerIngredients({ isBurgerIngredientsVisible, handleModalOpen, setTit
           <p className={mobileS ? "text text_type_main-default ml-2" : mobile ? "text text_type_main-medium ml-2" : "text text_type_main-medium"}>Соусы</p>
           <div className={styles.cards}>
             {ingredients.filter((card => card.type === 'sauce')).map((card) => {
-              return <Card card={card} key={card._id} isBurgerIngredientsVisible={isBurgerIngredientsVisible} onClick={() => handleModalOpen(setTitle('Детали ингредиента'), setContent(true), handleCardOpen(card))}/>
+              return <Card card={card} key={card._id} isBurgerIngredientsVisible={isBurgerIngredientsVisible} onClick={() => handleModalOpen(handleCardOpen(card))}/>
             })}
           </div>
         </li>

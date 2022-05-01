@@ -1,7 +1,8 @@
 import {
   ADD_INGREDIENT,
   DELETE_INGREDIENT,
-  REORDER_INGREDIENTS
+  REORDER_INGREDIENTS,
+  CLEAR_CONSTRUCTOR
 } from '../actions/constructor-ingredients.js';
 
 const initialState = {
@@ -44,6 +45,12 @@ export const constructorIngredients = (state = initialState, action) => {
       return {
         ...state,
         constructorIngredients: reordered
+      };  
+    }
+    case CLEAR_CONSTRUCTOR: {
+      return {
+        ...state,
+        constructorIngredients: []
       };
     }
     default: {

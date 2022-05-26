@@ -1,4 +1,4 @@
-import { getOrderNumber } from '../../utils/api.js';
+import { getOrderNumber } from '../../utils/api';
 import { CLEAR_CONSTRUCTOR } from './constructor-ingredients.js';
 
 export const CREATE_ORDER = 'CREATE_ORDER';

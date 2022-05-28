@@ -12,7 +12,7 @@ const Modal: FC<TModal> = ({ isModalVisible, handleModalClose, title, children }
   const mobileS: boolean = useMediaQuery({ query: `(max-width: 480px)` });
   const modalRoot = document.getElementById("modals")!;
 
-  const handleEscClose = (evt: { key: string; }) => {
+  const handleEscClose = (evt: KeyboardEvent) => {
     if (evt.key === 'Escape') {
       handleModalClose();
     }

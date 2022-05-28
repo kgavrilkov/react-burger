@@ -24,6 +24,7 @@ import Order from '../pages/order/order';
 import NotFound from '../pages/not-found/not-found';
 import ProtectedRoute from './protected-route/protected-route';
 import PublicRoute from './public-route/public-route';
+import MainRoute from './main-route/main-route';
 import { TLocationParams }  from '../utils/types';
 
 const App: FC = () => {
@@ -91,7 +92,7 @@ const App: FC = () => {
         handleToggle={handleToggle} 
       />
       <Switch location={ background || location }>
-        <PublicRoute exact path='/'>
+        <MainRoute exact path='/'>
           <DndProvider backend={HTML5Backend}>
             <Main 
               isBurgerIngredientsVisible={isBurgerIngredientsVisible} 
@@ -105,14 +106,14 @@ const App: FC = () => {
             handleToggle={handleToggle} 
             handleModalOpen={handleModalOpen} 
           />
-        </PublicRoute>
+        </MainRoute>
         <PublicRoute path='/register' component={Register} />
         <Route path='/login'><Login /></Route>
         <PublicRoute path='/forgot-password' component={ForgotPassword} />
         <PublicRoute path='/reset-password' component={ResetPassword} />
         <ProtectedRoute exact path='/profile' component={Profile} />
         <ProtectedRoute path='/profile/orders' component={Order} />
-        <ProtectedRoute path='/profile/orders/:orderNumber' />
+        <ProtectedRoute path='/profile/orders/:orderNumber' component={Order}/>
         <Route path='/ingredients/:ingredientId'><Ingredient /></Route>
         <Route><NotFound /></Route>
       </Switch>     

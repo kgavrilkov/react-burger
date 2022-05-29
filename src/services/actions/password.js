@@ -1,4 +1,4 @@
-import { forgotPassword, resetPassword } from '../../utils/password.js';
+import { forgotPassword, resetPassword } from '../../utils/password';
 
 export const FORGOT_REQUEST = 'FORGOT_REQUEST';
 export const FORGOT_SUCCESS = 'FORGOT_SUCCESS';

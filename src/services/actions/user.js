@@ -1,4 +1,4 @@
-import { getUserInfo, setUserInfo } from '../../utils/api.js';
+import { getUserInfo, setUserInfo } from '../../utils/api';
 
 export const GET_USER_INFO = 'GET_USER_INFO';
 export const GET_USER_INFO_SUCCESS = 'GET_USER_INFO_SUCCESS';

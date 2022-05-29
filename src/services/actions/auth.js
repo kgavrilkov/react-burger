@@ -1,4 +1,4 @@
-import { register, login, logout } from '../../utils/auth.js';
+import { register, login, logout } from '../../utils/auth';
 
 export const REGISTER_REQUEST = 'REGISTER_REQUEST';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';

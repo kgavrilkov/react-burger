@@ -1,0 +1,24 @@
+.heading {
+  max-width: 1240px;
+  margin: 40px auto 20px;
+}
+
+.name {
+  font-family: 'Jet Brains Mono';
+  font-style: normal;
+	font-weight: bold;
+	font-size: 28px;
+	line-height: 1.14;
+}
+
+@media screen and (max-width: 1300px) {
+  .heading {
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .heading {
+    margin: 16px auto 8px;
+  }
+}

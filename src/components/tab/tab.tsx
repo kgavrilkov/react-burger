@@ -14,7 +14,7 @@ export const Tab: React.FC<{
         }
     }, [handleClick, value]);
 
-    const mobile = useMediaQuery({ query: `(max-width: 630px)` });
+    const mobile: boolean = useMediaQuery({ query: `(max-width: 630px)` });
 
     return (
         <>

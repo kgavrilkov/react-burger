@@ -1,9 +1,7 @@
 .container {
   display: flex;
-  justify-content: space-between;
-  margin-top: 120px;
-  margin-left: 340px;
-  max-width: 860px;
+  max-width: 1240px;
+  margin: 120px auto;
 }
 
 .box {
@@ -16,6 +14,7 @@
   display: grid;
   grid-template-rows: repeat(5, 64px);
   max-width: 320px;
+  margin-right: 60px;
 }
 
 .link {
@@ -70,14 +69,26 @@
   margin: auto;
 }
 
-@media screen and (max-width: 375px) {
+@media screen and (max-width: 1100px) {
+  .container {
+    max-width: 984px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .frame {
+    align-items: center;
+  }
+}
+
+@media screen and (max-width: 350px) {
   .box {
     margin: 16px auto 0px;
     max-width: 304px;
   }
 }
 
-@media screen and (max-width: 375px) {
+@media screen and (max-width: 350px) {
   .form {
     row-gap: 20px;
   }

@@ -2,21 +2,22 @@
 import React, { FC, useState, useCallback, useEffect, FormEvent } from "react";
 import { Redirect, useHistory, Link } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from '../../services/hooks';
 import { NameInput } from '../../components/name-input/name-input';
 import { PasswordInput } from '../../components/password-input/password-input';
 import { Button } from '../../components/button/button';
-import { resetPasswordAction, CLEAR } from '../../services/actions/password.js';
+import { resetPasswordAction, clearAction } from '../../services/actions/password';
 import styles from './reset-password.module.css';
 import { TResetPasswordStateSchema, TResetPasswordValidationStateSchema, TResetPasswordInitialState }  from '../../utils/types';
+import { TRootState } from '../../services/store';
 
 const ResetPassword: FC = () => {
   const mobile: boolean = useMediaQuery({ query: `(max-width: 375px)` });
   
-  const isResetMessageReceived = useSelector((store: any) => store.password.isResetMessageReceived);
-  const isMessageReceived = useSelector((store: any) => store.password.isMessageReceived);
-  const errorResetMessage = useSelector((store: any) => store.password.errorResetMessage);
-  const successResetMessage = useSelector((store: any) => store.password.successResetMessage);
+  const isResetMessageReceived = useSelector((store: TRootState) => store.password.isResetMessageReceived);
+  const isMessageReceived = useSelector((store: TRootState) => store.password.isMessageReceived);
+  const errorResetMessage = useSelector((store: TRootState) => store.password.errorResetMessage);
+  const successResetMessage = useSelector((store: TRootState) => store.password.successResetMessage);
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -101,9 +102,7 @@ const ResetPassword: FC = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       if (isResetMessageReceived) {
-        dispatch({
-          type: CLEAR
-        });
+        dispatch(clearAction());
         localStorage.removeItem('resetMessage');
         history.push('/login');
       }

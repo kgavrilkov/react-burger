@@ -1,20 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { FC, useEffect } from "react";
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from '../../services/hooks';
 import { useParams } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
-import { getItems } from '../../services/actions/index.js';
+import { getItems } from '../../services/actions/burger-ingredients';
 import IngredientDetails from "../../components/ingredient-details/ingredient-details";
 import styles from './ingredient.module.css';
 import { TIngredient } from '../../utils/types';
+import { TRootState } from '../../services/store';
 
 const Ingredient: FC = () => {
   const dispatch = useDispatch();
 
   const mobile: boolean = useMediaQuery({ query: `(max-width: 580px)` });
-  const mobileS: boolean = useMediaQuery({ query: `(max-width: 480px)` });
+  const mobileS: boolean = useMediaQuery({ query: `(max-width: 330px)` });
   
-  const { ingredients } = useSelector((store: any) => store.burgerIngredients);
+  const { ingredients } = useSelector((store: TRootState) => store.burgerIngredients);
   const { ingredientId } = useParams();
  
   useEffect(() => {

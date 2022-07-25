@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
+import { TLocationParams } from '../../utils/types';
 
 const validatePassword = (password: string) => {
     const re = /^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8,}$/;
@@ -18,13 +19,13 @@ export const PasswordInput = ({
     size?: 'default' | 'small';
     onChange(e: React.ChangeEvent<HTMLInputElement>): void;
 }) => {
-    const [visible, setVisible] = useState(false);
+    const [visible, setVisible] = useState<boolean>(false);
 
-    const [error, setError] = useState(false);
+    const [error, setError] = useState<boolean>(false);
 
     const inputRef = useRef<HTMLInputElement>(null);
 
-    const location = useLocation();
+    const location = useLocation() as unknown as TLocationParams;
 
     const onIconClick = () => {
         setVisible(true);

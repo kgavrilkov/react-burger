@@ -1,14 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useRef, useEffect, FC } from 'react';
 import { useMediaQuery } from 'react-responsive';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from '../../services/hooks';
 import { Tab } from '../tab/tab';
 import Card from '../card/card';
-import { getItems } from '../../services/actions/index.js';
-import { GET_ITEM_TO_VIEW } from '../../services/actions/item-to-view.js';
-import { useScroll } from '../use-scroll/use-scroll';
+import { getItems } from '../../services/actions/burger-ingredients';
+import { getItemToViewAction } from '../../services/actions/item-to-view';
+import { useScroll } from '../../utils/use-scroll';
 import styles from './burger-ingredients.module.css';
 import { TBurgerIngredients, TIngredient } from '../../utils/types';
+import { TRootState } from '../../services/store';
 
 const BurgerIngredients: FC<TBurgerIngredients> = ({ isBurgerIngredientsVisible, handleModalOpen }) => {
   const [current, setCurrent] = useState<string>('bun');
@@ -16,7 +17,7 @@ const BurgerIngredients: FC<TBurgerIngredients> = ({ isBurgerIngredientsVisible,
   const mobile: boolean = useMediaQuery({ query: `(max-width: 630px)` });
   const mobileS: boolean = useMediaQuery({ query: `(max-width: 340px)` });
   
-  const { ingredients } = useSelector((store: any) => store.burgerIngredients);
+  const { ingredients } = useSelector((store: TRootState) => store.burgerIngredients);
   const dispatch = useDispatch();
 
   const bunRef = useRef<HTMLLIElement>(null);
@@ -56,10 +57,7 @@ const BurgerIngredients: FC<TBurgerIngredients> = ({ isBurgerIngredientsVisible,
   }, [dispatch]);
 
   const handleCardOpen = (card: TIngredient) => {
-    dispatch({
-      type: GET_ITEM_TO_VIEW,
-      payload: card
-    });
+    dispatch(getItemToViewAction(card));
     localStorage.setItem('card', JSON.stringify(card));
   };
 

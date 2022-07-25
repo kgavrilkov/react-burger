@@ -1,11 +1,13 @@
 import React, { FC } from 'react';
-import { useDispatch } from 'react-redux'
-import { NavLink } from 'react-router-dom';
+import { useDispatch } from '../../services/hooks';
+import { NavLink, useLocation } from 'react-router-dom';
 import { Button } from '../button/button';
 import { logoutAction } from '../../services/actions/auth'; 
 import styles from './dropdown-menu.module.css';
 
 const DropdownMenu: FC = () => {
+  const location = useLocation();
+
   const dispatch = useDispatch();
 
   const logout = () => {
@@ -19,16 +21,33 @@ const DropdownMenu: FC = () => {
     <ul className={styles.dropdown}>
       <li className={styles.option}>
         <NavLink className={styles.link} activeClassName={styles.active} to='/profile'>
-          <div className={styles.wrapper}>
-            <p className="text text_type_main-small">Профиль</p>
-          </div>
+          {location.pathname === ('/profile') ? 
+            <div className={styles.wrapper}>
+              <p className="text text_type_main-small">Профиль</p>
+            </div>
+          :location.pathname === ('/profile/orders') ?
+            <div className={styles.wrapper}>
+              <p className="text text_type_main-small text_color_inactive">Профиль</p>
+            </div>
+          :
+            <div className={styles.wrapper}>
+              <p className="text text_type_main-small text_color_inactive">Профиль</p>
+            </div>
+          }
         </NavLink>
       </li>
       <li className={styles.option}>
         <NavLink className={styles.link} activeClassName={styles.active} to='/profile/orders'>
-          <div className={styles.wrapper}>
-            <p className="text text_type_main-small">История заказов</p>
-          </div>
+          {location.pathname === ('/profile/orders') 
+            ? 
+              <div className={styles.wrapper}>
+                <p className="text text_type_main-small">История заказов</p>
+              </div>
+            :
+              <div className={styles.wrapper}>
+                <p className="text text_type_main-small text_color_inactive">История заказов</p>
+              </div>
+          }
         </NavLink>
       </li>
       <li className={styles.option}>
@@ -40,6 +59,6 @@ const DropdownMenu: FC = () => {
       </li>
     </ul>
   );
-}
+};
 
 export default  DropdownMenu;

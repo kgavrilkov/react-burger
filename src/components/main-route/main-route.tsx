@@ -1,9 +1,10 @@
 import React from "react";
 import { Redirect, Route } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../services/hooks';
+import { TRootState } from '../../services/store';
 
 const MainRoute  = ({component, ...rest}: any) => {
-  const isLoggedIn = useSelector((store: any) => store.auth.isLoggedIn);
+  const isLoggedIn = useSelector((store: TRootState) => store.auth.isLoggedIn);
 
   const routeComponent = (props: any) => (
     !isLoggedIn 

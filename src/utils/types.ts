@@ -27,6 +27,13 @@ export type TIngredient = {
   type: string;
 };
 
+export type TIngredientToDelete = TIngredient & { key?: any };
+
+export type TIngredients = {
+  success: boolean;
+  data: Array<TIngredient>;
+};
+
 export type TBurgerIngredients = Omit<TBurgerConstructor, 'handleToggle'> & { handleModalOpen: (handleCardOpen: any) => void; };
 
 export type TCard = {
@@ -73,12 +80,14 @@ export type TSum = {
 export type TOrderDetails = {
   sum: TSum;
   orderNumber: number;
+  number: number;
 };
 
 export type TTotalPrice = {
   isBurgerConstructorVisible: boolean;
   handleToggle: () => void;
   handleModalOpen: (getRequestNumber: any) => void;
+  setNumber: any;
 };
 
 export type TRegisterStateSchema = {
@@ -195,10 +204,16 @@ export type TResetPasswordValidationStateSchema = {
 export type TUserInfo = TRegisterInitialState;
 
 export type TUser = {
+  success: boolean;
   user: {
     name: string;
     email: string;
   };
+};
+
+export type TUserData = {
+  name: string;
+  email: string;
 };
 
 export type TRegister = {
@@ -224,4 +239,83 @@ export type TForgotPassword = TLogout;
 
 export type TResetPassword = TForgotPassword;
 
+export type TOrder = {
+  success: boolean;
+  name: string;
+  order: {
+    number: number;
+  }
+};
 
+export type TItem = {
+  _id: string,
+  status: string,
+  number: string,
+  date?: string,
+  name: string,
+  ingredients: {
+    link: string,
+    name: string,
+    _id: string,
+    type?: string,
+    price: number
+  }[]
+};
+
+export type TItemIngredient = {
+  link: string,
+  name: string,
+  _id: string,
+  type?: string,
+  price: number
+};
+
+export type TCardFeed = {
+  card: TItem;
+  onClick: () => void;
+};
+
+export type TCardCFeed = {
+  card: TItem;
+  onClick: () => void;
+};
+
+export type TFeed = {
+  isOrdersVisible: boolean;
+  isStatsVisible: boolean;
+  handleOrdersToggle: () => void;
+  handleStatsToggle: () => void;
+  handleModalOpen: () => void;
+};
+
+export type TMainFeed = Omit<TFeed, 'handleOrdersToggle' | 'handleStatsToggle'>;
+
+export type TOrders = {
+  handleModalOpen: (handleOrderOpen: any) => void;
+};
+
+export type TFeedOrder = Omit<TCardFeed, 'onClick'>;
+
+export type TTabFeed = {
+  handleOrdersToggle: () => void;
+  handleStatsToggle: () => void;
+};
+
+export type THistoryOrders = TOrders;
+
+export type TOrderFeed = {
+  ingredients: string[],
+  _id: string,
+  name: string,
+  status: string,
+  number: number,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type TOrdersFeed = {
+  success: boolean,
+  orders: ReadonlyArray<TOrderFeed>,
+  total: number,
+  totalToday: number,
+}

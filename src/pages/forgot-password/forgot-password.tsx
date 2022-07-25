@@ -2,18 +2,19 @@
 import React, { FC, useState, useCallback, useEffect, FormEvent } from "react";
 import { useHistory, Link } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from '../../services/hooks';
 import { EmailInput } from '../../components/email-input/email-input';
 import { Button } from '../../components/button/button';
-import { forgotPasswordAction } from '../../services/actions/password.js';
+import { forgotPasswordAction } from '../../services/actions/password';
 import styles from './forgot-password.module.css';
 import { TForgotPasswordStateSchema, TForgotPasswordValidationStateSchema, TForgotPasswordInitialState }  from '../../utils/types';
+import { TRootState } from '../../services/store';
 
 const ForgotPassword: FC = () => {
   const mobile: boolean = useMediaQuery({ query: `(max-width: 375px)` });
 
-  const isMessageReceived = useSelector((store: any) => store.password.isMessageReceived);
-  const successForgotMessage = useSelector((store: any) => store.password.successForgotMessage);
+  const isMessageReceived = useSelector((store: TRootState) => store.password.isMessageReceived);
+  const successForgotMessage = useSelector((store: TRootState) => store.password.successForgotMessage);
 
   const dispatch = useDispatch();
   const history = useHistory();

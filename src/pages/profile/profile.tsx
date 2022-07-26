@@ -2,24 +2,26 @@
 import React, { FC, useState, useRef, useEffect, useCallback, FormEvent } from "react";
 import { NavLink } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../services/hooks';
 import { ProfileNameInput } from '../../components/profile-name-input/profile-name-input';
 import { ProfileEmailInput } from '../../components/profile-email-input/profile-email-input';
 import { ProfilePasswordInput } from '../../components/profile-password-input/profile-password-input';
 import { Button } from '../../components/button/button';
-import { getUserAction, setUserAction, DELETE } from '../../services/actions/user.js';
-import { logoutAction } from '../../services/actions/auth.js';
+import { getUserAction, setUserAction, deleteAction } from '../../services/actions/user';
+import { logoutAction } from '../../services/actions/auth';
 import styles from './profile.module.css';
 import { TRegisterStateSchema, TRegisterValidationStateSchema } from '../../utils/types';
+import { TRootState } from '../../services/store';
 
 const Profile: FC = () => {
   const dispatch = useDispatch();
 
-  const tablet: boolean = useMediaQuery({ query: `(max-width: 1300px)` });
+  const tablet: boolean = useMediaQuery({ query: `(max-width: 900px)` });
+  const mobileM: boolean = useMediaQuery({ query: `(max-width: 500px)` });
   const mobile: boolean = useMediaQuery({ query: `(max-width: 375px)` });
 
   const currentUser = JSON.parse(localStorage.getItem('user')!);  
-  const successMessage = useSelector((store: any) => store.currentUser.successMessage);
+  const successMessage = useSelector((store: TRootState) => store.currentUser.successMessage);
 
   const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
@@ -179,9 +181,7 @@ const Profile: FC = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       if (currentUser) {
-        dispatch({
-          type: DELETE
-        });
+        dispatch(deleteAction());
         setVisible(false);
       }
     }, 5000);
@@ -206,9 +206,9 @@ const Profile: FC = () => {
     <div className={tablet ? styles.box : styles.container}>
       {tablet
       ?
-        <p className="text text_type_main-medium mb-6">Профиль</p>
+        <p className={mobile ? "text text_type_main-medium mb-6" : mobileM ? "text text_type_main-medium mb-6" : "text text_type_main-large mb-6"}>Профиль</p>
       :
-        <div className={styles.content}>
+        <section className={styles.content}>
           <NavLink className={styles.link} activeClassName={styles.active} to='/profile'>
             Профиль
           </NavLink>
@@ -223,7 +223,7 @@ const Profile: FC = () => {
               В этом разделе вы можете изменить свои персональные данные
             </p>
           </div>
-        </div>
+        </section>
       }  
         <form className={styles.frame} onSubmit={onSubmit} noValidate>
           <div className={styles.form}>
@@ -231,19 +231,19 @@ const Profile: FC = () => {
               onChange={handleNameChange}
               value={name}
               name={'name'}
-              size={mobile ? 'small' : 'default'}
+              size={mobile ? 'small' : mobileM ? 'small' : 'default'}
             />
             <ProfileEmailInput
               onChange={handleEmailChange}
               value={email}
               name={'email'}
-              size={mobile ? 'small' : 'default'}
+              size={mobile ? 'small' : mobileM ? 'small' : 'default'}
             />
             <ProfilePasswordInput
               onChange={handlePasswordChange}
               value={password}
               name={'password'}
-              size={mobile ? 'small' : 'default'}
+              size={mobile ? 'small' : mobileM ? 'small' : 'default'}
             />
             {successMessage && 
               <span className={styles.span}>

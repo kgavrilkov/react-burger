@@ -1,0 +1,212 @@
+.link {
+  text-decoration: none;
+  color: #F2F2F3;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  min-height: 214px;
+  margin: 0;
+  padding: 0;
+  border-radius: 40px;
+  background-color: #1C1C21;
+  list-style-type: none;
+}
+
+.order {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 92%;
+}
+
+.number {
+  font-family: 'Iceland';
+  font-style: normal;
+	font-weight: normal;
+	font-size: 22px;
+	line-height: 1.09;
+  margin: 0;
+}
+
+.wrap {
+  text-align: right;
+  width: 51%;
+}
+
+.info {
+  width: 92%;
+  text-align: left;
+}
+
+.digit {
+  font-family: 'Jet Brains Mono';
+  font-style: normal;
+	font-weight: bold;
+	font-size: 20px;
+	line-height: 1.20;
+  margin: 0;
+}
+
+.components {
+  display: flex;
+  justify-content: space-between;
+  width: 92%;
+}
+
+.ingredients {
+  display: grid;
+  grid-template-columns: repeat(6, 48px);
+  align-items: center;
+  width: 80%;
+}
+
+.image {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  background:
+    linear-gradient(#131316, #131316) padding-box,
+    linear-gradient(to right, #801AB2, #4C4CFF) border-box;
+  border-radius: 50%;
+  border: 2px solid transparent;
+}
+
+.wrapper {
+  display: flex;
+  position: relative;
+  width: 64px;
+}
+
+.dim {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  background:
+    linear-gradient(#131316, #131316) padding-box,
+    linear-gradient(to right, #801AB2, #4C4CFF) border-box;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  opacity: .6;
+}
+
+.shell {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.price {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 20%;
+}
+
+.sum {
+  font-family: 'Iceland';
+  font-style: normal;
+	font-weight: normal;
+	font-size: 22px;
+	line-height: 1.09;
+  margin: 0;
+}
+
+@media screen and (max-width: 500px) {
+  .price {
+    width: 25%;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .ingredients {
+    grid-template-columns: repeat(6, 38px);
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .image {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .wrapper {
+    width: 48px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .dim {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .price {
+    width: 30%;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .wrap {
+    width: 36%;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .card {
+    min-height: 184px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .ingredients {
+    grid-template-columns: repeat(6, 27px);
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .image {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .wrapper {
+    width: 32px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .dim {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .price {
+    width: 35%;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .wrap {
+    width: 36%;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .wrap {
+    width: 42%;
+  }
+}

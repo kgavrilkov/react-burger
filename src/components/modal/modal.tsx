@@ -8,8 +8,8 @@ import styles from './modal.module.css';
 import { TModal } from '../../utils/types';
 
 const Modal: FC<TModal> = ({ isModalVisible, handleModalClose, title, children }) => {
-  const mobile: boolean = useMediaQuery({ query: `(max-width: 580px)` });
   const mobileS: boolean = useMediaQuery({ query: `(max-width: 480px)` });
+  
   const modalRoot = document.getElementById("modals")!;
 
   const handleEscClose = (evt: KeyboardEvent) => {
@@ -32,7 +32,7 @@ const Modal: FC<TModal> = ({ isModalVisible, handleModalClose, title, children }
       <div className={styles.modal}>
         <div className={styles.container}>
           <header className={styles.header}>
-            <p className={mobile ? mobileS ? "text text_type_main-default" : "text text_type_main-medium" : "text text_type_main-large"}>{title}</p>
+            <p className={mobileS ? styles.title : "text text_type_main-large"}>{title}</p>
             <button className={title ? styles.button : styles.key} onClick={handleModalClose}>
               <CloseIcon type="primary" />
             </button>

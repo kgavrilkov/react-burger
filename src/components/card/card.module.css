@@ -21,12 +21,13 @@
 
 .counter {
   position: absolute;
+  top: 0;
   right: 0;
 }
 
 .price {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   margin-top: 8px;
   margin-bottom: 8px;

@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
+import { TLocationParams } from '../../utils/types';
 
 const validateEmail = (email: string) => {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -19,11 +20,11 @@ export const EmailInput = ({
     onChange(e: React.ChangeEvent<HTMLInputElement>): void;
 }) => {
 
-    const [error, setError] = useState(false);
+    const [error, setError] = useState<boolean>(false);
 
     const inputRef = useRef<HTMLInputElement>(null);
 
-    const location = useLocation();
+    const location = useLocation() as unknown as TLocationParams;;
 
     const validateField = (value: string) => {
         setError(!validateEmail(value));

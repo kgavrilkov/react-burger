@@ -1,0 +1,44 @@
+import { compose, createStore, applyMiddleware, Action, ActionCreator } from 'redux';
+import thunk, { ThunkAction } from 'redux-thunk';
+import { socketMiddleware } from './middleware/socket-middleware';
+import { 
+  FEED_CONNECTION_INIT,
+  FEED_CONNECTION_SUCCESS,
+  FEED_CONNECTION_ERROR,
+  FEED_GET_MESSAGE,
+  FEED_CONNECTION_CLOSE,
+  FEED_CONNECTION_CLOSED
+ } from './actions/feed';
+import { rootReducer } from './reducers/index';
+import { TActions } from './actions/index';
+
+declare global {
+  interface Window {
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+  }
+}
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const feedWsActions = {
+  wsInit: FEED_CONNECTION_INIT,
+  onOpen: FEED_CONNECTION_SUCCESS,
+  onError: FEED_CONNECTION_ERROR,
+  onMessage: FEED_GET_MESSAGE,
+  wsClose: FEED_CONNECTION_CLOSE,
+  onClose: FEED_CONNECTION_CLOSED
+};
+    
+const enhancer = composeEnhancers(applyMiddleware(thunk, socketMiddleware(feedWsActions)));
+
+export const store = (createStore(rootReducer, enhancer));
+
+export type TRootState = ReturnType<typeof store.getState>;
+
+type TApplicationActions = TActions;
+
+export type AppThunk<TReturn = void> = ActionCreator<
+ThunkAction<TReturn, Action, TRootState, TApplicationActions>
+>;
+
+export type AppDispatch = typeof store.dispatch;

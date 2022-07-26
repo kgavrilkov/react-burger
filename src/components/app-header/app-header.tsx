@@ -21,6 +21,11 @@ const AppHeader: FC<THeader> = ({ isAppHeaderVisible, handleToggle }) => {
     setIsNavigationMenuOpen(true);
   }
 
+  const onClick = () => {
+    handleToggle();
+    localStorage.removeItem('BurgerConstructor');
+  };
+
   return(
     <header className={styles.header}>
       <div className={styles.logo}>
@@ -39,7 +44,7 @@ const AppHeader: FC<THeader> = ({ isAppHeaderVisible, handleToggle }) => {
             <div className={styles.layer}>
               <div className={styles.title}>
                 <p className={mobileS ? "text text_type_main-medium" : "text text_type_main-large"}>Заказ</p>
-                <button className={styles.button} onClick={handleToggle}>
+                <button className={styles.button} onClick={onClick}>
                   <CloseIcon type="primary" />
                 </button>
               </div>
@@ -66,21 +71,32 @@ const AppHeader: FC<THeader> = ({ isAppHeaderVisible, handleToggle }) => {
               </NavLink>  
             </li>
             <li className={styles.item}>
-              <Link className={styles.link} /*activeClassName={styles.active}*/ to='#'>
-                {location.pathname === ('/register') ? <ListIcon type="secondary" /> : <ListIcon type="secondary" />}
-                <div className={styles.wrapper}>
-                  <p className="text text_type_main-default">Лента заказов</p>
-                </div>
-              </Link>  
+              <NavLink className={styles.link} activeClassName={styles.active} to='/feed'>
+                {location.pathname === ('/feed') ? <ListIcon type="primary" /> : <ListIcon type="secondary" />}
+                {location.pathname === ('/feed') 
+                  ? 
+                    <div className={styles.wrapper}>
+                      <p className="text text_type_main-default">Лента заказов</p>
+                    </div>
+                  :
+                    <div className={styles.wrapper}>
+                      <p className="text text_type_main-default text_color_inactive">Лента заказов</p>
+                    </div>  
+                }
+              </NavLink>  
             </li>
           </ul>
           <ul className={styles.navigation}>
             <li className={styles.item}>
               <NavLink className={styles.link} activeClassName={styles.active} to='/profile'>
                 {location.pathname === ('/profile') ? <ProfileIcon type="primary" /> 
-                :location.pathname === ('/profile/orders') ? <ProfileIcon type="primary" /> : <ProfileIcon type="secondary" />}
+                :location.pathname === ('/profile/orders') ? <ProfileIcon type="primary" /> : <ProfileIcon type="secondary" />
+                }
                 <div className={styles.wrapper}>
-                  <p className="text text_type_main-default">Личный кабинет</p>
+                  {location.pathname === ('/profile') ? <p className="text text_type_main-default">Личный кабинет</p>
+                  :location.pathname === ('/profile/orders') ? <p className="text text_type_main-default">Личный кабинет</p>
+                  :<p className="text text_type_main-default text_color_inactive">Личный кабинет</p>
+                  }
                 </div>
               </NavLink>
             </li> 

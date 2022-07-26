@@ -2,19 +2,20 @@
 import React, { FC, useState, useCallback, useEffect, FormEvent } from "react";
 import { Link, Redirect, useLocation } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from '../../services/hooks';
 import { EmailInput } from '../../components/email-input/email-input';
 import { PasswordInput } from '../../components/password-input/password-input';
 import { Button } from '../../components/button/button';
-import { loginAction } from '../../services/actions/auth.js';
+import { loginAction } from '../../services/actions/auth';
 import styles from './login.module.css';
 import { TLocationParams, TLoginStateSchema, TLoginValidationStateSchema, TLoginInitialState }  from '../../utils/types';
+import { TRootState } from '../../services/store';
 
 const Login: FC = () => {
   const mobile: boolean = useMediaQuery({ query: `(max-width: 375px)` });
 
-  const isLoggedIn = useSelector((store: any) => store.auth.isLoggedIn);
-  const errorLoginMessage = useSelector((store: any) => store.auth.errorLoginMessage);
+  const isLoggedIn = useSelector((store: TRootState) => store.auth.isLoggedIn);
+  const errorLoginMessage = useSelector((store: TRootState) => store.auth.errorLoginMessage);
 
   const dispatch = useDispatch();
   const { state } = useLocation() as unknown as TLocationParams;

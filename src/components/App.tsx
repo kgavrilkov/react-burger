@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { FC, useState, useEffect } from 'react';
 import { useMediaQuery } from 'react-responsive';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from '../services/hooks';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { useHistory, useLocation, Switch, Route } from 'react-router-dom';
@@ -12,8 +12,9 @@ import IngredientDetails from './ingredient-details/ingredient-details';
 import OrderDetails from './order-details/order-details';
 import sum from '../utils/total';
 import TotalPrice from './total-price/total-price';
-import { RESET_ITEM_TO_VIEW } from '../services/actions/item-to-view.js';
-import { RESET_ORDER } from '../services/actions/order.js';
+import { resetItemToViewAction } from '../services/actions/item-to-view';
+import { resetOrderAction } from '../services/actions/order';
+import { resetOrderToViewAction } from '../services/actions/order-to-view';
 import Login from '../pages/login/login';
 import Register from '../pages/register/register';
 import ForgotPassword from '../pages/forgot-password/forgot-password';
@@ -21,24 +22,35 @@ import ResetPassword from '../pages/reset-password/reset-password';
 import Profile from '../pages/profile/profile';
 import Ingredient from '../pages/ingredient/ingredient';
 import Order from '../pages/order/order';
+import Feed from '../pages/feed/feed';
+import OrderFeed from '../pages/order-feed/order-feed';
+import HistoryOrder from '../pages/history-order/history-order';
+import FeedOrderDetails from '../pages/feed/feed-order-details/feed-order-details';
 import NotFound from '../pages/not-found/not-found';
 import ProtectedRoute from './protected-route/protected-route';
 import PublicRoute from './public-route/public-route';
 import MainRoute from './main-route/main-route';
+import FeedRoute from './feed-route/feed-route';
 import { TLocationParams }  from '../utils/types';
+import { TRootState } from '../services/store';
 
 const App: FC = () => {
   const [isBurgerIngredientsVisible, setIsBurgerIngredientsVisible] = useState<boolean>(true);
   const [isBurgerConstructorVisible, setIsBurgerConstructorVisible] = useState<boolean>(true);
   const [isAppHeaderVisible, setIsAppHeaderVisible] = useState<boolean>(false);
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+  const [isOrdersVisible, setIsOrdersVisible] = useState<boolean>(true);
+  const [isStatsVisible, setIsStatsVisible] = useState<boolean>(true);
+  const [number, setNumber] = useState<number>();
 
   const tablet: boolean = useMediaQuery({ query: `(max-width: 1300px)` });
   const mobile: boolean = useMediaQuery({ query: `(max-width: 600px)` });
+  const mobileS: boolean = useMediaQuery({ query: `(max-width: 480px)` });
 
-  const selectedCard = useSelector((store: any) => store.itemToView.ingredient);
-  const orderNumber = useSelector((store: any) => store.order.number);
-
+  const selectedCard = useSelector((store: TRootState) => store.itemToView.ingredient);
+  const orderNumber = useSelector((store: TRootState) => store.order.number);
+  const selectedOrder = useSelector((store: TRootState) => store.orderToView.order);
+  
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation() as unknown as TLocationParams;
@@ -54,18 +66,56 @@ const App: FC = () => {
       setIsBurgerConstructorVisible(true);
     }
   }, [tablet]);
+  
+  const handleAppHeaderVisible = () => {
+    setIsAppHeaderVisible(true);
+  };
 
-  const handleChange = () => {
-    setIsAppHeaderVisible(!isAppHeaderVisible);
-  }; 
+  const handleAppHeaderInvisible = () => {
+    setIsAppHeaderVisible(false);
+  };
 
-  const handleToggle = () => {
+  const handleConstructorToggle = () => {
     if (tablet) {
-      setIsBurgerIngredientsVisible(!isBurgerIngredientsVisible);
-      setIsBurgerConstructorVisible(!isBurgerConstructorVisible);
+      setIsBurgerIngredientsVisible(false);
+      setIsBurgerConstructorVisible(true);
     }
     if (mobile) {
-      handleChange();
+      handleAppHeaderVisible();
+    }
+  };
+
+  const handleIngredientsToggle = () => {
+    if (tablet) {
+      setIsBurgerIngredientsVisible(true);
+      setIsBurgerConstructorVisible(false);
+    }
+    if (mobile) {
+      handleAppHeaderInvisible();
+    }
+  };
+
+  useEffect(() => {
+    if (tablet) {
+      setIsOrdersVisible(true);
+      setIsStatsVisible(false);
+    } else {
+      setIsOrdersVisible(true);
+      setIsStatsVisible(true);
+    }
+  }, [tablet]);
+
+  const handleOrdersToggle = () => {
+    if (tablet) {
+      setIsOrdersVisible(true);
+      setIsStatsVisible(false);
+    }
+  };
+
+  const handleStatsToggle = () => {
+    if (tablet) {
+      setIsStatsVisible(true);
+      setIsOrdersVisible(false);
     }
   };
 
@@ -75,13 +125,12 @@ const App: FC = () => {
 
   const handleModalClose = () => {
     localStorage.removeItem('card');
+    localStorage.removeItem('number');
+    setNumber(undefined);
     setIsModalVisible(false);
-    dispatch({
-      type: RESET_ITEM_TO_VIEW
-    });
-    dispatch({
-      type: RESET_ORDER
-    });
+    dispatch(resetItemToViewAction());
+    dispatch(resetOrderAction());
+    dispatch(resetOrderToViewAction());
     history.goBack();
   };
 
@@ -89,7 +138,7 @@ const App: FC = () => {
     <>
       <AppHeader 
         isAppHeaderVisible={isAppHeaderVisible} 
-        handleToggle={handleToggle} 
+        handleToggle={handleIngredientsToggle} 
       />
       <Switch location={ background || location }>
         <MainRoute exact path='/'>
@@ -97,26 +146,37 @@ const App: FC = () => {
             <Main 
               isBurgerIngredientsVisible={isBurgerIngredientsVisible} 
               isBurgerConstructorVisible={isBurgerConstructorVisible} 
-              handleToggle={handleToggle} 
+              handleToggle={handleIngredientsToggle}
               handleModalOpen={handleModalOpen} 
             />
           </DndProvider>
           <TotalPrice 
             isBurgerConstructorVisible={isBurgerConstructorVisible} 
-            handleToggle={handleToggle} 
-            handleModalOpen={handleModalOpen} 
+            handleToggle={handleConstructorToggle} 
+            handleModalOpen={handleModalOpen}
+            setNumber={setNumber}
           />
         </MainRoute>
         <PublicRoute path='/register' component={Register} />
         <Route path='/login'><Login /></Route>
         <PublicRoute path='/forgot-password' component={ForgotPassword} />
         <PublicRoute path='/reset-password' component={ResetPassword} />
-        <ProtectedRoute exact path='/profile' component={Profile} />
-        <ProtectedRoute path='/profile/orders' component={Order} />
-        <ProtectedRoute path='/profile/orders/:orderNumber' component={Order}/>
+        <ProtectedRoute exact path='/profile' component={Profile} /> 
+        <ProtectedRoute exact path='/profile/orders' component={() => <Order handleModalOpen={handleModalOpen} />} />
+        <ProtectedRoute path='/profile/orders/:orderId' component={HistoryOrder} />
         <Route path='/ingredients/:ingredientId'><Ingredient /></Route>
+        <FeedRoute exact path='/feed'>
+          <Feed
+            isOrdersVisible={isOrdersVisible}
+            isStatsVisible={isStatsVisible}
+            handleOrdersToggle={handleOrdersToggle}
+            handleStatsToggle={handleStatsToggle}  
+            handleModalOpen={handleModalOpen}
+          />
+        </FeedRoute>
+        <FeedRoute path='/feed/:feedId'><OrderFeed /></FeedRoute>
         <Route><NotFound /></Route>
-      </Switch>     
+      </Switch>
       {background && (
         <Route
           path='/ingredients/:ingredientId'
@@ -124,25 +184,51 @@ const App: FC = () => {
             <Modal 
               isModalVisible={isModalVisible} 
               handleModalClose={handleModalClose} 
-              title='Детали ингредиента'>
-                <IngredientDetails card={selectedCard} />
+              title={mobileS ? '' : 'Детали ингредиента'}>
+                <IngredientDetails card={selectedCard!} />
             </Modal>
           } 
         />
       )}
       {background && (
         <Route
-          path='/profile/orders/:orderNumber'
+          path='/profile/orders'
           children={
             <Modal 
               isModalVisible={isModalVisible}
               handleModalClose={handleModalClose} 
-              title={''}>
-                <OrderDetails sum={sum} orderNumber={orderNumber} />
+              title={mobileS ? 'Заказ оформлен' : ''}>
+                <OrderDetails sum={sum} orderNumber={orderNumber!} number={number!} />
+            </Modal>
+          } 
+        />
+        )}
+      {background && (
+        <Route
+          path='/feed/:feedId'
+          children={
+            <Modal 
+              isModalVisible={isModalVisible}
+              handleModalClose={handleModalClose} 
+              title={mobileS ? 'Детали заказа' : ''}>
+                <FeedOrderDetails card={selectedOrder!} />
             </Modal>
           } 
         />
       )}
+      {background && (
+        <Route
+          path='/profile/orders/:orderId'
+          children={
+            <Modal 
+              isModalVisible={isModalVisible}
+              handleModalClose={handleModalClose} 
+              title={mobileS ? 'Детали заказа' : ''}>
+                <FeedOrderDetails card={selectedOrder!} />
+            </Modal>
+          } 
+        />
+        )}
     </>
   );
 }

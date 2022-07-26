@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { CloseIcon, ProfileIcon, ArrowDownIcon, ArrowUpIcon, 
 BurgerIcon, ListIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import DropdownMenu from '../dropdown-menu/dropdown-menu';
@@ -34,9 +34,19 @@ const NavigationMenu: FC<TNavigationMenu> = ({ setIsNavigationMenuOpen }) => {
             {location.pathname === ('/profile') ? <ProfileIcon type="primary" /> 
             :location.pathname === ('/profile/orders') ? <ProfileIcon type="primary" /> : <ProfileIcon type="secondary" />
             }
-            <div className={styles.wrapper}>
-              <p className="text text_type_main-small">Личный кабинет</p>
-            </div>
+            {location.pathname === ('/profile') ? 
+              <div className={styles.wrapper}>
+                <p className="text text_type_main-small">Личный кабинет</p>
+              </div>
+            :location.pathname === ('/profile/orders') ?
+              <div className={styles.wrapper}>
+                <p className="text text_type_main-small">Личный кабинет</p>
+              </div>
+            :
+              <div className={styles.wrapper}>
+                <p className="text text_type_main-small text_color_inactive">Личный кабинет</p>
+              </div>
+            }
           </NavLink>
           <button className={styles.features} onClick={handleClick}>
             {isDropdownMenuOpen 
@@ -56,12 +66,19 @@ const NavigationMenu: FC<TNavigationMenu> = ({ setIsNavigationMenuOpen }) => {
           </NavLink>  
         </li>
         <li className={styles.section}>
-          <Link className={styles.link} /*activeClassName={styles.active}*/ to='#'>
-            {location.pathname === ('/register') ? <ListIcon type="secondary" /> : <ListIcon type="secondary" />}
-            <div className={styles.wrapper}>
-              <p className="text text_type_main-small">Лента заказов</p>
-            </div>
-          </Link>  
+          <NavLink className={styles.link} activeClassName={styles.active} to='/feed'>
+            {location.pathname === ('/feed') ? <ListIcon type="primary" /> : <ListIcon type="secondary" />}
+            {location.pathname === ('/feed') 
+              ? 
+                <div className={styles.wrapper}>
+                  <p className="text text_type_main-small">Лента заказов</p>
+                </div>
+              : 
+                <div className={styles.wrapper}>
+                  <p className="text text_type_main-small text_color_inactive">Лента заказов</p>
+                </div> 
+            }
+          </NavLink>  
         </li>
       </ul>
     </nav>

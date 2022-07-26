@@ -275,11 +275,6 @@ export type TCardFeed = {
   onClick: () => void;
 };
 
-export type TCardCFeed = {
-  card: TItem;
-  onClick: () => void;
-};
-
 export type TFeed = {
   isOrdersVisible: boolean;
   isStatsVisible: boolean;

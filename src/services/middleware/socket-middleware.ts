@@ -14,20 +14,27 @@ export const socketMiddleware = (wsActions: any) => {
         onClose
       } = wsActions;
       if (type === wsInit) {
-        socket = new WebSocket(payload);
-        socket.onOpen = (event: any) => {
-          dispatch(onOpen(event));
+        socket = new WebSocket(payload); 
+        socket.onopen = (event: any) => {
+          dispatch({ type: onOpen, payload: event });
         };
-        socket.onError = (event: any) => {
-          dispatch(onError(event));
+        socket.onerror = (event: any) => {
+          dispatch({ type: onError, payload: event });
         };
-        socket.onMessage = (event: any) => {
+        socket.onmessage = (event: any) => {
           const { data } = event;
           const parsedData = JSON.parse(data);
-          dispatch(onMessage({ data: parsedData, timestamp: new Date().getTime() / 100 }));
+          dispatch({ 
+            type: onMessage,
+            payload: {
+              data: parsedData,
+              timestamp: new Date().getTime() / 100
+            }
+          });
+          console.log(parsedData);
         };
-        socket.onClose = (event: any) => {
-          dispatch(onClose(event));
+        socket.onclose = (event: any) => {
+          dispatch({ type: onClose, payload: event });
         };
       }
       if (wsClose && type === wsClose && socket) {

@@ -10,7 +10,7 @@
 .index {
   text-align: center;
   margin-top: -50px;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 .container {
@@ -253,7 +253,7 @@
 
 @media screen and (max-width: 480px) {
   .list {
-    height: 510px;
+    height: 480px;
     margin: 16px 0 8px;
   }
 }
@@ -297,7 +297,14 @@
     left: 0;
     padding-left: 12px;
     height: 40px;
+    background-color: #1C1C21;
   }  
+}
+
+@media screen and (max-width: 400px) {
+  .list {
+    height: 420px;
+  }
 }
 
 @media screen and (max-width: 400px) {
@@ -322,7 +329,7 @@
 @media screen and (max-width: 330px) {
   .index {
     margin-top: -115px;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
   }
 }
 
@@ -334,29 +341,7 @@
 
 @media screen and (max-width: 330px) {
   .list {
-    height: 200px;
-  }
-}
-
-@media screen and (max-width: 330px) {
-  .listing {
-    display: grid;
-    grid-template-columns: minmax(min-content, 608px);
-    grid-template-rows: repeat(4, minmax(min-content, max-content));
-    grid-auto-rows: minmax(min-content, max-content);
-    row-gap: 16px;
-    height: 170px;
-    margin: 16px 0 8px;
-    padding: 0;
-    list-style-type: none;
-    overflow: scroll;
-    overflow-x: hidden;
-  }
-}
-
-@media screen and (max-width: 330px) {
-  .listing::-webkit-scrollbar {
-    display: none;
+    height: 160px;
   }
 }
 
@@ -377,12 +362,25 @@
   .total {
     right: 8px;
     left: 8px;
+    height: 20px;
+  }  
+}
+
+@media screen and (max-width: 330px) {
+  .sum {
+    height: 20px;
+  }  
+}
+
+@media screen and (max-width: 330px) {
+  .wrap {
+    width: 65%;
   }  
 }
 
 @media screen and (max-width: 330px) {
   .cost {
-    width: 80%;
+    width: 35%;
     justify-content: end;
   }  
 }

@@ -1,7 +1,10 @@
-export const socketMiddleware = (wsActions: any) => {
-  return (store: any) => {
-    let socket: any = null;
-    return (next: any) => (action: any) => {
+import { Middleware } from 'redux';
+import {  TRootState } from '../store';
+
+export const socketMiddleware = (wsActions: any): Middleware<{}, TRootState> => {
+  return (store) => {
+    let socket: WebSocket | null = null;
+    return (next) => (action) => {
       const { dispatch }  = store;
       const { type, payload } = action;
       const {
@@ -15,13 +18,13 @@ export const socketMiddleware = (wsActions: any) => {
       } = wsActions;
       if (type === wsInit) {
         socket = new WebSocket(payload); 
-        socket.onopen = (event: any) => {
+        socket.onopen = (event) => {
           dispatch({ type: onOpen, payload: event });
         };
-        socket.onerror = (event: any) => {
+        socket.onerror = (event) => {
           dispatch({ type: onError, payload: event });
         };
-        socket.onmessage = (event: any) => {
+        socket.onmessage = (event) => {
           const { data } = event;
           const parsedData = JSON.parse(data);
           dispatch({ 
@@ -31,9 +34,8 @@ export const socketMiddleware = (wsActions: any) => {
               timestamp: new Date().getTime() / 100
             }
           });
-          console.log(parsedData);
         };
-        socket.onclose = (event: any) => {
+        socket.onclose = (event) => {
           dispatch({ type: onClose, payload: event });
         };
       }

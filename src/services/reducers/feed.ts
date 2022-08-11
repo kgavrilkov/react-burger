@@ -41,9 +41,9 @@ export const feed = (state = initialState, action: TFeedAction): TFeedState => {
     case FEED_GET_MESSAGE: {
       return {
         ...state,
-        orders: action.payload.orders,
-        total: action.payload.total,
-        totalToday: action.payload.totalToday
+        orders: action.payload.data.orders,
+        total: action.payload.data.total,
+        totalToday: action.payload.data.totalToday
       };
     }
     case FEED_CONNECTION_CLOSED: {

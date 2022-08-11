@@ -9,6 +9,14 @@ import {
   FEED_CONNECTION_CLOSE,
   FEED_CONNECTION_CLOSED
  } from './actions/feed';
+import { 
+  ORDERS_CONNECTION_INIT,
+  ORDERS_CONNECTION_SUCCESS,
+  ORDERS_CONNECTION_ERROR,
+  ORDERS_GET_MESSAGE,
+  ORDERS_CONNECTION_CLOSE,
+  ORDERS_CONNECTION_CLOSED
+ } from './actions/orders';
 import { rootReducer } from './reducers/index';
 import { TActions } from './actions/index';
 
@@ -28,12 +36,21 @@ const feedWsActions = {
   wsClose: FEED_CONNECTION_CLOSE,
   onClose: FEED_CONNECTION_CLOSED
 };
+
+const ordersWsActions = {
+  wsInit: ORDERS_CONNECTION_INIT,
+  onOpen: ORDERS_CONNECTION_SUCCESS,
+  onError: ORDERS_CONNECTION_ERROR,
+  onMessage: ORDERS_GET_MESSAGE,
+  wsClose: ORDERS_CONNECTION_CLOSE,
+  onClose: ORDERS_CONNECTION_CLOSED
+};
     
-const enhancer = composeEnhancers(applyMiddleware(thunk, socketMiddleware(feedWsActions)));
+const enhancer = composeEnhancers(applyMiddleware(thunk, socketMiddleware(feedWsActions), socketMiddleware(ordersWsActions)));
 
 export const store = (createStore(rootReducer, enhancer));
 
-export type TRootState = ReturnType<typeof store.getState>;
+export type TRootState = ReturnType<typeof rootReducer>;
 
 type TApplicationActions = TActions;
 

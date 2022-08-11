@@ -5,6 +5,8 @@ export const BASE_URL = 'https://norma.nomoreparties.space/api';
 
 export const WSS_FEED_URL = 'wss://norma.nomoreparties.space/orders/all';
 
+export const WSS_ORDER_URL = 'wss://norma.nomoreparties.space/orders';
+
 export const checkResponse = <T>(res: Response): Promise<T> => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
 
 export const getIngredients = () => {

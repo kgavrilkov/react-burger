@@ -1,12 +1,26 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
+import { useDispatch, useSelector } from '../../../services/hooks';
 import { useMediaQuery } from 'react-responsive';
-import { data, total, totalToday } from '../../../utils/data';
+import { feedInit, feedClose } from '../../../services/actions/feed';
+import { WSS_FEED_URL } from '../../../utils/api';
 import styles from './stats.module.css';
+import { TRootState } from '../../../services/store';
 
 const Stats: FC = () => {
+  const dispatch = useDispatch();
+
   const mobile: boolean = useMediaQuery({ query: `(max-width: 450px)` });
   const mobileS: boolean = useMediaQuery({ query: `(max-width: 375px)` });
 
+  useEffect(() => {
+    dispatch(feedInit(WSS_FEED_URL));
+    return () => {
+      dispatch(feedClose());
+    };
+  }, [dispatch]);
+
+  const { orders, total, totalToday } = useSelector((store: TRootState) => store.feed);
+  
   return(
     <section className={styles.stats}>
       <div className={styles.container}>
@@ -14,7 +28,7 @@ const Stats: FC = () => {
           <div className={styles.done}>
             <p className={mobileS ? styles.heading : "text text_type_main-medium mb-6"}>Готовы:</p>
             <ul className={styles.list}>
-              {data.filter(card => card.status === 'done').map(({ number }, index) => {return (
+              {orders.filter(card => card.status === 'done').map(({ number }, index) => {return (
                 <li className={styles.number} key={index}>
                   <p className={mobile ? styles.figure : "text text_type_digits-default"}>{number}</p>
                 </li>)
@@ -24,7 +38,7 @@ const Stats: FC = () => {
           <div className={styles.inwork}>
             <p className={mobileS ? styles.heading : "text text_type_main-medium mb-6"}>В работе:</p>
             <ul className={styles.list}>
-              {data.filter(card => card.status === 'inwork').map(({ number }, index) => {return (
+              {orders.filter(card => card.status === 'pending').map(({ number }, index) => {return (
                 <li key={index}>
                   <p className={mobile ? styles.figure : "text text_type_digits-default"}>{number}</p>
                 </li>)

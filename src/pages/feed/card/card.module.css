@@ -3,17 +3,18 @@
   color: #F2F2F3;
 }
 
+.container {
+  max-width: 584px;
+  border-radius: 40px;
+  background-color: #1C1C21;
+  border: 1px solid #1C1C21;
+}
+
 .card {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  width: 100%;
-  min-height: 214px;
-  margin: 0;
+  margin: 24px;
   padding: 0;
-  border-radius: 40px;
-  background-color: #1C1C21;
   list-style-type: none;
 }
 
@@ -21,7 +22,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 92%;
+  width: 100%;
 }
 
 .number {
@@ -33,14 +34,9 @@
   margin: 0;
 }
 
-.wrap {
-  text-align: right;
-  width: 51%;
-}
-
 .info {
-  width: 92%;
-  text-align: left;
+  margin: 24px 0;
+  width: 100%;
 }
 
 .digit {
@@ -55,12 +51,12 @@
 .components {
   display: flex;
   justify-content: space-between;
-  width: 92%;
+  width: 100%;
 }
 
 .ingredients {
   display: grid;
-  grid-template-columns: repeat(6, 48px);
+  grid-template-columns: repeat(6, 50px);
   align-items: center;
   width: 80%;
 }
@@ -105,7 +101,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 20%;
+}
+
+.wrap {
+  text-align: right;
 }
 
 .sum {
@@ -114,12 +113,13 @@
 	font-weight: normal;
 	font-size: 22px;
 	line-height: 1.09;
-  margin: 0;
+  margin: 0 4px 0 0;
 }
 
-@media screen and (max-width: 500px) {
-  .price {
-    width: 25%;
+@media screen and (max-width: 450px) {
+  .container {
+    max-width: 95%;
+    margin: auto;
   }
 }
 
@@ -149,21 +149,15 @@
   }
 }
 
-@media screen and (max-width: 450px) {
-  .price {
-    width: 30%;
-  }
-}
-
-@media screen and (max-width: 450px) {
-  .wrap {
-    width: 36%;
+@media screen and (max-width: 375px) {
+  .card {
+    margin: 16px;
   }
 }
 
 @media screen and (max-width: 375px) {
-  .card {
-    min-height: 184px;
+  .info {
+    margin: 16px 0;
   }
 }
 
@@ -193,20 +187,9 @@
   }
 }
 
-@media screen and (max-width: 375px) {
-  .price {
-    width: 35%;
-  }
-}
-
-@media screen and (max-width: 375px) {
-  .wrap {
-    width: 36%;
-  }
-}
-
 @media screen and (max-width: 320px) {
-  .wrap {
-    width: 42%;
+  .box {
+    max-width: 43%;
+    text-align: right;
   }
 }

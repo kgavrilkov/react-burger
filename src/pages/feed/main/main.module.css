@@ -1,6 +1,4 @@
 .main {
   display: flex;
-  justify-content: space-between;
-  margin: auto;
-  max-width: 1240px;
+  justify-content: center;
 }

@@ -37,7 +37,7 @@ export interface IWsGetMessageAction {
 
 export interface IWsSendMessageAction {
   readonly type: typeof WS_SEND_MESSAGE;
-  readonly payload: TOrdersFeed;
+  readonly payload: any;
 }
 
 export type TWebSocketAction = IWsConnectionInitAction | IWsConnectionSuccessAction | IWsConnectionErrorAction | 
@@ -77,7 +77,7 @@ export const onMessage = (
 });
 
 export const wsSendMessage = (
-  payload: TOrdersFeed
+  payload: any
 ): IWsSendMessageAction => ({
   type: WS_SEND_MESSAGE,
   payload

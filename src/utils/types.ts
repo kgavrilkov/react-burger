@@ -271,7 +271,7 @@ export type TItemIngredient = {
 };
 
 export type TCardFeed = {
-  card: TItem;
+  card: TOrderFeed;
   onClick: () => void;
 };
 
@@ -309,8 +309,11 @@ export type TOrderFeed = {
 };
 
 export type TOrdersFeed = {
-  success: boolean,
-  orders: ReadonlyArray<TOrderFeed>,
-  total: number,
-  totalToday: number,
-}
+  data: {
+    orders: ReadonlyArray<TOrderFeed>,
+    success: boolean,
+    total: number,
+    totalToday: number
+  }
+  timestamp: number
+};

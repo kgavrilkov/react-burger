@@ -39,11 +39,13 @@ export const orders = (state = initialState, action: TOrdersAction): TOrdersStat
       };
     }
     case ORDERS_GET_MESSAGE: {
+      console.log(ORDERS_GET_MESSAGE);
+      console.log(action);
       return {
         ...state,
-        orders: action.payload.orders,
-        total: action.payload.total,
-        totalToday: action.payload.totalToday
+        orders: action.payload.data.orders,
+        total: action.payload.data.total,
+        totalToday: action.payload.data.totalToday
       };
     }
     case ORDERS_CONNECTION_CLOSED: {

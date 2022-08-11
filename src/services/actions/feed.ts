@@ -37,7 +37,7 @@ export interface IFeedGetMessageAction {
 
 export interface IFeedSendMessageAction {
   readonly type: typeof FEED_SEND_MESSAGE;
-  readonly payload: TOrdersFeed;
+  readonly payload: any;
 }
 
 export type TFeedAction = IFeedConnectionInitAction | IFeedConnectionSuccessAction | IFeedConnectionErrorAction | 

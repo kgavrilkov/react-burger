@@ -16,7 +16,7 @@ const Card: FC<TCardFeed> = ({ card, onClick }) => {
 
   const items = card.ingredients;
 
-  const ingredients: Array<TItemIngredient> = Object.values(items.reduce((acc, cur) => Object.assign(acc, {[cur.name]: cur}), {}));
+  /*const ingredients: Array<TItemIngredient> = Object.values(items.reduce((acc, cur) => Object.assign(acc, {[cur.name]: cur}), {}));
 
   const quantity: Array<number> = Object.values(items.reduce((acc: any, ingredient) => {
     if (ingredient.type === 'bun') {
@@ -29,7 +29,7 @@ const Card: FC<TCardFeed> = ({ card, onClick }) => {
 
   const sum = ingredients.reduce((previousValue, ingredient, index) => {
     return previousValue + quantity[index] * ingredient.price;
-  }, 0);
+  }, 0);*/
   
   return(
     <Link
@@ -44,7 +44,7 @@ const Card: FC<TCardFeed> = ({ card, onClick }) => {
         <li className={styles.order}>
           <p className={mobileS ? styles.number : "text text_type_digits-default"}>#{card.number}</p>
           <div className={styles.wrap}>
-            <p className={mobileS ? "text text_type_main-small text_color_inactive" : "text text_type_main-default text_color_inactive"}>{card.date}</p>
+            <p className={mobileS ? "text text_type_main-small text_color_inactive" : "text text_type_main-default text_color_inactive"}>{card.createdAt}</p>
           </div>
         </li>
         <li className={styles.info}>
@@ -55,7 +55,7 @@ const Card: FC<TCardFeed> = ({ card, onClick }) => {
         </li>
         <li className={styles.components}>
           <div className={styles.ingredients}>
-            {ingredients.slice(0, 5).map((ingredient, index) => {
+            {/*{ingredients.slice(0, 5).map((ingredient, index) => {
               const zetIndex = [5,4,3,2,1];
               return <img className={styles.image} style={{ zIndex: zetIndex[index] }} src={ingredient.link} key={ingredient._id} alt={card.name}/>
             })}
@@ -68,10 +68,10 @@ const Card: FC<TCardFeed> = ({ card, onClick }) => {
                   </div>
                 </div>
               )
-            })}
+            })}*/}
           </div>
           <div className={styles.price}>
-            <p className={mobileL ? styles.sum : "text text_type_digits-default"}>{sum}</p>
+            <p className={mobileL ? styles.sum : "text text_type_digits-default"}>{}</p>
             <CurrencyIcon type="primary" />
           </div>
         </li>

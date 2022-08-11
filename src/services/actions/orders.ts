@@ -37,7 +37,7 @@ export interface IOrdersGetMessageAction {
 
 export interface IOrdersSendMessageAction {
   readonly type: typeof ORDERS_SEND_MESSAGE;
-  readonly payload: TOrdersFeed;
+  readonly payload: any;
 }
 
 export type TOrdersAction = IOrdersConnectionInitAction | IOrdersConnectionSuccessAction | IOrdersConnectionErrorAction | 

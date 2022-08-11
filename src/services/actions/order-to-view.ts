@@ -1,11 +1,11 @@
-import { TItem } from '../../utils/types';
+import { TOrderFeed } from '../../utils/types';
 
 export const GET_ORDER_TO_VIEW: 'GET_ORDER_TO_VIEW' = 'GET_ORDER_TO_VIEW';
 export const RESET_ORDER_TO_VIEW: 'RESET_ORDER_TO_VIEW' = 'RESET_ORDER_TO_VIEW';
 
 export interface IGetOrderToViewAction {
   readonly type: typeof GET_ORDER_TO_VIEW;
-  readonly payload: TItem; 
+  readonly payload: TOrderFeed; 
 }
 
 export interface IResetOrderToViewAction {
@@ -15,7 +15,7 @@ export interface IResetOrderToViewAction {
 export type TOrderToViewAction = IGetOrderToViewAction | IResetOrderToViewAction;
 
 export const getOrderToViewAction = (
-  payload: TItem
+  payload: TOrderFeed
 ): IGetOrderToViewAction => ({
   type: GET_ORDER_TO_VIEW,
   payload

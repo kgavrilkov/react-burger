@@ -1,4 +1,4 @@
-import { TItem } from '../../utils/types';
+import { TOrderFeed } from '../../utils/types';
 import { TOrderToViewAction } from '../actions/order-to-view';
 import {
   GET_ORDER_TO_VIEW,
@@ -6,7 +6,7 @@ import {
 } from '../actions/order-to-view';
 
 type TOrderToViewState = {
-  order: TItem | null;
+  order: TOrderFeed | null;
 };
 
 const initialState = {

@@ -4,10 +4,9 @@ import { useDispatch, useSelector } from '../../../services/hooks';
 import { feedInit, feedClose } from '../../../services/actions/feed';
 import { WSS_FEED_URL } from '../../../utils/api';
 import Card from '../card/card';
-import { data } from '../../../utils/data';
 import { getOrderToViewAction } from '../../../services/actions/order-to-view';
 import styles from './orders.module.css';
-import { TOrders, TItem } from '../../../utils/types';
+import { TOrders, TOrderFeed } from '../../../utils/types';
 import { TRootState } from '../../../services/store';
 
 const Orders: FC<TOrders> = ({ handleModalOpen }) => {
@@ -21,10 +20,8 @@ const Orders: FC<TOrders> = ({ handleModalOpen }) => {
   }, [dispatch]);
 
   const { orders } = useSelector((store: TRootState) => store.feed);
-  
-  console.log(orders);
 
-  const handleOrderOpen = (card: TItem) => {
+  const handleOrderOpen = (card: TOrderFeed) => {
     dispatch(getOrderToViewAction(card));
     localStorage.setItem('card', JSON.stringify(card));
   };
@@ -42,7 +39,7 @@ const Orders: FC<TOrders> = ({ handleModalOpen }) => {
   return(
     <section className={styles.orders}>
       <div className={styles.cards}>
-        {data.map((card) => {return (
+        {orders.map((card) => {return (
           <Card
             card={card}
             key={card._id}

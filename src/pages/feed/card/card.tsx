@@ -1,17 +1,15 @@
-import React, { FC, useEffect } from "react";
+import React, { FC } from "react";
 import { useLocation, Link } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
-import { useDispatch, useSelector } from '../../../services/hooks';
+import { useSelector } from '../../../services/hooks';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { formattedDate } from '../../../utils/formatted-date';
-import { getItems } from '../../../services/actions/burger-ingredients';
 import styles from './card.module.css';
 import { TCardFeed, TIngredient, TLocationParams } from '../../../utils/types';
 import { TRootState } from '../../../services/store';
 
 const Card: FC<TCardFeed> = ({ card, onClick }) => {
   const location = useLocation() as unknown as TLocationParams;
-  const dispatch = useDispatch();
 
   const mobileL: boolean = useMediaQuery({ query: `(max-width: 600px)` });
   const mobile: boolean = useMediaQuery({ query: `(max-width: 450px)` });
@@ -22,10 +20,6 @@ const Card: FC<TCardFeed> = ({ card, onClick }) => {
   const createdAt = card.createdAt;
 
   const date = formattedDate(createdAt);
-
-  useEffect(() => {
-    dispatch(getItems());
-  }, [dispatch]);
 
   const { ingredients } = useSelector((store: TRootState) => store.burgerIngredients);
 

@@ -26,10 +26,10 @@ export const formattedDate = (date: string) => {
   }
 
   if (new Date().getDate() - new Date(date).getDate() > 1) {
-    return new Date().getDate() - new Date(date).getDate() + ' дня назад' + hours() + ':' + minutes() + ' i-CMT+3';
+    return new Date().getDate() - new Date(date).getDate() + ' дня назад, ' + hours() + ':' + minutes() + ' i-CMT+3';
   }
   
   if (new Date().getDate() - new Date(date).getDate() > 4) {
-    return new Date().getDate() - new Date(date).getDate() + ' дней назад' + hours() + ':' + minutes() + ' i-CMT+3';
+    return new Date().getDate() - new Date(date).getDate() + ' дней назад, ' + hours() + ':' + minutes() + ' i-CMT+3';
   }
 };

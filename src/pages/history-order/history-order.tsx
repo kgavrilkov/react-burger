@@ -1,14 +1,32 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
+import { useSelector, useDispatch } from '../../services/hooks';
+import { ordersInit, ordersClose } from '../../services/actions/orders';
+import { WSS_ORDER_URL } from '../../utils/api';
 import { useParams } from 'react-router-dom';
-import { useSelector } from '../../services/hooks';
 import FeedOrderDetails from "../feed/feed-order-details/feed-order-details";
+import { getItems } from '../../services/actions/burger-ingredients';
 import styles from './history-order.module.css';
 import { TRootState } from '../../services/store';
 
 const HistoryOrder: FC = () => {
-  const { orderId } = useParams();
+  const dispatch = useDispatch();
+  
+  useEffect(() => {
+    const token = localStorage.getItem('accessToken')!;
+    const accessToken = token.replace('Bearer ', '');
+    dispatch(ordersInit(`${WSS_ORDER_URL}?token=${accessToken}`));
+    return () => {
+      dispatch(ordersClose());
+    };
+  }, [dispatch]);
 
-  const { orders } = useSelector((store: TRootState) => store.feed);
+  useEffect(() => {
+    dispatch(getItems());
+  }, [dispatch]);
+
+  const { orders } = useSelector((store: TRootState) => store.orders);
+
+  const { orderId } = useParams();
 
   return(
     <>

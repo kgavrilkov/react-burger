@@ -3,6 +3,7 @@ import React, { FC, useEffect } from "react";
 import { useDispatch, useSelector } from '../../../services/hooks';
 import { feedInit, feedClose } from '../../../services/actions/feed';
 import { WSS_FEED_URL } from '../../../utils/api';
+import { getItems } from '../../../services/actions/burger-ingredients';
 import Card from '../card/card';
 import { getOrderToViewAction } from '../../../services/actions/order-to-view';
 import styles from './orders.module.css';
@@ -17,6 +18,10 @@ const Orders: FC<TOrders> = ({ handleModalOpen }) => {
     return () => {
       dispatch(feedClose());
     };
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getItems());
   }, [dispatch]);
 
   const { orders } = useSelector((store: TRootState) => store.feed);

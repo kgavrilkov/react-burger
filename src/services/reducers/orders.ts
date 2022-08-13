@@ -39,8 +39,6 @@ export const orders = (state = initialState, action: TOrdersAction): TOrdersStat
       };
     }
     case ORDERS_GET_MESSAGE: {
-      console.log(ORDERS_GET_MESSAGE);
-      console.log(action);
       return {
         ...state,
         orders: action.payload.data.orders,

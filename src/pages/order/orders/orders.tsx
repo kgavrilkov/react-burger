@@ -3,6 +3,7 @@ import React, { FC, useEffect } from "react";
 import { useDispatch, useSelector } from '../../../services/hooks';
 import { ordersInit, ordersClose } from '../../../services/actions/orders';
 import { WSS_ORDER_URL } from '../../../utils/api';
+import { getItems } from '../../../services/actions/burger-ingredients';
 import Card from "../card/card";
 import { getOrderToViewAction } from '../../../services/actions/order-to-view';
 import styles from './orders.module.css';
@@ -20,24 +21,17 @@ const Orders: FC<THistoryOrders> = ({ handleModalOpen }) => {
       dispatch(ordersClose());
     };
   }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getItems());
+  }, [dispatch]);
   
   const { orders } = useSelector((store: TRootState) => store.orders);
-  console.log(orders);
   
   const handleOrderOpen = (card: TOrderFeed) => {
     dispatch(getOrderToViewAction(card));
     localStorage.setItem('card', JSON.stringify(card));
   };
-
-  useEffect(() => {
-    const value = localStorage.getItem('card');
-    if (typeof value === 'string') {
-      const card = JSON.parse(value)
-      if (card) {
-        handleModalOpen(handleOrderOpen(card));
-      }
-    }
-  }, []);
 
   return(
     <section className={styles.orders}>
@@ -48,7 +42,7 @@ const Orders: FC<THistoryOrders> = ({ handleModalOpen }) => {
             key={card._id}
             onClick={() => handleModalOpen(handleOrderOpen(card))}
           />)
-        })}
+        }).reverse()}
       </div>
     </section>
   );

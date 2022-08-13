@@ -14,11 +14,13 @@ export const getIngredients = () => {
     .then((res) => checkResponse<TIngredients>(res))
 };
 
-export const getOrderNumber = (ingredientsId: string) => {;
+export const getOrderNumber = (ingredientsId: string) => {
+  const accessToken = localStorage.getItem('accessToken')!;
   return fetch(`${BASE_URL}/orders`, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Authorization': accessToken
     },
     body: JSON.stringify({ingredients: ingredientsId})
   })

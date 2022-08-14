@@ -5,9 +5,7 @@ import { feedInit, feedClose } from '../../services/actions/feed';
 import { WSS_FEED_URL } from '../../utils/api';
 import { useParams } from 'react-router-dom';
 import FeedOrderDetails from "../feed/feed-order-details/feed-order-details";
-import { getItems } from '../../services/actions/burger-ingredients';
 import styles from './order-feed.module.css';
-import { TRootState } from '../../services/store';
 
 const OrderFeed: FC = () => {
   const dispatch = useDispatch();
@@ -19,11 +17,7 @@ const OrderFeed: FC = () => {
     };
   }, [dispatch]);
 
-  useEffect(() => {
-    dispatch(getItems());
-  }, [dispatch]);
-
-  const { orders } = useSelector((store: TRootState) => store.feed);
+  const { orders } = useSelector((store) => store.feed);
 
   const { feedId } = useParams();
 

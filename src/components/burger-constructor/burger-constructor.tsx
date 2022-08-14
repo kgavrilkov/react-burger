@@ -9,20 +9,19 @@ import Card from '../card/card';
 import DraggableElement from '../draggable-element/draggable-element';
 import { addIngredientAction, deleteIngredientAction, reorderIngredientsAction } from '../../services/actions/constructor-ingredients';
 import styles from './burger-constructor.module.css';
-import { TBurgerConstructor, TIngredient, TIngredientToDelete } from '../../utils/types';
-import { TRootState } from '../../services/store';
+import { TBurgerConstructor, TIngredientToDelete } from '../../utils/types';
 
 const BurgerConstructor: FC<TBurgerConstructor> = ({ isBurgerIngredientsVisible, handleToggle }) => {
   const mobile: boolean = useMediaQuery({ query: `(max-width: 600px)` });
 
-  const { constructorIngredients } = useSelector((store: TRootState) => store.constructorIngredients);
+  const { constructorIngredients } = useSelector((store) => store.constructorIngredients);
   const dispatch = useDispatch();
 
   const buns = useMemo(() => 
-    constructorIngredients.find(((card: TIngredient) => card.type === 'bun')) 
+    constructorIngredients.find(((card) => card.type === 'bun')) 
   , [constructorIngredients]);
   const notBuns = useMemo(() => 
-    constructorIngredients.filter(((card: TIngredient) => card.type !== 'bun')) 
+    constructorIngredients.filter(((card) => card.type !== 'bun')) 
   , [constructorIngredients]);
 
   const [, dropRef] = useDrop({

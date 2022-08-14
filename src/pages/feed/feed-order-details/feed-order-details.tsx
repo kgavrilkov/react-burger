@@ -6,7 +6,6 @@ import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components
 import { formattedDate } from '../../../utils/formatted-date';
 import styles from './feed-order-details.module.css';
 import { TFeedOrder, TLocationParams, TIngredient } from '../../../utils/types';
-import { TRootState } from '../../../services/store';
 
 const FeedOrderDetails: FC<TFeedOrder> = ({ card }) => {
   const location = useLocation() as unknown as TLocationParams;
@@ -23,7 +22,7 @@ const FeedOrderDetails: FC<TFeedOrder> = ({ card }) => {
 
   const date = formattedDate(createdAt);
 
-  const { ingredients } = useSelector((store: TRootState) => store.burgerIngredients);
+  const { ingredients } = useSelector((store) => store.burgerIngredients);
 
   const ingredientsData: Array<TIngredient> = card.ingredients.reduce((acc: any, item) => {
     const ingredient = ingredients.find(element => element._id === item);

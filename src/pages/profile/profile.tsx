@@ -11,7 +11,6 @@ import { getUserAction, setUserAction, deleteAction } from '../../services/actio
 import { logoutAction } from '../../services/actions/auth';
 import styles from './profile.module.css';
 import { TRegisterStateSchema, TRegisterValidationStateSchema } from '../../utils/types';
-import { TRootState } from '../../services/store';
 
 const Profile: FC = () => {
   const dispatch = useDispatch();
@@ -21,7 +20,7 @@ const Profile: FC = () => {
   const mobile: boolean = useMediaQuery({ query: `(max-width: 375px)` });
 
   const currentUser = JSON.parse(localStorage.getItem('user')!);  
-  const successMessage = useSelector((store: TRootState) => store.currentUser.successMessage);
+  const successMessage = useSelector((store) => store.currentUser.successMessage);
 
   const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>('');

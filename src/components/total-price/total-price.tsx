@@ -7,16 +7,15 @@ import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-co
 import currencyPath from '../../images/currency.svg';
 import { getNumber } from '../../services/actions/order';
 import styles from './total-price.module.css';
-import { TTotalPrice, TLocationParams, TIngredient } from '../../utils/types';
-import { TRootState } from '../../services/store';
+import { TTotalPrice, TLocationParams } from '../../utils/types';
 
 const TotalPrice: FC<TTotalPrice> = ({ isBurgerConstructorVisible, handleToggle, handleModalOpen, setNumber }) => {
   const [name, setName] = useState<string>('Бургер конструктор');
 
   const mobile: boolean = useMediaQuery({ query: `(max-width: 600px)` });
   
-  const { constructorIngredients } = useSelector((store: TRootState) => store.constructorIngredients);
-  const isLoggedIn = useSelector((store: TRootState) => store.auth.isLoggedIn);
+  const { constructorIngredients } = useSelector((store) => store.constructorIngredients);
+  const isLoggedIn = useSelector((store) => store.auth.isLoggedIn);
 
   const dispatch = useDispatch();
   const location = useLocation() as unknown as TLocationParams;
@@ -29,7 +28,7 @@ const TotalPrice: FC<TTotalPrice> = ({ isBurgerConstructorVisible, handleToggle,
 
   const getTotalPrice = (arg: object) => {
     let total = 0;
-    constructorIngredients.map((item: TIngredient) => 
+    constructorIngredients.map((item) => 
       item.type === 'bun' ? (total += item.price * 2) : (total += item.price)
     );
     return total;
@@ -38,15 +37,15 @@ const TotalPrice: FC<TTotalPrice> = ({ isBurgerConstructorVisible, handleToggle,
   const totalPrice = getTotalPrice(constructorIngredients);
 
   const buns = useMemo(() => 
-    constructorIngredients.find(((card: TIngredient) => card.type === 'bun')) 
+    constructorIngredients.find(((card) => card.type === 'bun')) 
   , [constructorIngredients]);
   const notBuns = useMemo(() => 
-    constructorIngredients.find(((card: TIngredient) => card.type !== 'bun')) 
+    constructorIngredients.find(((card) => card.type !== 'bun')) 
   , [constructorIngredients]);
 
   const getRequestNumber = () => {
     const ingredientsId: string[] = [];
-    constructorIngredients.map((item: TIngredient) => ingredientsId.push(item._id));
+    constructorIngredients.map((item) => ingredientsId.push(item._id));
     dispatch(getNumber(ingredientsId));
   };
 

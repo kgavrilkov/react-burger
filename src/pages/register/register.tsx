@@ -10,13 +10,12 @@ import { Button } from '../../components/button/button';
 import { registerAction } from '../../services/actions/auth';
 import styles from './register.module.css';
 import { TRegisterStateSchema, TRegisterValidationStateSchema, TRegisterInitialState }  from '../../utils/types';
-import { TRootState } from '../../services/store';
 
 const Register: FC = () => {
   const mobile: boolean = useMediaQuery({ query: `(max-width: 375px)` });
 
-  const registered = useSelector((store: TRootState) => store.auth.registered);
-  const errorRegisterMessage = useSelector((store: TRootState) => store.auth.errorRegisterMessage);
+  const registered = useSelector((store) => store.auth.registered);
+  const errorRegisterMessage = useSelector((store) => store.auth.errorRegisterMessage);
  
   const dispatch = useDispatch();
 

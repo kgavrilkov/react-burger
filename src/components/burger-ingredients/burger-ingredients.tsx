@@ -4,12 +4,10 @@ import { useMediaQuery } from 'react-responsive';
 import { useSelector, useDispatch } from '../../services/hooks';
 import { Tab } from '../tab/tab';
 import Card from '../card/card';
-import { getItems } from '../../services/actions/burger-ingredients';
 import { getItemToViewAction } from '../../services/actions/item-to-view';
 import { useScroll } from '../../utils/use-scroll';
 import styles from './burger-ingredients.module.css';
 import { TBurgerIngredients, TIngredient } from '../../utils/types';
-import { TRootState } from '../../services/store';
 
 const BurgerIngredients: FC<TBurgerIngredients> = ({ isBurgerIngredientsVisible, handleModalOpen }) => {
   const [current, setCurrent] = useState<string>('bun');
@@ -17,7 +15,7 @@ const BurgerIngredients: FC<TBurgerIngredients> = ({ isBurgerIngredientsVisible,
   const mobile: boolean = useMediaQuery({ query: `(max-width: 630px)` });
   const mobileS: boolean = useMediaQuery({ query: `(max-width: 340px)` });
   
-  const { ingredients } = useSelector((store: TRootState) => store.burgerIngredients);
+  const { ingredients } = useSelector((store) => store.burgerIngredients);
   const dispatch = useDispatch();
 
   const bunRef = useRef<HTMLLIElement>(null);
@@ -51,10 +49,6 @@ const BurgerIngredients: FC<TBurgerIngredients> = ({ isBurgerIngredientsVisible,
   function activeTab(elem: React.SetStateAction<string>) {
     setCurrent(elem);
   }
-  
-  useEffect(() => {
-    dispatch(getItems());
-  }, [dispatch]);
 
   const handleCardOpen = (card: TIngredient) => {
     dispatch(getItemToViewAction(card));
@@ -91,7 +85,7 @@ const BurgerIngredients: FC<TBurgerIngredients> = ({ isBurgerIngredientsVisible,
         <li ref={bunRef}>
           <p className={mobileS ? "text text_type_main-default ml-2" : mobile ? "text text_type_main-medium ml-2" : "text text_type_main-medium"}>Булки</p>
           <div className={styles.cards}>
-            {ingredients.filter(((card: TIngredient) => card.type === 'bun')).map((card: TIngredient) => {
+            {ingredients.filter(((card) => card.type === 'bun')).map((card) => {
               return <Card card={card} key={card._id} isBurgerIngredientsVisible={isBurgerIngredientsVisible} onClick={() => handleModalOpen(handleCardOpen(card))} text={''}/>
             })}
           </div>
@@ -99,7 +93,7 @@ const BurgerIngredients: FC<TBurgerIngredients> = ({ isBurgerIngredientsVisible,
         <li ref={mainRef}>
           <p className={mobileS ? "text text_type_main-default ml-2" : mobile ? "text text_type_main-medium ml-2" : "text text_type_main-medium"}>Начинки</p>
           <div className={styles.cards}>
-            {ingredients.filter(((card: TIngredient) => card.type === 'main')).map((card: TIngredient) => {
+            {ingredients.filter(((card) => card.type === 'main')).map((card) => {
               return <Card card={card} key={card._id} isBurgerIngredientsVisible={isBurgerIngredientsVisible} onClick={() => handleModalOpen(handleCardOpen(card))} text={''}/>
             })}
           </div>
@@ -107,7 +101,7 @@ const BurgerIngredients: FC<TBurgerIngredients> = ({ isBurgerIngredientsVisible,
         <li ref={sauceRef}>
           <p className={mobileS ? "text text_type_main-default ml-2" : mobile ? "text text_type_main-medium ml-2" : "text text_type_main-medium"}>Соусы</p>
           <div className={styles.cards}>
-            {ingredients.filter(((card: TIngredient) => card.type === 'sauce')).map((card: TIngredient) => {
+            {ingredients.filter(((card) => card.type === 'sauce')).map((card) => {
               return <Card card={card} key={card._id} isBurgerIngredientsVisible={isBurgerIngredientsVisible} onClick={() => handleModalOpen(handleCardOpen(card))} text={''}/>
             })}
           </div>

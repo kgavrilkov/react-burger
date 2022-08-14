@@ -5,10 +5,9 @@ import { useMediaQuery } from 'react-responsive';
 import donePath from '../../images/done.gif';
 import styles from './order-details.module.css';
 import { TOrderDetails } from '../../utils/types';
-import { TRootState } from '../../services/store';
 
 const OrderDetails: FC<TOrderDetails> = ({ sum, orderNumber, number }) => {
-  const orderNumberRequest = useSelector((store: TRootState) => store.order.orderNumberRequest);
+  const orderNumberRequest = useSelector((store) => store.order.orderNumberRequest);
 
   const [visible, setVisible] = useState<boolean>();
   const [display, setDisplay] =useState<boolean>();

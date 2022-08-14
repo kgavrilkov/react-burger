@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { FC, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { useMediaQuery } from 'react-responsive';
@@ -12,18 +11,17 @@ const Modal: FC<TModal> = ({ isModalVisible, handleModalClose, title, children }
   
   const modalRoot = document.getElementById("modals")!;
 
-  const handleEscClose = (evt: KeyboardEvent) => {
-    if (evt.key === 'Escape') {
-      handleModalClose();
-    }
-  };
-
   useEffect(() => {
+    const handleEscClose = (evt: KeyboardEvent) => {
+      if (evt.key === 'Escape') {
+        handleModalClose();
+      }
+    };
     document.addEventListener('keydown', handleEscClose);
     return () => {
       document.removeEventListener('keydown', handleEscClose);
     }
-  }, []);
+  }, [handleModalClose]);
 
   if (!isModalVisible) return null;
 

@@ -9,13 +9,12 @@ import { Button } from '../../components/button/button';
 import { loginAction } from '../../services/actions/auth';
 import styles from './login.module.css';
 import { TLocationParams, TLoginStateSchema, TLoginValidationStateSchema, TLoginInitialState }  from '../../utils/types';
-import { TRootState } from '../../services/store';
 
 const Login: FC = () => {
   const mobile: boolean = useMediaQuery({ query: `(max-width: 375px)` });
 
-  const isLoggedIn = useSelector((store: TRootState) => store.auth.isLoggedIn);
-  const errorLoginMessage = useSelector((store: TRootState) => store.auth.errorLoginMessage);
+  const isLoggedIn = useSelector((store) => store.auth.isLoggedIn);
+  const errorLoginMessage = useSelector((store) => store.auth.errorLoginMessage);
 
   const dispatch = useDispatch();
   const { state } = useLocation() as unknown as TLocationParams;

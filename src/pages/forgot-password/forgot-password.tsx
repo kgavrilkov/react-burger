@@ -8,13 +8,12 @@ import { Button } from '../../components/button/button';
 import { forgotPasswordAction } from '../../services/actions/password';
 import styles from './forgot-password.module.css';
 import { TForgotPasswordStateSchema, TForgotPasswordValidationStateSchema, TForgotPasswordInitialState }  from '../../utils/types';
-import { TRootState } from '../../services/store';
 
 const ForgotPassword: FC = () => {
   const mobile: boolean = useMediaQuery({ query: `(max-width: 375px)` });
 
-  const isMessageReceived = useSelector((store: TRootState) => store.password.isMessageReceived);
-  const successForgotMessage = useSelector((store: TRootState) => store.password.successForgotMessage);
+  const isMessageReceived = useSelector((store) => store.password.isMessageReceived);
+  const successForgotMessage = useSelector((store) => store.password.successForgotMessage);
 
   const dispatch = useDispatch();
   const history = useHistory();

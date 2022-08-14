@@ -4,9 +4,7 @@ import { ordersInit, ordersClose } from '../../services/actions/orders';
 import { WSS_ORDER_URL } from '../../utils/api';
 import { useParams } from 'react-router-dom';
 import FeedOrderDetails from "../feed/feed-order-details/feed-order-details";
-import { getItems } from '../../services/actions/burger-ingredients';
 import styles from './history-order.module.css';
-import { TRootState } from '../../services/store';
 
 const HistoryOrder: FC = () => {
   const dispatch = useDispatch();
@@ -20,11 +18,7 @@ const HistoryOrder: FC = () => {
     };
   }, [dispatch]);
 
-  useEffect(() => {
-    dispatch(getItems());
-  }, [dispatch]);
-
-  const { orders } = useSelector((store: TRootState) => store.orders);
+  const { orders } = useSelector((store) => store.orders);
 
   const { orderId } = useParams();
 

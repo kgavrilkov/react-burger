@@ -4,7 +4,6 @@ import { useMediaQuery } from 'react-responsive';
 import { feedInit, feedClose } from '../../../services/actions/feed';
 import { WSS_FEED_URL } from '../../../utils/api';
 import styles from './stats.module.css';
-import { TRootState } from '../../../services/store';
 
 const Stats: FC = () => {
   const dispatch = useDispatch();
@@ -19,7 +18,7 @@ const Stats: FC = () => {
     };
   }, [dispatch]);
 
-  const { orders, total, totalToday } = useSelector((store: TRootState) => store.feed);
+  const { orders, total, totalToday } = useSelector((store) => store.feed);
   
   return(
     <section className={styles.stats}>

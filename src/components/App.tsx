@@ -12,6 +12,7 @@ import IngredientDetails from './ingredient-details/ingredient-details';
 import OrderDetails from './order-details/order-details';
 import sum from '../utils/total';
 import TotalPrice from './total-price/total-price';
+import { getItems } from '../services/actions/burger-ingredients';
 import { resetItemToViewAction } from '../services/actions/item-to-view';
 import { resetOrderAction } from '../services/actions/order';
 import { resetOrderToViewAction } from '../services/actions/order-to-view';
@@ -32,7 +33,6 @@ import PublicRoute from './public-route/public-route';
 import MainRoute from './main-route/main-route';
 import FeedRoute from './feed-route/feed-route';
 import { TLocationParams }  from '../utils/types';
-import { TRootState } from '../services/store';
 
 const App: FC = () => {
   const [isBurgerIngredientsVisible, setIsBurgerIngredientsVisible] = useState<boolean>(true);
@@ -47,15 +47,19 @@ const App: FC = () => {
   const mobile: boolean = useMediaQuery({ query: `(max-width: 600px)` });
   const mobileS: boolean = useMediaQuery({ query: `(max-width: 480px)` });
 
-  const selectedCard = useSelector((store: TRootState) => store.itemToView.ingredient);
-  const orderNumber = useSelector((store: TRootState) => store.order.number);
-  const selectedOrder = useSelector((store: TRootState) => store.orderToView.order);
+  const selectedCard = useSelector((store) => store.itemToView.ingredient);
+  const orderNumber = useSelector((store) => store.order.number);
+  const selectedOrder = useSelector((store) => store.orderToView.order);
   
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation() as unknown as TLocationParams;
 
   const background = location.state && location.state.background;
+
+  useEffect(() => {
+    dispatch(getItems());
+  }, [dispatch]);
 
   useEffect(() => {
     if (tablet) {

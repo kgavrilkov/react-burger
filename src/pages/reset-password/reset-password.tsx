@@ -9,15 +9,14 @@ import { Button } from '../../components/button/button';
 import { resetPasswordAction, clearAction } from '../../services/actions/password';
 import styles from './reset-password.module.css';
 import { TResetPasswordStateSchema, TResetPasswordValidationStateSchema, TResetPasswordInitialState }  from '../../utils/types';
-import { TRootState } from '../../services/store';
 
 const ResetPassword: FC = () => {
   const mobile: boolean = useMediaQuery({ query: `(max-width: 375px)` });
   
-  const isResetMessageReceived = useSelector((store: TRootState) => store.password.isResetMessageReceived);
-  const isMessageReceived = useSelector((store: TRootState) => store.password.isMessageReceived);
-  const errorResetMessage = useSelector((store: TRootState) => store.password.errorResetMessage);
-  const successResetMessage = useSelector((store: TRootState) => store.password.successResetMessage);
+  const isResetMessageReceived = useSelector((store) => store.password.isResetMessageReceived);
+  const isMessageReceived = useSelector((store) => store.password.isMessageReceived);
+  const errorResetMessage = useSelector((store) => store.password.errorResetMessage);
+  const successResetMessage = useSelector((store) => store.password.successResetMessage);
 
   const dispatch = useDispatch();
   const history = useHistory();

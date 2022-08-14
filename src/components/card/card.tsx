@@ -7,11 +7,10 @@ import { useDrag } from 'react-dnd';
 import { CurrencyIcon, Button, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import { addIngredientAction } from '../../services/actions/constructor-ingredients';
 import styles from './card.module.css';
-import { TCard, TLocationParams, TIngredient, TIngredientToDelete } from '../../utils/types';
-import { TRootState } from '../../services/store';
+import { TCard, TLocationParams, TIngredientToDelete } from '../../utils/types';
 
 const Card: FC<TCard> = ({ card, isBurgerIngredientsVisible, text, onClick }) => {
-  const { constructorIngredients } = useSelector((store: TRootState) => store.constructorIngredients);
+  const { constructorIngredients } = useSelector((store) => store.constructorIngredients);
 
   const dispatch = useDispatch();
   const location = useLocation() as unknown as TLocationParams;
@@ -53,7 +52,7 @@ const Card: FC<TCard> = ({ card, isBurgerIngredientsVisible, text, onClick }) =>
 
   const getTotalCount = () => {
     let total = 0
-    constructorIngredients.forEach((item: TIngredient) => 
+    constructorIngredients.forEach((item) => 
       item.name === card.name && (card.type === 'bun' ? total += 2 : total += 1)
     );
     return total;

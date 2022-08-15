@@ -1,7 +1,7 @@
 import { Middleware } from 'redux';
 import {  TRootState } from '../store';
 
-export const socketMiddleware = (wsActions: any): Middleware<{}, TRootState> => {
+export const socketMiddleware = (wsActions: {[key: string]: any}): Middleware<{}, TRootState> => {
   return (store) => {
     let socket: WebSocket | null = null;
     return (next) => (action) => {
@@ -13,7 +13,6 @@ export const socketMiddleware = (wsActions: any): Middleware<{}, TRootState> => 
         onError,
         wsSendMessage,
         onMessage,
-        wsClose,
         onClose
       } = wsActions;
       if (type === wsInit) {
@@ -38,9 +37,6 @@ export const socketMiddleware = (wsActions: any): Middleware<{}, TRootState> => 
         socket.onclose = (event) => {
           dispatch({ type: onClose, payload: event });
         };
-      }
-      if (wsClose && type === wsClose && socket) {
-        socket.close();
       }
       if (wsSendMessage && type === wsSendMessage && socket) {
         socket.send(JSON.stringify(payload));

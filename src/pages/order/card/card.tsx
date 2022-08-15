@@ -22,7 +22,7 @@ const Card: FC<TCardFeed> = ({ card, onClick }) => {
 
   const { ingredients } = useSelector((store) => store.burgerIngredients);
 
-  const ingredientsData: Array<TIngredient> = card.ingredients.reduce((acc: any, item) => {
+  const ingredientsData: Array<TIngredient> = card.ingredients.reduce((acc: Array<TIngredient>, item) => {
     const ingredient = ingredients.find(element => element._id === item);
     if (ingredient) {
       acc.push(ingredient);

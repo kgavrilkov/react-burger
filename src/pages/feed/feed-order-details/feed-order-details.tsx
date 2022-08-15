@@ -24,7 +24,7 @@ const FeedOrderDetails: FC<TFeedOrder> = ({ card }) => {
 
   const { ingredients } = useSelector((store) => store.burgerIngredients);
 
-  const ingredientsData: Array<TIngredient> = card.ingredients.reduce((acc: any, item) => {
+  const ingredientsData: Array<TIngredient> = card.ingredients.reduce((acc: Array<TIngredient>, item) => {
     const ingredient = ingredients.find(element => element._id === item);
     if (ingredient) {
       acc.push(ingredient);
@@ -120,7 +120,7 @@ const FeedOrderDetails: FC<TFeedOrder> = ({ card }) => {
         </div>
         <p className={mobile ? styles.content : "text text_type_main-medium"}>Состав:</p>
         <ul className={mobileS ? total.length > 3 ? styles.list : styles.enum : mobile ? total.length > 6 ? styles.list : styles.enum : total.length > 4 ? styles.list : styles.enum}>  
-          {total.map((ingredient: any, index: any) => {return (
+          {total.map((ingredient: TIngredient, index: number) => {return (
             <li className={styles.item} key={index}>  
               <img className={styles.image} src={ingredient.image} alt={ingredient.name}/>
               <div className={styles.shell}>

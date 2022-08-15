@@ -1,6 +1,6 @@
 import { register, login, logout } from '../../utils/auth';
 import { TUserData, TRegisterInitialState, TLoginInitialState } from '../../utils/types';
-import { AppThunk, AppDispatch } from '../store';
+import { AppThunk } from '../store';
 
 export const REGISTER_REQUEST: 'REGISTER_REQUEST' = 'REGISTER_REQUEST';
 export const REGISTER_SUCCESS: 'REGISTER_SUCCESS' = 'REGISTER_SUCCESS';
@@ -104,7 +104,7 @@ export const resetAction = (): IResetAction => ({
   type: RESET
 });
 
-export const registerAction: AppThunk = ({name, email, password}: TRegisterInitialState) => (dispatch: AppDispatch) => {
+export const registerAction: AppThunk = ({name, email, password}: TRegisterInitialState) => (dispatch) => {
   dispatch(registerRequestAction());
   register({name, email, password})
     .then((res) => {
@@ -120,7 +120,7 @@ export const registerAction: AppThunk = ({name, email, password}: TRegisterIniti
     });
 };
 
-export const loginAction: AppThunk = ({email, password}: TLoginInitialState) => (dispatch: AppDispatch) => {
+export const loginAction: AppThunk = ({email, password}: TLoginInitialState) => (dispatch) => {
   dispatch(loginRequestAction());
   login({email, password})
     .then((res) => {
@@ -135,7 +135,7 @@ export const loginAction: AppThunk = ({email, password}: TLoginInitialState) => 
     });
 };
 
-export const logoutAction: AppThunk = () => (dispatch: AppDispatch) => {
+export const logoutAction: AppThunk = () => (dispatch) => {
   dispatch(logoutRequestAction());
   logout()
     .then((res) => {

@@ -1,7 +1,7 @@
 import { TIngredient } from '../../utils/types';
 import { getOrderNumber } from '../../utils/api';
 import { clearConstructorAction } from './constructor-ingredients';
-import { AppThunk, AppDispatch } from '../store';
+import { AppThunk } from '../store';
 
 export const CREATE_ORDER: 'CREATE_ORDER' = 'CREATE_ORDER';
 export const GET_ORDER_NUMBER: 'GET_ORDER_NUMBER' = 'GET_ORDER_NUMBER';
@@ -60,7 +60,7 @@ export const resetOrderAction = (): IResetOrderAction => ({
   type: RESET_ORDER
 });
 
-export const getNumber: AppThunk = (orderData: string) => (dispatch: AppDispatch) => {
+export const getNumber: AppThunk = (orderData: string) => (dispatch) => {
   dispatch(getOrderNumberAction());
   getOrderNumber(orderData)
     .then((res) => {

@@ -1,6 +1,6 @@
 import { getUserInfo, setUserInfo } from '../../utils/api';
 import { TUserData, TUserInfo } from '../../utils/types';
-import { AppThunk, AppDispatch } from '../store';
+import { AppThunk } from '../store';
 
 export const GET_USER_INFO: 'GET_USER_INFO' = 'GET_USER_INFO';
 export const GET_USER_INFO_SUCCESS: 'GET_USER_INFO_SUCCESS' = 'GET_USER_INFO_SUCCESS';
@@ -79,7 +79,7 @@ export const deleteAction = (): IDeleteAction => ({
   type: DELETE
 });
 
-export const getUserAction: AppThunk = () => (dispatch: AppDispatch) => {
+export const getUserAction: AppThunk = () => (dispatch) => {
   dispatch(getUserInfoAction());
   getUserInfo()
     .then((res) => {
@@ -94,7 +94,7 @@ export const getUserAction: AppThunk = () => (dispatch: AppDispatch) => {
     });
 };
 
-export const setUserAction: AppThunk = ({name, email, password}: TUserInfo) => (dispatch: AppDispatch) => {
+export const setUserAction: AppThunk = ({name, email, password}: TUserInfo) => (dispatch) => {
   dispatch(setUserInfoAction());
   setUserInfo({name, email, password})
     .then((res) => {

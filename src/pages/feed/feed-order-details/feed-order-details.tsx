@@ -2,8 +2,8 @@ import React, { FC } from "react";
 import { useLocation } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 import { useSelector } from '../../../services/hooks';
-import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { formattedDate } from '../../../utils/formatted-date';
+import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './feed-order-details.module.css';
 import { TFeedOrder, TLocationParams, TIngredient } from '../../../utils/types';
 
@@ -119,19 +119,21 @@ const FeedOrderDetails: FC<TFeedOrder> = ({ card }) => {
           <p className={mobile ? "text text_type_main-small" : "text text_type_main-default"}>{card && card.status === 'done' ? 'Выполнен' : 'Готовится'}</p>
         </div>
         <p className={mobile ? styles.content : "text text_type_main-medium"}>Состав:</p>
-        <ul className={mobileS ? total.length > 3 ? styles.list : styles.enum : mobile ? total.length > 6 ? styles.list : styles.enum : total.length > 4 ? styles.list : styles.enum}>  
-          {total.map((ingredient: TIngredient, index: number) => {return (
-            <li className={styles.item} key={index}>  
-              <img className={styles.image} src={ingredient.image} alt={ingredient.name}/>
-              <div className={styles.shell}>
-                <p className={mobileL ? "text text_type_main-small" : "text text_type_main-default"}>{ingredient.name}</p>
-              </div>
-              <div className={styles.price}>
-                <p className={mobileL ? styles.digit : "text text_type_digits-default mr-2"}>{quantity[index]} x {ingredient.price}</p>
-                <CurrencyIcon type="primary" />
-              </div>
-            </li>
-          )})}
+        <ul className={mobileS ? total.length > 3 ? styles.list : styles.enum : mobile ? total.length > 6 ? styles.list : styles.enum : total.length > 4 ? styles.list : styles.enum}>
+          {total.map((ingredient: TIngredient, index: number) => {
+            return (
+              <li className={styles.item} key={index}>
+                <img className={styles.image} src={ingredient.image} alt={ingredient.name} />
+                <div className={styles.shell}>
+                  <p className={mobileL ? "text text_type_main-small" : "text text_type_main-default"}>{ingredient.name}</p>
+                </div>
+                <div className={styles.price}>
+                  <p className={mobileL ? styles.digit : "text text_type_digits-default mr-2"}>{quantity[index]} x {ingredient.price}</p>
+                  <CurrencyIcon type="primary" />
+                </div>
+              </li>
+            );
+          })}
         </ul>
         <div className={background ? styles.total : styles.sum}>
           <div className={styles.wrap}>

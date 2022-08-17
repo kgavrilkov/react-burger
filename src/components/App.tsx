@@ -211,7 +211,7 @@ const App: FC = () => {
         <Route
           path='/feed/:feedId'
           children={
-            <Modal 
+            <Modal
               isModalVisible={isModalVisible}
               handleModalClose={handleModalClose} 
               title={mobileS ? 'Детали заказа' : ''}>
@@ -224,7 +224,7 @@ const App: FC = () => {
         <Route
           path='/profile/orders/:orderId'
           children={
-            <Modal 
+            <Modal
               isModalVisible={isModalVisible}
               handleModalClose={handleModalClose} 
               title={mobileS ? 'Детали заказа' : ''}>

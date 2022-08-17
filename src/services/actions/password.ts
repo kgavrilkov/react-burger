@@ -1,6 +1,6 @@
 import { forgotPassword, resetPassword } from '../../utils/password';
 import { TForgotPasswordInitialState, TResetPasswordInitialState } from '../../utils/types';
-import { AppThunk, AppDispatch } from '../store';
+import { AppThunk } from '../store';
 
 export const FORGOT_REQUEST: 'FORGOT_REQUEST' = 'FORGOT_REQUEST';
 export const FORGOT_SUCCESS: 'FORGOT_SUCCESS' = 'FORGOT_SUCCESS';
@@ -71,7 +71,7 @@ export const clearAction = (): IClearAction => ({
   type: CLEAR
 });
 
-export const forgotPasswordAction: AppThunk = ({email}: TForgotPasswordInitialState) => (dispatch: AppDispatch) => {
+export const forgotPasswordAction: AppThunk = ({email}: TForgotPasswordInitialState) => (dispatch) => {
   dispatch(forgotRequestAction());
   forgotPassword({email})
     .then((res) => {
@@ -86,7 +86,7 @@ export const forgotPasswordAction: AppThunk = ({email}: TForgotPasswordInitialSt
     });
 };
 
-export const resetPasswordAction: AppThunk = ({password, token}: TResetPasswordInitialState) => (dispatch: AppDispatch) => {
+export const resetPasswordAction: AppThunk = ({password, token}: TResetPasswordInitialState) => (dispatch) => {
   dispatch(resetRequestAction());
   resetPassword({password, token})
     .then((res) => {

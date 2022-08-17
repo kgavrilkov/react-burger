@@ -24,10 +24,10 @@ const Orders: FC<THistoryOrders> = ({ handleModalOpen }) => {
   
   const handleOrderOpen = (card: TOrderFeed) => {
     dispatch(getOrderToViewAction(card));
-    localStorage.setItem('card', JSON.stringify(card));
+    //localStorage.setItem('card', JSON.stringify(card));
   }
 
-  useEffect(() => {
+  /*useEffect(() => {
     const value = localStorage.getItem('card');
     if (typeof value === 'string') {
       const card = JSON.parse(value)
@@ -35,7 +35,7 @@ const Orders: FC<THistoryOrders> = ({ handleModalOpen }) => {
         handleModalOpen(handleOrderOpen(card));
       }
     }
-  }, []);
+  }, []);*/
 
   return(
     <section className={styles.orders}>

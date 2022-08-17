@@ -1,6 +1,6 @@
 import { getIngredients } from '../../utils/api';
 import { TIngredient } from '../../utils/types';
-import { AppThunk, AppDispatch } from '../store';
+import { AppThunk } from '../store';
 
 export const GET_INGREDIENTS: 'GET_INGREDIENTS' = 'GET_INGREDIENTS';
 export const GET_INGREDIENTS_SUCCESS: 'GET_INGREDIENTS_SUCCESS' = 'GET_INGREDIENTS_SUCCESS';
@@ -37,7 +37,7 @@ export const getIngredientsFailedAction = (): IGetIngredientsFailedAction => ({
   type: GET_INGREDIENTS_FAILED
 });
 
-export const getItems: AppThunk = () => (dispatch: AppDispatch) => {
+export const getItems: AppThunk = () => (dispatch) => {
   dispatch(getIngredientsAction());
   getIngredients()
     .then((res) => {

@@ -60,7 +60,7 @@ export type TListElement = TDraggable & { isBurgerIngredientsVisible: boolean; }
 export type TMain = TBurgerConstructor & { isBurgerConstructorVisible: boolean; handleModalOpen: () => void;  };
 
 export type TModal = {
-  isModalVisible: boolean;
+  isModalVisible?: boolean;
   handleModalClose: () => void;
   title: string;
 };
@@ -272,7 +272,7 @@ export type TItemIngredient = {
 
 export type TCardFeed = {
   card: TOrderFeed;
-  onClick: () => void;
+  onClick?: () => void;
 };
 
 export type TFeed = {

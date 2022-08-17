@@ -42,7 +42,7 @@ const Orders: FC<TOrders> = ({ handleModalOpen }) => {
           <Card
             card={card}
             key={card._id}
-            onClick={() => handleModalOpen(handleOrderOpen(card))}
+            //onClick={() => handleModalOpen(handleOrderOpen(card))}
           />)
         })}
       </div>

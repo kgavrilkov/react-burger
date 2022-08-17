@@ -209,10 +209,11 @@ const App: FC = () => {
         )}
       {background && (
         <Route
-          path='/feed/:feedId'
+          //path='/feed/:feedId'
+          path='/feed/:orderNumber'
           children={
             <Modal
-              isModalVisible={isModalVisible}
+              //isModalVisible={isModalVisible}
               handleModalClose={handleModalClose} 
               title={mobileS ? 'Детали заказа' : ''}>
                 <FeedOrderDetails card={selectedOrder!} />
@@ -222,10 +223,11 @@ const App: FC = () => {
       )}
       {background && (
         <Route
-          path='/profile/orders/:orderId'
+          //path='/profile/orders/:orderId'
+          path='/profile/orders/:orderNumber'
           children={
             <Modal
-              isModalVisible={isModalVisible}
+              //isModalVisible={isModalVisible}
               handleModalClose={handleModalClose} 
               title={mobileS ? 'Детали заказа' : ''}>
                 <FeedOrderDetails card={selectedOrder!} />

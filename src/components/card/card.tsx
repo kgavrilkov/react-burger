@@ -9,7 +9,7 @@ import { addIngredientAction } from '../../services/actions/constructor-ingredie
 import styles from './card.module.css';
 import { TCard, TLocationParams, TIngredientToDelete } from '../../utils/types';
 
-const Card: FC<TCard> = ({ card, isBurgerIngredientsVisible, text, onClick }) => {
+const Card: FC<TCard> = ({ card, isBurgerIngredientsVisible, text }) => {
   const { constructorIngredients } = useSelector((store) => store.constructorIngredients);
 
   const dispatch = useDispatch();
@@ -68,7 +68,7 @@ const Card: FC<TCard> = ({ card, isBurgerIngredientsVisible, text, onClick }) =>
     <>
       {isBurgerIngredientsVisible
       ?
-        <ul className={styles.card} style={{opacity}} ref={dragRef} onClick={onClick}>
+        <ul className={styles.card} style={{opacity}} ref={dragRef}>
           <Link
             key={ingredientId}
             to={{

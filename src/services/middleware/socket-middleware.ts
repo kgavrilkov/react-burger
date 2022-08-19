@@ -11,6 +11,7 @@ export const socketMiddleware = (wsActions: {[key: string]: any}): Middleware<{}
         wsInit,
         onOpen,
         onError,
+        wsClose,
         wsSendMessage,
         onMessage,
         onClose
@@ -37,6 +38,9 @@ export const socketMiddleware = (wsActions: {[key: string]: any}): Middleware<{}
         socket.onclose = (event) => {
           dispatch({ type: onClose, payload: event });
         };
+      }
+      if (wsClose && type === wsClose && socket) {
+        socket.close();
       }
       if (wsSendMessage && type === wsSendMessage && socket) {
         socket.send(JSON.stringify(payload));

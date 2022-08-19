@@ -34,13 +34,12 @@ export type TIngredients = {
   data: Array<TIngredient>;
 };
 
-export type TBurgerIngredients = Omit<TBurgerConstructor, 'handleToggle'> & { handleModalOpen: (handleCardOpen: any) => void; };
+export type TBurgerIngredients = Omit<TBurgerConstructor, 'handleToggle'>;
 
 export type TCard = {
   card: TIngredient;
   isBurgerIngredientsVisible: boolean;
   text: string;
-  onClick: () => void;
 };
 
 export type TDraggable = {
@@ -51,16 +50,11 @@ export type TDraggable = {
   moveCard: (hoverIndex: number, dragIndex: number) => void;
 };
 
-export type TIngredientDetails = {
-  card: TIngredient;
-};
-
 export type TListElement = TDraggable & { isBurgerIngredientsVisible: boolean; };
 
-export type TMain = TBurgerConstructor & { isBurgerConstructorVisible: boolean; handleModalOpen: () => void;  };
+export type TMain = TBurgerConstructor & { isBurgerConstructorVisible: boolean; };
 
 export type TModal = {
-  isModalVisible?: boolean;
   handleModalClose: () => void;
   title: string;
 };
@@ -77,17 +71,10 @@ export type TSum = {
   info: string;
 };
 
-export type TOrderDetails = {
-  sum: TSum;
-  orderNumber: number;
-  number: number;
-};
-
 export type TTotalPrice = {
   isBurgerConstructorVisible: boolean;
   handleToggle: () => void;
   handleModalOpen: (getRequestNumber: any) => void;
-  setNumber: any;
 };
 
 export type TRegisterStateSchema = {
@@ -272,7 +259,6 @@ export type TItemIngredient = {
 
 export type TCardFeed = {
   card: TOrderFeed;
-  onClick?: () => void;
 };
 
 export type TFeed = {
@@ -280,23 +266,16 @@ export type TFeed = {
   isStatsVisible: boolean;
   handleOrdersToggle: () => void;
   handleStatsToggle: () => void;
-  handleModalOpen: () => void;
 };
 
 export type TMainFeed = Omit<TFeed, 'handleOrdersToggle' | 'handleStatsToggle'>;
 
-export type TOrders = {
-  handleModalOpen: (handleOrderOpen: any) => void;
-};
-
-export type TFeedOrder = Omit<TCardFeed, 'onClick'>;
+export type TFeedOrder = TCardFeed;
 
 export type TTabFeed = {
   handleOrdersToggle: () => void;
   handleStatsToggle: () => void;
 };
-
-export type THistoryOrders = TOrders;
 
 export type TOrderFeed = {
   ingredients: string[],
@@ -317,3 +296,20 @@ export type TOrdersFeed = {
   }
   timestamp: number
 };
+
+export type TOrderByNumber = {
+  ingredients: string[],
+  _id: string,
+  name: string,
+  status: string,
+  number: number,
+  createdAt: string,
+  updatedAt: string,
+  owner: string
+};
+
+export type TOrdersByNumber = {
+  orders: ReadonlyArray<TOrderByNumber>,
+  success: boolean;
+};
+

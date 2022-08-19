@@ -4,10 +4,10 @@ import Stats from "../stats/stats";
 import styles from './main.module.css';
 import { TMainFeed } from '../../../utils/types';
 
-const Main: FC<TMainFeed> = ({ isOrdersVisible, isStatsVisible, handleModalOpen }) => {
+const Main: FC<TMainFeed> = ({ isOrdersVisible, isStatsVisible }) => {
   return(
     <main className={styles.main}>
-      {isOrdersVisible && <Orders handleModalOpen={handleModalOpen} />}
+      {isOrdersVisible && <Orders />}
       {isStatsVisible && <Stats />}
     </main>
   );

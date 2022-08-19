@@ -60,10 +60,7 @@ const BurgerConstructor: FC<TBurgerConstructor> = ({ isBurgerIngredientsVisible,
                 <Card
                   card={buns}
                   isBurgerIngredientsVisible={isBurgerIngredientsVisible}
-                  text={buns.name + ' (верх)'} 
-                  onClick={function (): void {
-                    throw new Error('Function not implemented.');
-                  } }              
+                  text={buns.name + ' (верх)'}              
                 />
               </li>
             }
@@ -86,10 +83,7 @@ const BurgerConstructor: FC<TBurgerConstructor> = ({ isBurgerIngredientsVisible,
                 <Card
                   card={buns}
                   isBurgerIngredientsVisible={isBurgerIngredientsVisible}
-                  text={buns.name + ' (низ)'} 
-                  onClick={function (): void {
-                    throw new Error('Function not implemented.');
-                  } }                
+                  text={buns.name + ' (низ)'}                
                 />
               </li>
             }

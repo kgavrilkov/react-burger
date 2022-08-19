@@ -17,7 +17,7 @@ const Ingredient: FC = () => {
     <div className={styles.container}>
       <p className={mobile ? mobileS ? "text text_type_main-default" : "text text_type_main-medium" : "text text_type_main-large"}>Детали ингредиента</p>
       {ingredients.filter(({ _id }) => _id === ingredientId).map((card) => {
-        return <IngredientDetails card={card} key={card._id} />
+        return <IngredientDetails key={card._id} />
       })}
     </div>
   );

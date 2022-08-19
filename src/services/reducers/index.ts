@@ -4,6 +4,7 @@ import { burgerIngredients } from './burger-ingredients';
 import { constructorIngredients } from './constructor-ingredients';
 import { feed } from './feed';
 import { itemToView } from './item-to-view';
+import { orderByNumber } from './order-by-number';
 import { orderToView } from './order-to-view';
 import { order } from './order';
 import { orders } from './orders';
@@ -16,6 +17,7 @@ export const rootReducer = combineReducers({
   constructorIngredients,
   feed,
   itemToView,
+  orderByNumber,
   orderToView,
   order,
   orders,

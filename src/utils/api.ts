@@ -1,5 +1,5 @@
 import { fetchWithRefresh } from './wrapper';
-import { TIngredients, TOrder, TUser, TUserInfo } from './types'
+import { TIngredients, TOrder, TUser, TUserInfo, TOrdersByNumber } from './types'
 
 export const BASE_URL = 'https://norma.nomoreparties.space/api';
 
@@ -25,14 +25,11 @@ export const getOrderNumber = (ingredientsId: string) => {
     body: JSON.stringify({ingredients: ingredientsId})
   })
     .then((res) => checkResponse<TOrder>(res))
-    .then((data) => {
-      if (data) {
-        localStorage.setItem('number', JSON.stringify(data.order.number));
-        return data;
-      } else {
-        return;
-      }
-    })
+};
+
+export const getOrderByNumber = (orderNumber: any) => {
+  return fetch(`${BASE_URL}/orders/${orderNumber}`)
+    .then((res) => checkResponse<TOrdersByNumber>(res))
 };
 
 export const getUserInfo = () => {

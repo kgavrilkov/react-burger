@@ -2,15 +2,15 @@
 import React, { FC, useState, useEffect } from 'react';
 import { useSelector } from '../../services/hooks';
 import { useMediaQuery } from 'react-responsive';
+import sum from '../../utils/total';
 import donePath from '../../images/done.gif';
 import styles from './order-details.module.css';
-import { TOrderDetails } from '../../utils/types';
 
-const OrderDetails: FC<TOrderDetails> = ({ sum, orderNumber, number }) => {
-  const orderNumberRequest = useSelector((store) => store.order.orderNumberRequest);
-
+const OrderDetails: FC = () => {
   const [visible, setVisible] = useState<boolean>();
-  const [display, setDisplay] =useState<boolean>();
+
+  const orderNumberRequest = useSelector((store) => store.order.orderNumberRequest);
+  const orderNumber = useSelector((store) => store.order.number);
   
   const mobileL: boolean = useMediaQuery({ query: `(max-width: 580px)` });
   const mobile: boolean = useMediaQuery({ query: `(max-width: 480px)` });
@@ -19,11 +19,9 @@ const OrderDetails: FC<TOrderDetails> = ({ sum, orderNumber, number }) => {
   useEffect(() => {
   if (orderNumberRequest) {
     setVisible(true);
-    setDisplay(false);
   }
   if (!orderNumberRequest) {
     setVisible(false);
-    setDisplay(true);
   }
   }, []);
   
@@ -35,12 +33,6 @@ const OrderDetails: FC<TOrderDetails> = ({ sum, orderNumber, number }) => {
       : 
         <div className={visible ? styles.visible : styles.invisible}>
           <p className={mobileL ? mobile ? mobileS ? "text text_type_digits-medium mt-8 mb-8" : "text text_type_digits-medium mt-10 mb-10" : "text text_type_digits-medium mt-2 mb-2" : "text text_type_digits-large mt-4 mb-8"} style={mobileS ? { color: '#4C4CFF' } : { color: '#F2F2F3' }}>{orderNumber}</p>
-        </div>
-      }
-      {!orderNumberRequest
-      &&
-        <div className={display ? styles.visible : styles.invisible}>
-          <p className={mobileL ? mobile ? mobileS ? "text text_type_digits-medium mt-8 mb-8" : "text text_type_digits-medium mt-10 mb-10" : "text text_type_digits-medium mt-2 mb-2" : "text text_type_digits-large mt-4 mb-8"} style={mobileS ? { color: '#4C4CFF' } : { color: '#F2F2F3' }}>{number}</p>
         </div>
       }
       <p className={mobileL ? mobile ? mobileS ? "text text_type_main-default mb-8" : "text text_type_main-medium mb-25" : "text text_type_main-default mb-4" : "text text_type_main-medium mb-15"}>{sum.subtitle}</p>

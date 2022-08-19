@@ -2,14 +2,14 @@
 import React, { FC, useState, useEffect, useMemo } from "react";
 import { useMediaQuery } from 'react-responsive';
 import { useSelector, useDispatch } from '../../services/hooks';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import currencyPath from '../../images/currency.svg';
 import { getNumber } from '../../services/actions/order';
 import styles from './total-price.module.css';
-import { TTotalPrice, TLocationParams } from '../../utils/types';
+import { TTotalPrice } from '../../utils/types';
 
-const TotalPrice: FC<TTotalPrice> = ({ isBurgerConstructorVisible, handleToggle, handleModalOpen, setNumber }) => {
+const TotalPrice: FC<TTotalPrice> = ({ isBurgerConstructorVisible, handleToggle, handleModalOpen }) => {
   const [name, setName] = useState<string>('Бургер конструктор');
 
   const mobile: boolean = useMediaQuery({ query: `(max-width: 600px)` });
@@ -18,7 +18,6 @@ const TotalPrice: FC<TTotalPrice> = ({ isBurgerConstructorVisible, handleToggle,
   const isLoggedIn = useSelector((store) => store.auth.isLoggedIn);
 
   const dispatch = useDispatch();
-  const location = useLocation() as unknown as TLocationParams;
 
   useEffect(() => {
     if (localStorage.getItem('BurgerConstructor')) {
@@ -49,15 +48,6 @@ const TotalPrice: FC<TTotalPrice> = ({ isBurgerConstructorVisible, handleToggle,
     dispatch(getNumber(ingredientsId));
   };
 
-  useEffect(() => {
-    const getRequestNumber = () => {
-      if (localStorage.getItem('number')) {
-        setNumber(localStorage.getItem('number'));
-      }
-    };
-    handleModalOpen(getRequestNumber());
-  }, []);
-
   const onClick = () => {
     handleToggle();
     setName('Бургер конструктор');
@@ -75,14 +65,7 @@ const TotalPrice: FC<TTotalPrice> = ({ isBurgerConstructorVisible, handleToggle,
         ? 
           buns && notBuns && isLoggedIn 
         ? 
-          <Link
-            to={{
-              pathname: '/profile/orders', 
-              state: { background: location }
-            }}
-          >
-            <Button type="primary" size={mobile ? "small" : "large"} onClick={() => handleModalOpen(getRequestNumber())}>{mobile ? "Заказать" : "Оформить заказ"}</Button>
-          </Link>
+          <Button type="primary" size={mobile ? "small" : "large"} onClick={() => handleModalOpen(getRequestNumber())}>{mobile ? "Заказать" : "Оформить заказ"}</Button>
         : 
           buns && notBuns && 
           <Link to='/login'>

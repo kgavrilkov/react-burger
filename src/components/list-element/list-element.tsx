@@ -69,10 +69,7 @@ const ListElement: FC<TListElement> = ({ card, isBurgerIngredientsVisible, index
       <Card
         card={card}
         isBurgerIngredientsVisible={isBurgerIngredientsVisible}
-        text={card.name} 
-        onClick={function (): void {
-          throw new Error("Function not implemented.");
-        } }      
+        text={card.name}       
       />
       <button className={styles.button} onClick={(e) => handleDeleteClick(card)}>
         <DeleteIcon type="primary" />

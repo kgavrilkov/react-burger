@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { FC, useState, useEffect } from 'react';
 import { useMediaQuery } from 'react-responsive';
-import { useSelector, useDispatch } from '../services/hooks';
+import { useDispatch } from '../services/hooks';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { useHistory, useLocation, Switch, Route } from 'react-router-dom';
@@ -10,12 +10,8 @@ import Main from './main/main';
 import Modal from './modal/modal';
 import IngredientDetails from './ingredient-details/ingredient-details';
 import OrderDetails from './order-details/order-details';
-import sum from '../utils/total';
 import TotalPrice from './total-price/total-price';
 import { getItems } from '../services/actions/burger-ingredients';
-import { resetItemToViewAction } from '../services/actions/item-to-view';
-import { resetOrderAction } from '../services/actions/order';
-import { resetOrderToViewAction } from '../services/actions/order-to-view';
 import Login from '../pages/login/login';
 import Register from '../pages/register/register';
 import ForgotPassword from '../pages/forgot-password/forgot-password';
@@ -41,15 +37,10 @@ const App: FC = () => {
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
   const [isOrdersVisible, setIsOrdersVisible] = useState<boolean>(true);
   const [isStatsVisible, setIsStatsVisible] = useState<boolean>(true);
-  const [number, setNumber] = useState<number>();
 
   const tablet: boolean = useMediaQuery({ query: `(max-width: 1300px)` });
   const mobile: boolean = useMediaQuery({ query: `(max-width: 600px)` });
   const mobileS: boolean = useMediaQuery({ query: `(max-width: 480px)` });
-
-  const selectedCard = useSelector((store) => store.itemToView.ingredient);
-  const orderNumber = useSelector((store) => store.order.number);
-  const selectedOrder = useSelector((store) => store.orderToView.order);
   
   const dispatch = useDispatch();
   const history = useHistory();
@@ -128,14 +119,10 @@ const App: FC = () => {
   };
 
   const handleModalClose = () => {
-    localStorage.removeItem('card');
-    localStorage.removeItem('number');
-    setNumber(undefined);
     setIsModalVisible(false);
-    dispatch(resetItemToViewAction());
-    dispatch(resetOrderAction());
-    dispatch(resetOrderToViewAction());
-    history.goBack();
+    if (background) {
+      history.goBack();
+    }
   };
 
   return (
@@ -150,15 +137,13 @@ const App: FC = () => {
             <Main 
               isBurgerIngredientsVisible={isBurgerIngredientsVisible} 
               isBurgerConstructorVisible={isBurgerConstructorVisible} 
-              handleToggle={handleIngredientsToggle}
-              handleModalOpen={handleModalOpen} 
+              handleToggle={handleIngredientsToggle} 
             />
           </DndProvider>
           <TotalPrice 
             isBurgerConstructorVisible={isBurgerConstructorVisible} 
             handleToggle={handleConstructorToggle} 
             handleModalOpen={handleModalOpen}
-            setNumber={setNumber}
           />
         </MainRoute>
         <PublicRoute path='/register' component={Register} />
@@ -166,8 +151,8 @@ const App: FC = () => {
         <PublicRoute path='/forgot-password' component={ForgotPassword} />
         <PublicRoute path='/reset-password' component={ResetPassword} />
         <ProtectedRoute exact path='/profile' component={Profile} /> 
-        <ProtectedRoute exact path='/profile/orders' component={() => <Order handleModalOpen={handleModalOpen} />} />
-        <ProtectedRoute path='/profile/orders/:orderId' component={HistoryOrder} />
+        <ProtectedRoute exact path='/profile/orders' component={() => <Order />} />
+        <ProtectedRoute path='/profile/orders/:orderNumber' component={HistoryOrder} />
         <Route path='/ingredients/:ingredientId'><Ingredient /></Route>
         <FeedRoute exact path='/feed'>
           <Feed
@@ -175,10 +160,9 @@ const App: FC = () => {
             isStatsVisible={isStatsVisible}
             handleOrdersToggle={handleOrdersToggle}
             handleStatsToggle={handleStatsToggle}  
-            handleModalOpen={handleModalOpen}
           />
         </FeedRoute>
-        <FeedRoute path='/feed/:feedId'><OrderFeed /></FeedRoute>
+        <FeedRoute path='/feed/:orderNumber'><OrderFeed /></FeedRoute>
         <Route><NotFound /></Route>
       </Switch>
       {background && (
@@ -186,51 +170,44 @@ const App: FC = () => {
           path='/ingredients/:ingredientId'
           children={
             <Modal 
-              isModalVisible={isModalVisible} 
               handleModalClose={handleModalClose} 
               title={mobileS ? '' : 'Детали ингредиента'}>
-                <IngredientDetails card={selectedCard!} />
+                <IngredientDetails />
             </Modal>
           } 
         />
       )}
-      {background && (
+      {isModalVisible && (
         <Route
-          path='/profile/orders'
           children={
             <Modal 
-              isModalVisible={isModalVisible}
               handleModalClose={handleModalClose} 
               title={mobileS ? 'Заказ оформлен' : ''}>
-                <OrderDetails sum={sum} orderNumber={orderNumber!} number={number!} />
+                <OrderDetails />
             </Modal>
           } 
         />
         )}
       {background && (
         <Route
-          //path='/feed/:feedId'
           path='/feed/:orderNumber'
           children={
             <Modal
-              //isModalVisible={isModalVisible}
               handleModalClose={handleModalClose} 
               title={mobileS ? 'Детали заказа' : ''}>
-                <FeedOrderDetails card={selectedOrder!} />
+                <FeedOrderDetails />
             </Modal>
           } 
         />
       )}
       {background && (
         <Route
-          //path='/profile/orders/:orderId'
           path='/profile/orders/:orderNumber'
           children={
             <Modal
-              //isModalVisible={isModalVisible}
               handleModalClose={handleModalClose} 
               title={mobileS ? 'Детали заказа' : ''}>
-                <FeedOrderDetails card={selectedOrder!} />
+                <FeedOrderDetails />
             </Modal>
           } 
         />

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { FC, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { useMediaQuery } from 'react-responsive';
@@ -6,7 +7,7 @@ import ModalOverlay from '../modal-overlay/modal-overlay';
 import styles from './modal.module.css';
 import { TModal } from '../../utils/types';
 
-const Modal: FC<TModal> = ({ isModalVisible, handleModalClose, title, children }) => {
+const Modal: FC<TModal> = ({ handleModalClose, title, children }) => {
   const mobileS: boolean = useMediaQuery({ query: `(max-width: 480px)` });
   
   const modalRoot = document.getElementById("modals")!;
@@ -21,9 +22,7 @@ const Modal: FC<TModal> = ({ isModalVisible, handleModalClose, title, children }
     return () => {
       document.removeEventListener('keydown', handleEscClose);
     }
-  }, [handleModalClose]);
-
-  if (!isModalVisible) return null;
+  }, []);
 
   return ReactDOM.createPortal(
     <>

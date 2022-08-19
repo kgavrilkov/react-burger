@@ -9,7 +9,8 @@ import { TUserAction } from './user';
 import { TWebSocketAction } from './wsActions';
 import { TFeedAction } from './feed';
 import { TOrdersAction } from './orders';
+import { TOrderByNumberAction } from './order-by-number';
 
 export type TActions = TAuthAction | TIngredientsAction | TConstructorAction | 
 TItemToViewAction | TOrderToViewAction | TOrderAction | TPasswordAction |TUserAction | TWebSocketAction |
-TFeedAction | TOrdersAction;
+TFeedAction | TOrdersAction | TOrderByNumberAction;

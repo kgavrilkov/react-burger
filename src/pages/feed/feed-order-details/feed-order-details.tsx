@@ -1,13 +1,16 @@
-import React, { FC } from "react";
-import { useLocation } from 'react-router-dom';
+import React, { FC, useEffect } from "react";
+import { useParams, useLocation } from 'react-router-dom';
+import { useSelector, useDispatch } from '../../../services/hooks';
 import { useMediaQuery } from 'react-responsive';
-import { useSelector } from '../../../services/hooks';
+import { getOrder } from '../../../services/actions/order-by-number';
 import { formattedDate } from '../../../utils/formatted-date';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './feed-order-details.module.css';
-import { TFeedOrder, TLocationParams, TIngredient } from '../../../utils/types';
+import { TLocationParams, TIngredient } from '../../../utils/types';
 
-const FeedOrderDetails: FC<TFeedOrder> = ({ card }) => {
+const FeedOrderDetails: FC = () => {
+  const { orderNumber } = useParams();
+  const dispatch = useDispatch();
   const location = useLocation() as unknown as TLocationParams;
 
   const background = location.state && location.state.background;
@@ -18,11 +21,26 @@ const FeedOrderDetails: FC<TFeedOrder> = ({ card }) => {
   const mobile: boolean = useMediaQuery({ query: `(max-width: 480px)` });
   const mobileS: boolean = useMediaQuery({ query: `(max-width: 330px)` });
 
+  const card = useSelector((store) => {
+    const cardFeed = store.feed.orders.find((o) => (''+ o.number) === orderNumber);
+    if (cardFeed) return cardFeed
+    const cardOrder = store.orders.orders.find((o) => (''+ o.number) === orderNumber);
+    if (cardOrder) return cardOrder
+    return null;
+  })!;
+
+  useEffect(() => {
+    if (!card) {
+      dispatch(getOrder(orderNumber));
+    }
+  }, [card, dispatch, orderNumber]);
+
+  const { ingredients } = useSelector((store) => store.burgerIngredients);
+  if (!card || !ingredients.length) return null
+
   const createdAt = card.createdAt;
 
   const date = formattedDate(createdAt);
-
-  const { ingredients } = useSelector((store) => store.burgerIngredients);
 
   const ingredientsData: Array<TIngredient> = card.ingredients.reduce((acc: Array<TIngredient>, item) => {
     const ingredient = ingredients.find(element => element._id === item);

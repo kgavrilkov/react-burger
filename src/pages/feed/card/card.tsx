@@ -7,7 +7,7 @@ import { formattedDate } from '../../../utils/formatted-date';
 import styles from './card.module.css';
 import { TCardFeed, TIngredient, TLocationParams } from '../../../utils/types';
 
-const Card: FC<TCardFeed> = ({ card, onClick }) => {
+const Card: FC<TCardFeed> = ({ card }) => {
   const location = useLocation() as unknown as TLocationParams;
 
   const mobileL: boolean = useMediaQuery({ query: `(max-width: 600px)` });
@@ -89,14 +89,13 @@ const Card: FC<TCardFeed> = ({ card, onClick }) => {
     <Link
       key={feedId}
       to={{
-        //pathname: `/feed/${feedId}`
         pathname: `/feed/${card.number}`,
         state: { background: location }
       }}
       className={styles.link}
     >
       <div className={styles.container}>
-        <ul className={styles.card} /*onClick={onClick}*/>
+        <ul className={styles.card}>
           <li className={styles.order}>
             <p className={mobileS ? styles.number : "text text_type_digits-default"}>#{card.number}</p>
             <div className={styles.box}>

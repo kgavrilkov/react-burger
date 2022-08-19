@@ -1,12 +1,25 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
+import { useSelector, useDispatch } from '../../services/hooks';
+import { useParams } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
+import { getItemToViewAction } from '../../services/actions/item-to-view'
 import styles from './ingredient-details.module.css';
-import { TIngredientDetails } from '../../utils/types';
 
-const IngredientDetails: FC<TIngredientDetails> = ({ card }) => {
+const IngredientDetails: FC = () => {
+  const dispatch = useDispatch();
+  const { ingredientId } = useParams();
+
   const mobile: boolean = useMediaQuery({ query: `(max-width: 580px)` });
   const mobileM: boolean = useMediaQuery({ query: `(max-width: 480px)` });
   const mobileS: boolean = useMediaQuery({ query: `(max-width: 330px)` });
+
+  const card = useSelector((store) => store.burgerIngredients.ingredients.find((ingredient) => ingredient._id === ingredientId));
+
+  useEffect(() => {
+    if (card) {
+      dispatch(getItemToViewAction);
+    }
+  }, [card, dispatch]);
 
   return(
     <>

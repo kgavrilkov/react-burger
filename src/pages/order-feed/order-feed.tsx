@@ -19,13 +19,13 @@ const OrderFeed: FC = () => {
 
   const { orders } = useSelector((store) => store.feed);
 
-  const { feedId } = useParams();
+  const { orderNumber } = useParams();
 
   return(
     <>
       <div className={styles.container}>
-        {orders.filter(({ _id }) => _id === feedId).map((card) => {
-          return <FeedOrderDetails card={card} key={card._id} />
+        {orders.filter((o) => (''+ o.number) === orderNumber).map((card) => {
+          return <FeedOrderDetails key={card._id} />
         })}
       </div>
     </>

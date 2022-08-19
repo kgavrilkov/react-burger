@@ -4,11 +4,9 @@ import { useDispatch, useSelector } from '../../../services/hooks';
 import { feedInit, feedClose } from '../../../services/actions/feed';
 import { WSS_FEED_URL } from '../../../utils/api';
 import Card from '../card/card';
-import { getOrderToViewAction } from '../../../services/actions/order-to-view';
 import styles from './orders.module.css';
-import { TOrders, TOrderFeed } from '../../../utils/types';
 
-const Orders: FC<TOrders> = ({ handleModalOpen }) => {
+const Orders: FC = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -20,21 +18,6 @@ const Orders: FC<TOrders> = ({ handleModalOpen }) => {
 
   const { orders } = useSelector((store) => store.feed);
 
-  const handleOrderOpen = (card: TOrderFeed) => {
-    dispatch(getOrderToViewAction(card));
-    localStorage.setItem('card', JSON.stringify(card));
-  };
-
-  useEffect(() => {
-    const value = localStorage.getItem('card');
-    if (typeof value === 'string') {
-      const card = JSON.parse(value)
-      if (card) {
-        handleModalOpen(handleOrderOpen(card));
-      }
-    }
-  }, []);
-
   return(
     <section className={styles.orders}>
       <div className={styles.cards}>
@@ -42,7 +25,6 @@ const Orders: FC<TOrders> = ({ handleModalOpen }) => {
           <Card
             card={card}
             key={card._id}
-            //onClick={() => handleModalOpen(handleOrderOpen(card))}
           />)
         })}
       </div>

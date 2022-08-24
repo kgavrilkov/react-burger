@@ -1,0 +1,232 @@
+.stats {
+  width: 584px;
+  margin-left: 56px;
+}
+
+.container {
+  display: grid;
+  grid-template-rows: repeat(3, minmax(min-content, max-content));
+  row-gap: 30px;
+  height: calc(100vh - 200px);
+}
+
+.orders {
+  display: flex;
+  justify-content: space-between;
+}
+
+.done {
+  width: 70%;
+}
+
+.heading {
+  font-family: 'Jet Brains Mono';
+  font-style: normal;
+	font-weight: bold;
+	font-size: 20px;
+	line-height: 1.20;
+  margin: 0 0 16px;
+}
+
+.list {
+  display: grid;
+  grid-template-rows: repeat(10, minmax(min-content, max-content));
+  grid-auto-flow: column;
+  gap: 8px;
+  width: 0;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.number {
+  color: #00CCCC;
+}
+
+.inwork {
+  width: 28%;
+}
+
+.header {
+  font-family: 'Jet Brains Mono';
+  font-style: normal;
+	font-weight: bold;
+	font-size: 20px;
+	line-height: 1.20;
+  margin: 0;
+}
+
+.digit {
+  font-family: 'Iceland';
+  font-style: normal;
+	font-weight: normal;
+	font-size: 108px;
+	line-height: 1.11;
+  margin: 0;
+}
+
+.figure {
+  font-family: 'Iceland';
+  font-style: normal;
+	font-weight: normal;
+	font-size: 22px;
+	line-height: 1.09;
+  margin: 0;
+}
+
+@media screen and (max-width: 1500px) {
+  .container {
+    row-gap: 20px;
+    height: calc(100vh - 210px);
+  }
+}
+
+@media screen and (max-width: 1300px) {
+  .stats {
+    margin: auto;
+  }
+}
+
+@media screen and (max-width: 1300px) {
+  .container {
+    row-gap: 15px;
+    min-height: calc(100vh - 260px);
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .container {
+    height: calc(100vh - 270px);
+    overflow: scroll;
+    overflow-x: hidden;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .container::-webkit-scrollbar {
+    display: none
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .container {
+    display: grid;
+    grid-template-rows: repeat(3, minmax(min-content, max-content));
+    row-gap: 50px;
+    height: calc(100vh - 290px);
+    overflow: hidden;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .container {
+    row-gap: 24px;
+    overflow: scroll;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .done {
+    width: 65%;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .inwork {
+    width: 34%;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .stats {
+    width: 400px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .list {
+    grid-template-rows: repeat(14, minmax(min-content, max-content));
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .digit {
+    font-size: 100px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .stats {
+    width: 350px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .container {
+    row-gap: 25px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .done {
+    width: 55%;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .list {
+    grid-template-rows: repeat(17, minmax(min-content, max-content));
+    gap: 4px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .inwork {
+    width: 45%;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .digit {
+    font-size: 72px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .container {
+    min-height: calc(100vh - 230px);
+    overflow: scroll;
+    overflow-x: hidden;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .container::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .stats {
+    width: 300px;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .done {
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .list {
+    grid-template-rows: repeat(25, minmax(min-content, max-content));
+    gap: 3px;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .inwork {
+    width: 50%;
+  }
+}

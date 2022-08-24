@@ -1,24 +1,35 @@
 import { fetchWithRefresh } from './wrapper';
-import { TIngredient, TUser, TUserInfo } from './types'
+import { TIngredients, TOrder, TUser, TUserInfo, TOrdersByNumber } from './types'
 
 export const BASE_URL = 'https://norma.nomoreparties.space/api';
+
+export const WSS_FEED_URL = 'wss://norma.nomoreparties.space/orders/all';
+
+export const WSS_ORDER_URL = 'wss://norma.nomoreparties.space/orders';
 
 export const checkResponse = <T>(res: Response): Promise<T> => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
 
 export const getIngredients = () => {
   return fetch(`${BASE_URL}/ingredients`)
-    .then((res) => checkResponse<Array<TIngredient>>(res))
+    .then((res) => checkResponse<TIngredients>(res))
 };
 
-export const getOrderNumber = (ingredientsId: string) => {;
+export const getOrderNumber = (ingredientsId: string) => {
+  const accessToken = localStorage.getItem('accessToken')!;
   return fetch(`${BASE_URL}/orders`, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Authorization': accessToken
     },
     body: JSON.stringify({ingredients: ingredientsId})
   })
-    .then((res) => checkResponse<number>(res))
+    .then((res) => checkResponse<TOrder>(res))
+};
+
+export const getOrderByNumber = (orderNumber: any) => {
+  return fetch(`${BASE_URL}/orders/${orderNumber}`)
+    .then((res) => checkResponse<TOrdersByNumber>(res))
 };
 
 export const getUserInfo = () => {

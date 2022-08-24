@@ -2,20 +2,20 @@
 import React, { FC, useState, useCallback, useEffect, FormEvent } from "react";
 import { Link, Redirect } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from '../../services/hooks';
 import { NameInput } from '../../components/name-input/name-input';
 import { EmailInput } from '../../components/email-input/email-input';
 import { PasswordInput } from '../../components/password-input/password-input';
 import { Button } from '../../components/button/button';
-import { registerAction } from '../../services/actions/auth.js';
+import { registerAction } from '../../services/actions/auth';
 import styles from './register.module.css';
 import { TRegisterStateSchema, TRegisterValidationStateSchema, TRegisterInitialState }  from '../../utils/types';
 
 const Register: FC = () => {
   const mobile: boolean = useMediaQuery({ query: `(max-width: 375px)` });
 
-  const registered = useSelector((store: any) => store.auth.registered);
-  const errorRegisterMessage = useSelector((store: any) => store.auth.errorRegisterMessage);
+  const registered = useSelector((store) => store.auth.registered);
+  const errorRegisterMessage = useSelector((store) => store.auth.errorRegisterMessage);
  
   const dispatch = useDispatch();
 

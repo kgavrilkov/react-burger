@@ -1,23 +1,20 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useRef, useEffect, FC } from 'react';
+import React, { FC, useState, useRef } from 'react';
 import { useMediaQuery } from 'react-responsive';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from '../../services/hooks';
 import { Tab } from '../tab/tab';
 import Card from '../card/card';
-import { getItems } from '../../services/actions/index.js';
-import { GET_ITEM_TO_VIEW } from '../../services/actions/item-to-view.js';
-import { useScroll } from '../use-scroll/use-scroll';
+import { useScroll } from '../../utils/use-scroll';
 import styles from './burger-ingredients.module.css';
-import { TBurgerIngredients, TIngredient } from '../../utils/types';
+import { TBurgerIngredients } from '../../utils/types';
 
-const BurgerIngredients: FC<TBurgerIngredients> = ({ isBurgerIngredientsVisible, handleModalOpen }) => {
+const BurgerIngredients: FC<TBurgerIngredients> = ({ isBurgerIngredientsVisible }) => {
   const [current, setCurrent] = useState<string>('bun');
 
   const mobile: boolean = useMediaQuery({ query: `(max-width: 630px)` });
   const mobileS: boolean = useMediaQuery({ query: `(max-width: 340px)` });
   
-  const { ingredients } = useSelector((store: any) => store.burgerIngredients);
-  const dispatch = useDispatch();
+  const { ingredients } = useSelector((store) => store.burgerIngredients);
 
   const bunRef = useRef<HTMLLIElement>(null);
   const mainRef = useRef<HTMLLIElement>(null);
@@ -50,28 +47,6 @@ const BurgerIngredients: FC<TBurgerIngredients> = ({ isBurgerIngredientsVisible,
   function activeTab(elem: React.SetStateAction<string>) {
     setCurrent(elem);
   }
-  
-  useEffect(() => {
-    dispatch(getItems());
-  }, [dispatch]);
-
-  const handleCardOpen = (card: TIngredient) => {
-    dispatch({
-      type: GET_ITEM_TO_VIEW,
-      payload: card
-    });
-    localStorage.setItem('card', JSON.stringify(card));
-  };
-
-  useEffect(() => {
-    const value = localStorage.getItem('card');
-    if (typeof value === 'string') {
-      const card = JSON.parse(value)
-      if (card) {
-        handleModalOpen(handleCardOpen(card));
-      }
-    }
-  }, []);
 
   return(
     <section className={styles.burger}>
@@ -93,24 +68,24 @@ const BurgerIngredients: FC<TBurgerIngredients> = ({ isBurgerIngredientsVisible,
         <li ref={bunRef}>
           <p className={mobileS ? "text text_type_main-default ml-2" : mobile ? "text text_type_main-medium ml-2" : "text text_type_main-medium"}>Булки</p>
           <div className={styles.cards}>
-            {ingredients.filter(((card: TIngredient) => card.type === 'bun')).map((card: TIngredient) => {
-              return <Card card={card} key={card._id} isBurgerIngredientsVisible={isBurgerIngredientsVisible} onClick={() => handleModalOpen(handleCardOpen(card))} text={''}/>
+            {ingredients.filter(((card) => card.type === 'bun')).map((card) => {
+              return <Card card={card} key={card._id} isBurgerIngredientsVisible={isBurgerIngredientsVisible} text={''}/>
             })}
           </div>
         </li>
         <li ref={mainRef}>
           <p className={mobileS ? "text text_type_main-default ml-2" : mobile ? "text text_type_main-medium ml-2" : "text text_type_main-medium"}>Начинки</p>
           <div className={styles.cards}>
-            {ingredients.filter(((card: TIngredient) => card.type === 'main')).map((card: TIngredient) => {
-              return <Card card={card} key={card._id} isBurgerIngredientsVisible={isBurgerIngredientsVisible} onClick={() => handleModalOpen(handleCardOpen(card))} text={''}/>
+            {ingredients.filter(((card) => card.type === 'main')).map((card) => {
+              return <Card card={card} key={card._id} isBurgerIngredientsVisible={isBurgerIngredientsVisible} text={''}/>
             })}
           </div>
         </li>
         <li ref={sauceRef}>
           <p className={mobileS ? "text text_type_main-default ml-2" : mobile ? "text text_type_main-medium ml-2" : "text text_type_main-medium"}>Соусы</p>
           <div className={styles.cards}>
-            {ingredients.filter(((card: TIngredient) => card.type === 'sauce')).map((card: TIngredient) => {
-              return <Card card={card} key={card._id} isBurgerIngredientsVisible={isBurgerIngredientsVisible} onClick={() => handleModalOpen(handleCardOpen(card))} text={''}/>
+            {ingredients.filter(((card) => card.type === 'sauce')).map((card) => {
+              return <Card card={card} key={card._id} isBurgerIngredientsVisible={isBurgerIngredientsVisible} text={''}/>
             })}
           </div>
         </li>

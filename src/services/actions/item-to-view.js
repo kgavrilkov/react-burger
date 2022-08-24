@@ -1,2 +1,0 @@
-export const GET_ITEM_TO_VIEW = 'GET_ITEM_TO_VIEW';
-export const RESET_ITEM_TO_VIEW = 'RESET_ITEM_TO_VIEW';

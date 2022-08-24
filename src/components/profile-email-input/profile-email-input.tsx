@@ -17,9 +17,9 @@ export const ProfileEmailInput = ({
     size?: 'default' | 'small';
     onChange(e: React.ChangeEvent<HTMLInputElement>): void;
 }) => {
-    const [fieldDisabled, setDisabled] = useState(true);
+    const [fieldDisabled, setDisabled] = useState<boolean>(true);
 
-    const [error, setError] = useState(false);
+    const [error, setError] = useState<boolean>(false);
 
     const inputRef = useRef<HTMLInputElement>(null);
 

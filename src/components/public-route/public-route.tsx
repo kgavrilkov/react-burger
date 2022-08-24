@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { RouteComponentProps, RouteChildrenProps, Redirect, Route } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../services/hooks';
 
 interface RouteProps {
   location?: Location;
@@ -14,7 +14,7 @@ interface RouteProps {
 }
 
 const PublicRoute: FC<RouteProps> = ({component, ...rest}) => {
-  const isLoggedIn = useSelector((store: any) => store.auth.isLoggedIn);
+  const isLoggedIn = useSelector((store) => store.auth.isLoggedIn);
 
   const routeComponent = (props: any) => (
     !isLoggedIn 

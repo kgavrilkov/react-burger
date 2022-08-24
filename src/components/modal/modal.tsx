@@ -7,32 +7,29 @@ import ModalOverlay from '../modal-overlay/modal-overlay';
 import styles from './modal.module.css';
 import { TModal } from '../../utils/types';
 
-const Modal: FC<TModal> = ({ isModalVisible, handleModalClose, title, children }) => {
-  const mobile: boolean = useMediaQuery({ query: `(max-width: 580px)` });
+const Modal: FC<TModal> = ({ handleModalClose, title, children }) => {
   const mobileS: boolean = useMediaQuery({ query: `(max-width: 480px)` });
+  
   const modalRoot = document.getElementById("modals")!;
 
-  const handleEscClose = (evt: KeyboardEvent) => {
-    if (evt.key === 'Escape') {
-      handleModalClose();
-    }
-  };
-
   useEffect(() => {
+    const handleEscClose = (evt: KeyboardEvent) => {
+      if (evt.key === 'Escape') {
+        handleModalClose();
+      }
+    };
     document.addEventListener('keydown', handleEscClose);
     return () => {
       document.removeEventListener('keydown', handleEscClose);
     }
   }, []);
 
-  if (!isModalVisible) return null;
-
   return ReactDOM.createPortal(
     <>
       <div className={styles.modal}>
         <div className={styles.container}>
           <header className={styles.header}>
-            <p className={mobile ? mobileS ? "text text_type_main-default" : "text text_type_main-medium" : "text text_type_main-large"}>{title}</p>
+            <p className={mobileS ? styles.title : "text text_type_main-large"}>{title}</p>
             <button className={title ? styles.button : styles.key} onClick={handleModalClose}>
               <CloseIcon type="primary" />
             </button>

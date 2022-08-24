@@ -1,16 +1,16 @@
 import React, { FC } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { useMediaQuery } from 'react-responsive';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from '../../services/hooks';
 import { useLocation, Link } from 'react-router-dom';
 import { useDrag } from 'react-dnd';
 import { CurrencyIcon, Button, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
-import { ADD_INGREDIENT } from '../../services/actions/constructor-ingredients.js';
+import { addIngredientAction } from '../../services/actions/constructor-ingredients';
 import styles from './card.module.css';
-import { TCard, TLocationParams, TIngredient } from '../../utils/types';
+import { TCard, TLocationParams, TIngredientToDelete } from '../../utils/types';
 
-const Card: FC<TCard> = ({ card, isBurgerIngredientsVisible, text, onClick }) => {
-  const { constructorIngredients } = useSelector((store: any) => store.constructorIngredients);
+const Card: FC<TCard> = ({ card, isBurgerIngredientsVisible, text }) => {
+  const { constructorIngredients } = useSelector((store) => store.constructorIngredients);
 
   const dispatch = useDispatch();
   const location = useLocation() as unknown as TLocationParams;
@@ -52,7 +52,7 @@ const Card: FC<TCard> = ({ card, isBurgerIngredientsVisible, text, onClick }) =>
 
   const getTotalCount = () => {
     let total = 0
-    constructorIngredients.forEach((item: TIngredient) => 
+    constructorIngredients.forEach((item) => 
       item.name === card.name && (card.type === 'bun' ? total += 2 : total += 1)
     );
     return total;
@@ -60,38 +60,37 @@ const Card: FC<TCard> = ({ card, isBurgerIngredientsVisible, text, onClick }) =>
 
   const totalCount = getTotalCount();
 
-  const handleAddClick = (item: TIngredient) => {
-    dispatch({
-      type: ADD_INGREDIENT,
-      payload: {...item, key: uuidv4()}
-    });  
+  const handleAddClick = (item: TIngredientToDelete) => {
+    dispatch(addIngredientAction({...item, key: uuidv4()}));
   };
 
   return(
-    <Link
-      key={ingredientId}
-      to={{
-        pathname: `/ingredients/${ingredientId}`,
-        state: { background: location }
-      }}
-      className={styles.link} 
-    >
+    <>
       {isBurgerIngredientsVisible
       ?
         <ul className={styles.card} style={{opacity}} ref={dragRef}>
-          <li onClick={onClick}>
-            <img className={styles.image} src={card.image} alt={card.name} />
-          </li>
-          <li className={styles.counter}>
-            {totalCount ? <Counter count={totalCount} size={mobileS ? "small" : "default"} /> : null}
-          </li>
-          <li className={styles.price}>
-            <p className={mobileS ? "text text_type_main-default mr-2" : "text text_type_digits-default mr-2"}>{card.price}</p>
-            <CurrencyIcon type="primary" />
-          </li>
-          <li className={styles.name}>
-            <p className={mobileS ? "text text_type_main-small" : "text text_type_main-default"}>{card.name}</p>
-          </li>
+          <Link
+            key={ingredientId}
+            to={{
+              pathname: `/ingredients/${ingredientId}`,
+              state: { background: location }
+            }}
+            className={styles.link} 
+          >
+            <li>
+              <img className={styles.image} src={card.image} alt={card.name} />
+            </li>
+            <li className={styles.counter}>
+              {totalCount ? <Counter count={totalCount} size={mobileS ? "small" : "default"} /> : null}
+            </li>
+            <li className={styles.price}>
+              <p className={mobileS ? "text text_type_main-default mr-2" : "text text_type_digits-default mr-2"}>{card.price}</p>
+              <CurrencyIcon type="primary" />
+            </li>
+            <li className={styles.name}>
+              <p className={mobileS ? "text text_type_main-small" : "text text_type_main-default"}>{card.name}</p>
+            </li>
+          </Link>
           <li className={styles.button}>
             <Button type="secondary" size="small" onClick={(e) => handleAddClick(card)}>Добавить</Button>
           </li>
@@ -113,7 +112,7 @@ const Card: FC<TCard> = ({ card, isBurgerIngredientsVisible, text, onClick }) =>
           <hr className={styles.line}></hr>
         </div>
       }
-    </Link>
+    </>  
   );
 }
 

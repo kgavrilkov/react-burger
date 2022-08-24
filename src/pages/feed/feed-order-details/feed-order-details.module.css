@@ -1,0 +1,386 @@
+.number {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+}
+
+.index {
+  text-align: center;
+  margin-top: -50px;
+  margin-bottom: 20px;
+}
+
+.container {
+  width: 100%;
+  margin-bottom: -20px;
+}
+
+.box {
+  width: 100%;
+  margin-bottom: -20px;
+}
+
+.figure {
+  font-family: 'Iceland';
+  font-style: normal;
+	font-weight: normal;
+	font-size: 22px;
+	line-height: 1.09;
+  margin: 0 0 24px;
+}
+
+.name {
+  font-family: 'Jet Brains Mono';
+  font-style: normal;
+	font-weight: bold;
+	font-size: 20px;
+	line-height: 1.20;
+  margin: 0;
+}
+
+.wrapper {
+  margin: 8px 0 60px;
+  color: #00CCCC;
+}
+
+.frame {
+  margin: 8px 0 60px;
+  color: #F2F2F3;
+}
+
+.content {
+  font-family: 'Jet Brains Mono';
+  font-style: normal;
+	font-weight: bold;
+	font-size: 20px;
+	line-height: 1.20;
+  margin: 0;
+}
+
+.list {
+  display: grid;
+  grid-template-columns: minmax(min-content, 608px);
+  grid-template-rows: repeat(4, minmax(min-content, max-content));
+  grid-auto-rows: minmax(min-content, max-content);
+  row-gap: 16px;
+  height: 328px;
+  margin: 24px 0 40px;
+  padding: 0;
+  list-style-type: none;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+.list::-webkit-scrollbar {
+	width: 12px;
+}
+
+.list::-webkit-scrollbar-track {
+	background: #2F2F37;
+}
+
+.list::-webkit-scrollbar-thumb {
+  height: 140px;
+	background: #8585AD;
+	border: 3px solid #2F2F37;
+	border-radius: 6px;
+}
+
+.enum {
+  display: grid;
+  grid-template-columns: minmax(min-content, 640px);
+  grid-template-rows: repeat(4, minmax(min-content, max-content));
+  grid-auto-rows: minmax(min-content, max-content);
+  row-gap: 16px;
+  height: 328px;
+  margin: 24px 0 40px;
+  padding: 0;
+  list-style-type: none;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.image {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  background:
+    linear-gradient(#131316, #131316) padding-box,
+    linear-gradient(to right, #801AB2, #4C4CFF) border-box;
+  border-radius: 50%;
+  border: 2px solid transparent;
+}
+
+.shell {
+  width: 53%;
+}
+
+.price {
+  display: flex;
+  justify-content: flex-end;
+  width: 32%;
+}
+
+.digit {
+  font-family: 'Iceland';
+  font-style: normal;
+	font-weight: normal;
+	font-size: 22px;
+	line-height: 1.09;
+  margin: 0 9px 0 0;
+}
+
+.total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sum {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cost {
+  display: flex;
+}
+
+@media screen and (max-width: 1050px) {
+  .index {
+    margin-top: -100px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .index {
+    margin-top: -10px;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .list {
+    grid-template-columns: minmax(min-content, 440px);
+    row-gap: 20px;
+    height: 280px;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .enum {
+    grid-template-columns: minmax(min-content, 440px);
+    height: 280px;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .image {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .list {
+    height: 255px;
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .list::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .enum {
+    height: 255px;
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .image {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .number {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .index {
+    margin-top: -80px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .container {
+    margin-top: 16px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .box {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    margin: auto;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .wrapper {
+    margin: 8px 0 24px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .frame {
+    margin: 8px 0 24px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .list {
+    height: 480px;
+    margin: 16px 0 8px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .enum {
+    height: 510px;
+    margin: 16px 0 8px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .shell {
+    width: 40%;
+  }  
+}
+
+@media screen and (max-width: 480px) {
+  .price {
+    width: 40%;
+  }  
+}
+
+@media screen and (max-width: 480px) {
+  .total {
+    position: absolute;
+    right: 20px;
+    bottom: 0;
+    left: 20px;
+    height: 40px;
+    background-color: #1C1C21;
+  }  
+}
+
+@media screen and (max-width: 480px) {
+  .sum {
+    position: absolute;
+    right: 0;
+    padding-right: 12px;
+    bottom: 0;
+    left: 0;
+    padding-left: 12px;
+    height: 40px;
+    background-color: #1C1C21;
+  }  
+}
+
+@media screen and (max-width: 400px) {
+  .list {
+    height: 420px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .index {
+    margin-top: -100px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .box {
+    width: 350px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .image {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media screen and (max-width: 330px) {
+  .index {
+    margin-top: -115px;
+    margin-bottom: 10px;
+  }
+}
+
+@media screen and (max-width: 330px) {
+  .box {
+    width: 300px;
+  }
+}
+
+@media screen and (max-width: 330px) {
+  .list {
+    height: 160px;
+  }
+}
+
+@media screen and (max-width: 330px) {
+  .enum {
+    height: 200px;
+  }
+}
+
+@media screen and (max-width: 330px) {
+  .image {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+@media screen and (max-width: 330px) {
+  .total {
+    right: 8px;
+    left: 8px;
+    height: 20px;
+  }  
+}
+
+@media screen and (max-width: 330px) {
+  .sum {
+    height: 20px;
+  }  
+}
+
+@media screen and (max-width: 330px) {
+  .wrap {
+    width: 65%;
+  }  
+}
+
+@media screen and (max-width: 330px) {
+  .cost {
+    width: 35%;
+    justify-content: end;
+  }  
+}

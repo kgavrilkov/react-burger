@@ -1,0 +1,6 @@
+.tab {
+  display: flex;
+  justify-content: center;
+  max-width: 1240px;
+  margin: 0 auto 20px;
+}

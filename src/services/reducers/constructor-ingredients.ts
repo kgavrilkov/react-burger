@@ -11,7 +11,7 @@ type TConstructorIngredientsState = {
   constructorIngredients: ReadonlyArray<TIngredient>;
 };
 
-const initialState = {
+export const initialState = {
   constructorIngredients: [] as any
 };
 

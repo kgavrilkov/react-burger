@@ -29,10 +29,10 @@ const OrderDetails: FC = () => {
     <>
       {orderNumberRequest
       ? 
-        <p className={mobileL ? mobile ? mobileS ? "text text_type_digits-small mt-8 mb-8" : "text text_type_digits-default mt-10 mb-10" : "text text_type_digits-medium mt-2 mb-2" : "text text_type_digits-medium mt-4 mb-8"} style={mobileS ? { color: '#4C4CFF' } : { color: '#F2F2F3' }}>Загрузка ...</p>
+        <p className={mobileL ? mobile ? mobileS ? "text text_type_digits-small mt-8 mb-8" : "text text_type_digits-default mt-10 mb-10" : "text text_type_digits-medium mt-2 mb-2" : "text text_type_digits-medium mt-4 mb-8"} style={mobileS ? { color: '#4C4CFF' } : { color: '#F2F2F3' }} data-cy="title2">Загрузка ...</p>
       : 
         <div className={visible ? styles.visible : styles.invisible}>
-          <p className={mobileL ? mobile ? mobileS ? "text text_type_digits-medium mt-8 mb-8" : "text text_type_digits-medium mt-10 mb-10" : "text text_type_digits-medium mt-2 mb-2" : "text text_type_digits-large mt-4 mb-8"} style={mobileS ? { color: '#4C4CFF' } : { color: '#F2F2F3' }}>{orderNumber}</p>
+          <p className={mobileL ? mobile ? mobileS ? "text text_type_digits-medium mt-8 mb-8" : "text text_type_digits-medium mt-10 mb-10" : "text text_type_digits-medium mt-2 mb-2" : "text text_type_digits-large mt-4 mb-8"} style={mobileS ? { color: '#4C4CFF' } : { color: '#F2F2F3' }} data-cy="title3">{orderNumber}</p>
         </div>
       }
       <p className={mobileL ? mobile ? mobileS ? "text text_type_main-default mb-8" : "text text_type_main-medium mb-25" : "text text_type_main-default mb-4" : "text text_type_main-medium mb-15"}>{sum.subtitle}</p>

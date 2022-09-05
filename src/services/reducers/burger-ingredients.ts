@@ -12,7 +12,7 @@ type TBurgerIngredientsState = {
   getIngredientsFailed: boolean;
 };
 
-const initialState = {
+export const initialState = {
   ingredients: [] as any,
   ingredientsRequest: false,
   getIngredientsFailed: false

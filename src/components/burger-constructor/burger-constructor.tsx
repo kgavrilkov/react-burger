@@ -47,7 +47,7 @@ const BurgerConstructor: FC<TBurgerConstructor> = ({ isBurgerIngredientsVisible,
   };
   
   return(
-    <section className={styles.burger} ref={dropRef} onDrop={(e) => {e.preventDefault();}}>
+    <section className={styles.burger} ref={dropRef} onDrop={(e) => {e.preventDefault();}} data-cy="constructor">
       {mobile 
       ?
         <>

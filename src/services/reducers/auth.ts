@@ -23,7 +23,7 @@ type TAuthState = {
 
 const token = localStorage.getItem('refreshToken');
 
-const initialState = {
+export const initialState = {
   user: null as any,
   registered: null as any,
   isLoggedIn: !!token,

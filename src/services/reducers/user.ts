@@ -17,7 +17,7 @@ type TUserState = {
   getUserFailed: boolean;
 };
 
-const initialState = {
+export const initialState = {
   user: null as any,
   successMessage: false,
   userRequest: false,

@@ -68,14 +68,15 @@ const Card: FC<TCard> = ({ card, isBurgerIngredientsVisible, text }) => {
     <>
       {isBurgerIngredientsVisible
       ?
-        <ul className={styles.card} style={{opacity}} ref={dragRef}>
+        <ul className={styles.card} style={{opacity}} ref={dragRef} data-cy="ingredient">
           <Link
             key={ingredientId}
             to={{
               pathname: `/ingredients/${ingredientId}`,
               state: { background: location }
             }}
-            className={styles.link} 
+            className={styles.link}
+            data-cy="link" 
           >
             <li>
               <img className={styles.image} src={card.image} alt={card.name} />

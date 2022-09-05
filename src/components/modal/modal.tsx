@@ -29,8 +29,8 @@ const Modal: FC<TModal> = ({ handleModalClose, title, children }) => {
       <div className={styles.modal}>
         <div className={styles.container}>
           <header className={styles.header}>
-            <p className={mobileS ? styles.title : "text text_type_main-large"}>{title}</p>
-            <button className={title ? styles.button : styles.key} onClick={handleModalClose}>
+            <p className={mobileS ? styles.title : "text text_type_main-large"} data-cy="title">{title}</p>
+            <button className={title ? styles.button : styles.key} onClick={handleModalClose} data-cy="button">
               <CloseIcon type="primary" />
             </button>
           </header>

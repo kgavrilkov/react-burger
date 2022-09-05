@@ -37,7 +37,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "cypress:open": "cypress open",
+    "deploy-script": "npm run build && scp -r ./build/* burger@51.250.94.50:/home/burger/stellar-frontend"
   },
   "eslintConfig": {
     "extends": [
@@ -58,7 +60,11 @@
     ]
   },
   "devDependencies": {
+    "@4tw/cypress-drag-drop": "^2.2.1",
     "@types/qs": "^6.9.7",
-    "@types/uuid": "^8.3.4"
+    "@types/uuid": "^8.3.4",
+    "cypress": "^10.6.0",
+    "cypress-localstorage-commands": "^2.2.1",
+    "eslint-plugin-cypress": "^2.12.1"
   }
 }

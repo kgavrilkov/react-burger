@@ -64,12 +64,12 @@ const TotalPrice: FC<TTotalPrice> = ({ isBurgerConstructorVisible, handleToggle,
         {isBurgerConstructorVisible 
         ? 
           buns && notBuns && isLoggedIn 
-        ? 
-          <Button type="primary" size={mobile ? "small" : "large"} onClick={() => handleModalOpen(getRequestNumber())}>{mobile ? "Заказать" : "Оформить заказ"}</Button>
+        ?
+          <Button type="primary" size={mobile ? "small" : "large"} onClick={() => handleModalOpen(getRequestNumber())} data-cy="button2">{mobile ? "Заказать" : "Оформить заказ"}</Button>
         : 
           buns && notBuns && 
           <Link to='/login'>
-            <Button type="primary" size={mobile ? "small" : "large"}>{mobile ? "Заказать" : "Оформить заказ"}</Button>
+            <Button type="primary" size={mobile ? "small" : "large"} data-cy="button1">{mobile ? "Заказать" : "Оформить заказ"}</Button>
           </Link>
         :
           <Button type="primary" size={mobile ? "small" : "medium"} onClick={onClick}>Смотреть заказ</Button>

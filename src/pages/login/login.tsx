@@ -104,20 +104,24 @@ const Login: FC = () => {
 
   return(
     <div className={styles.container}>
-      <p className="text text_type_main-medium">Вход</p>
+      <p className="text text_type_main-medium" data-cy="title1">Вход</p>
       <form className={styles.content}  onSubmit={onSubmit} noValidate>
-        <EmailInput
-          onChange={onChange}
-          value={data.email}
-          name={'email'}
-          size={mobile ? 'small' : 'default'}
-         />
-        <PasswordInput
-          onChange={onChange}
-          value={data.password}
-          name={'password'}
-          size={mobile ? 'small' : 'default'}
-        />
+        <div data-cy="email"> 
+          <EmailInput
+            onChange={onChange}
+            value={data.email}
+            name={'email'}
+            size={mobile ? 'small' : 'default'}
+          />
+        </div>
+        <div data-cy="password">
+          <PasswordInput
+            onChange={onChange}
+            value={data.password}
+            name={'password'}
+            size={mobile ? 'small' : 'default'}
+          />
+        </div>
         {errorLoginMessage && 
           <span className={styles.span}>
             Что-то пошло не так. Попробуйте ещё раз.

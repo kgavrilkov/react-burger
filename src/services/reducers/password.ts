@@ -21,7 +21,7 @@ type TPasswordState = {
 const message = localStorage.getItem('message');
 const resetMessage = localStorage.getItem('resetMessage');
 
-const initialState = {
+export const initialState = {
   user: null,
   isMessageReceived: !!message,
   isResetMessageReceived: !!resetMessage,

@@ -15,7 +15,7 @@ type TOrdersState = {
   totalToday: number;
 };
 
-const initialState = {
+export const initialState = {
   orders: [] as any,
   isOpen: false,
   error: '',

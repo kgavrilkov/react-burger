@@ -9,7 +9,7 @@ type TItemToViewState = {
   ingredient: TIngredient | null;
 };
 
-const initialState = {
+export const initialState = {
   ingredient: null as any
 };
 

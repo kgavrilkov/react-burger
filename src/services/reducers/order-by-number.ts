@@ -12,7 +12,7 @@ type TOrderByNumberState = {
   getOrderFailed: boolean;
 };
 
-const initialState = {
+export const initialState = {
   orders: [] as any,
   orderRequest: false,
   getOrderFailed: false

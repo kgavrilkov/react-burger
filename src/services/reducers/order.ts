@@ -15,7 +15,7 @@ type TOrderState = {
   getOrderNumberFailed: boolean;
 };
 
-const initialState = {
+export const initialState = {
   ingredients: [] as any,
   number: null as any,
   orderNumberRequest: false,

@@ -9,7 +9,7 @@ type TOrderToViewState = {
   order: TOrderFeed | null;
 };
 
-const initialState = {
+export const initialState = {
   order: null as any
 };
 
